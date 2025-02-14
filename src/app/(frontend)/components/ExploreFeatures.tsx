@@ -33,7 +33,7 @@ const features = [
 
 const ExploreFeatures: React.FC = () => {
   return (
-    <section className="w-full max-w-7xl mx-auto flex flex-col items-center justify-between px-6 md:px-8 py-12 my-12">
+    <section className="w-full max-w-7xl mx-auto flex flex-col items-center justify-between px-6 md:px-8 py-18 my-12">
       <h2 className="text-[#71AE4C] font-semibold uppercase tracking-wide text-sm flex flex-col justify-center items-center">
         Explore Our Featured Properties
         <Image src={tilt} width="120" height="120" alt="vector" className="mt-[5px]" />

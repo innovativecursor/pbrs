@@ -30,7 +30,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) =
       >
         <motion.div className="bg-white p-4 rounded-full mb-4 shadow-lg">{icon}</motion.div>
         <motion.h3 className="text-lg font-medium">{title}</motion.h3>
-        <motion.p className="text-gray-600 mt-2 w-full sm:w-[13rem]">{description}</motion.p>
+        <motion.p className="text-[#393939] mt-2 w-full sm:w-[13rem]">{description}</motion.p>
       </motion.div>
     </motion.div>
   )

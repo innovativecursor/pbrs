@@ -1,14 +1,14 @@
-/**  @type {import('tailwindcss').Config}*/
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  content: ['./src/**/*.{js,ts,jsx,tsx,html}'], // Correct placement
   theme: {
-    content: ['./src/**/*.{js,ts,jsx,tsx,html}'],
     extend: {
-      colors: {
-        mdcTheme: '#282828', // Define a reusable color
-      },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
+        albertSans: ['Albert Sans', 'sans-serif'],
+      },
+      colors: {
+        mdcTheme: '#282828', // Define a reusable color
       },
     },
   },

@@ -1,4 +1,5 @@
 import ExploreFeatures from '../components/ExploreFeatures'
+import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import Navbar from '../components/Navbar'
 
@@ -8,6 +9,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <ExploreFeatures />
+      <Footer />
     </>
   )
 }
