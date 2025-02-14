@@ -8,8 +8,7 @@ module.exports = {
         mdcTheme: '#282828', // Define a reusable color
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-        roboto: ['Roboto', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
       },
     },
   },

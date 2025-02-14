@@ -3,6 +3,7 @@ import { Button } from './ui/Button'
 import backgroundHero from '../public/assets/heroSection/hero_plain.png'
 import Image from 'next/image'
 import SearchButton from './ui/SearchButton'
+import Search from './ui/Search'
 
 const Hero = () => {
   return (
@@ -28,51 +29,47 @@ const Hero = () => {
 
       {/* Hero Content */}
       <div className="relative z-10 max-w-2xl">
-        <h1 className="text-4xl font-bold mb-4">Invest Today in Your Dream Home</h1>
-        <p className="text-lg">
+        <h1 className="text-4xl font-bold mb-4 text-[74px]">Invest Today in Your Dream Home</h1>
+        <p className="text-[18px] text-[#C0C0C0] tracking-wider">
           Simplify your home search with expert guidance, ensuring you find a property that matches
           your lifestyle and budget.
         </p>
       </div>
 
       {/* Search Bar */}
-      <div className="relative z-10 mt-8 bg-white rounded-lg p-4 flex items-center gap-4 shadow-lg w-full max-w-3xl">
-        {/* Property Type Dropdown */}
-        <div className="flex-1 flex items-center gap-2 border-r pr-4">
+      {/* <div className="relative z-10 mt-8 bg-white/20 backdrop-blur-xl border border-white/30 rounded-lg p-4 flex items-center gap-4 shadow-lg w-full max-w-3xl">
+        <div className="flex-1 flex items-center gap-2 border-r border-white/20 pr-4">
           <FaHome className="text-gray-500" />
-          <select className="w-full bg-transparent focus:outline-none text-black">
-            <option>Property type</option>
-            <option>House</option>
-            <option>Apartment</option>
-            <option>Villa</option>
+          <select className="w-full bg-transparent focus:outline-none text-white">
+            <option className="text-black">Property type</option>
+            <option className="text-black">House</option>
+            <option className="text-black">Apartment</option>
+            <option className="text-black">Villa</option>
           </select>
         </div>
 
-        {/* Location Dropdown */}
-        <div className="flex-1 flex items-center gap-2 border-r pr-4">
+        <div className="flex-1 flex items-center gap-2 border-r border-white/20 pr-4">
           <FaMapMarkerAlt className="text-gray-500" />
-          <select className="w-full bg-transparent focus:outline-none text-black">
-            <option>Location</option>
-            <option>New York</option>
-            <option>Los Angeles</option>
-            <option>Miami</option>
+          <select className="w-full bg-transparent focus:outline-none text-white">
+            <option className="text-black">Location</option>
+            <option className="text-black">New York</option>
+            <option className="text-black">Los Angeles</option>
+            <option className="text-black">Miami</option>
           </select>
         </div>
 
-        {/* Budget Dropdown */}
-        <div className="flex-1 flex items-center gap-2 border-r pr-4">
+   
+        <div className="flex-1 flex items-center gap-2 border-r border-white/20 pr-4">
           <FaWallet className="text-gray-500" />
-          <select className="w-full bg-transparent focus:outline-none text-black">
-            <option>Budget</option>
-            <option>$50,000 - $100,000</option>
-            <option>$100,000 - $500,000</option>
-            <option>$500,000+</option>
+          <select className="w-full bg-transparent focus:outline-none text-white">
+            <option className="text-black">Budget</option>
+            <option className="text-black">$50,000 - $100,000</option>
+            <option className="text-black">$100,000 - $500,000</option>
+            <option className="text-black">$500,000+</option>
           </select>
         </div>
-
-        {/* Search Button */}
-        <SearchButton>Search</SearchButton>
-      </div>
+      </div> */}
+      <Search />
     </header>
   )
 }

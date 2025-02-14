@@ -15,11 +15,15 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links - Centered */}
-        <ul className="hidden md:flex gap-12 text-white font-medium">
-          <li className="cursor-pointer hover:underline">Home</li>
-          <li className="cursor-pointer hover:underline">About Us</li>
-          <li className="cursor-pointer hover:underline">Properties</li>
-          <li className="cursor-pointer hover:underline">Contact Us</li>
+        <ul className="hidden md:flex gap-12 text-white font-medium font-poppins">
+          {['Home', 'About Us', 'Properties', 'Contact Us'].map((item) => (
+            <li
+              key={item}
+              className="relative cursor-pointer after:content-[''] after:block after:h-[2px] after:w-full after:bg-white after:scale-x-0 after:transition-transform after:duration-300 after:ease-in-out after:mt-1 hover:after:scale-x-100"
+            >
+              {item}
+            </li>
+          ))}
         </ul>
 
         {/* Button */}
