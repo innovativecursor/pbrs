@@ -1,6 +1,9 @@
 import React from 'react'
 
-import { FaHome, FaBuilding, FaWarehouse, FaBriefcase } from 'react-icons/fa'
+import { FaHome, FaBriefcase } from 'react-icons/fa'
+import { GiFamilyHouse } from 'react-icons/gi'
+import { BsBuildingsFill } from 'react-icons/bs'
+
 import FeatureCard from './ui/FeatureCard'
 import Image from 'next/image'
 import tilt from '../public/assets/tilt_image.png'
@@ -12,12 +15,12 @@ const features = [
     description: 'Spacious and comfortable homes for families of all sizes.',
   },
   {
-    icon: <FaBuilding size={30} color="#71AE4C" />,
+    icon: <BsBuildingsFill size={30} color="#71AE4C" />,
     title: 'Apartments',
     description: 'Affordable and convenient living spaces in prime locations.',
   },
   {
-    icon: <FaWarehouse size={30} color="#71AE4C" />,
+    icon: <GiFamilyHouse size={30} color="#71AE4C" />,
     title: 'Bungalows',
     description: 'Single-story homes with open layouts and private gardens.',
   },
