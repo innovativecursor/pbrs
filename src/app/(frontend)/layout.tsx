@@ -23,7 +23,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en">
-      <body className={`${poppins.className} ${albertSans.className}`}>
+      <body>
         <main>{children}</main>
       </body>
     </html>

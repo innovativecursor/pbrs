@@ -22,9 +22,6 @@ body {
 }
 
 /* Add Albert Sans as a fallback or for specific elements */
-.albert-sans {
-  font-family: var(--font-albert-sans);
-}
 
 /* Poppins @font-face rules */
 @font-face {
