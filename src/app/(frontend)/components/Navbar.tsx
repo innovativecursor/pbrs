@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <nav className="absolute top-0 left-0 w-full bg-gradient-to-b from-black/50 to-transparent z-50">
       {/* Centered Container */}
-      <div className="w-full max-w-6xl mx-auto flex items-center justify-between px-6 md:px-8 py-4 border-b-[1px] border-[#6C6C6C] ">
+      <div className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 md:px-8 py-4 border-b-[1px] border-[#6C6C6C] ">
         {/* Logo */}
         <div className="flex items-center border-b-0">
           <Image src={logo} width={180} height={180} alt="PBRS-Image" />
