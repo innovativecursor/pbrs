@@ -18,12 +18,10 @@ export const metadata = {
   title: 'PBRS',
 }
 
-export default async function RootLayout(props: { children: React.ReactNode }) {
-  const { children } = props
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className={poppins.className}>
         <main>{children}</main>
       </body>
     </html>

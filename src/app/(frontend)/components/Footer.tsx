@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
           {/* Quick Links */}
           <div>
             <h3 className="text-lg font-semibold mb-3">QUICK LINKS</h3>
-            <div className="w-12 border-b-2 border-[#71AE4C] mb-3"></div>
+            <div className="w-28 border-b-2 border-[#71AE4C] mb-3"></div>
             <ul className="text-gray-400 space-y-2">
               <li className="hover:text-white transition">Home</li>
               <li className="hover:text-white transition">About Us</li>
@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
           {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold mb-3">CONTACT INFO</h3>
-            <div className="w-12 border-b-2 border-green-500 mb-3"></div>
+            <div className="w-34 border-b-2 border-[#71AE4C] mb-3"></div>
             <ul className="text-gray-400 space-y-2">
               <li>📧 paulbalita7@gmail.com</li>
               <li>📞 +63 910 526 6020</li>
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
           {/* Appointment */}
           <div>
             <h3 className="text-lg font-semibold mb-3">APPOINTMENT</h3>
-            <div className="w-12 border-b-2 border-green-500 mb-3"></div>
+            <div className="w-32 border-b-2 border-[#71AE4C] mb-3"></div>
             <p className="text-gray-400 mb-4">
               Do feel free to book an appointment by clicking the link below
             </p>

@@ -87,6 +87,7 @@ const Navbar = () => {
                   </motion.li>
                 ))}
               </ul>
+              <Button className=" lg:block">Book a Site Tour</Button>
             </motion.div>
           </>
         )}
