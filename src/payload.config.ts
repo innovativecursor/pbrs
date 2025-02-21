@@ -6,9 +6,11 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
-
+import { cloudinaryStorage } from 'payload-cloudinary'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Property } from './collections/Property'
+import { Team } from './collections/Team'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,7 +22,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Property, Team],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -33,7 +35,21 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    payloadCloudPlugin(),
-    // storage-adapter-placeholder
+    cloudinaryStorage({
+      config: {
+        cloud_name: 'dpauqvsd6',
+        api_key: '368281367779355',
+        api_secret: 'MjkyCgAtXpBmoiGRA45q6y0MxNQ',
+      },
+      collections: {
+        media: true, // Enable for media collection
+        team: true,
+        // property: true,
+        // Add more collections as needed
+      },
+      folder: 'PBRS', // Optional, defaults to 'payload-media'
+      disableLocalStorage: true, // Optional, defaults to true
+      enabled: true, // Optional, defaults to true
+    }),
   ],
 })
