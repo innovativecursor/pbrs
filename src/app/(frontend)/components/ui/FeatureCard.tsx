@@ -11,17 +11,27 @@ interface FeatureCardProps {
 
 const cardVariants = {
   hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  visible: (index: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, delay: index * 0.2 },
+  }),
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => {
+const FeatureCard: React.FC<FeatureCardProps & { index: number }> = ({
+  icon,
+  title,
+  description,
+  index,
+}) => {
   return (
     <motion.div
       className="bg-[#E9FBE9] p-6 rounded-lg text-center flex flex-col items-center"
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      custom={index}
+      viewport={{ once: false, amount: 0.2 }}
     >
       <motion.div
         className="flex flex-col items-center bg-[#E9FBE9] gap-[15px]"

@@ -6,7 +6,7 @@ import innocursor from '../public/assets/footerAssets/innocursor.svg'
 const Footer: React.FC = () => {
   return (
     <footer className="bg-black text-white pt-[100px] pb-[50px]">
-      <div className="container mx-auto max-w-9xl px-6 md:px-12 lg:px-16">
+      <div className="container mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo & Description */}
           <div>
