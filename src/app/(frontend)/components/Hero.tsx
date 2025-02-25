@@ -17,7 +17,7 @@ const Hero = () => {
         className="-z-10"
         priority
       />
-      {/* Gradient Overlay */}
+
       <div
         className="absolute inset-0"
         style={{

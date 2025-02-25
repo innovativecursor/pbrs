@@ -37,7 +37,7 @@ const PropertiesByCities = () => {
       </section>
 
       {/* Marquee Section */}
-      <section className="py-8">
+      <section className="pb-28">
         <Marquee gradient={false} speed={30}>
           <div className="flex gap-x-4">
             {cityImages.map((img, index) => (

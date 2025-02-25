@@ -19,6 +19,12 @@ export const fetchData = async (endpoint: string) => {
   }
 }
 
+// Fetch Team Members
 export const fetchTeamMembers = async () => {
   return await fetchData('team')
+}
+
+// Fetch News & Blogs
+export const fetchNewsBlogs = async () => {
+  return await fetchData('newsblogs')
 }
