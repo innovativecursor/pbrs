@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaFacebook, FaWhatsapp } from 'react-icons/fa'
 import { fetchTeamMembers } from '../../utils/api'
+import Skeleton from './Skeleton'
 
 interface TeamMember {
   emp_name: string
@@ -61,7 +62,11 @@ const TeamModal: React.FC<TeamModalProps> = ({ isOpen, onClose }) => {
             <h2 className="text-xl sm:text-2xl font-bold text-center mb-4">Our Team Members</h2>
 
             {loading ? (
-              <p className="text-center text-gray-500">Loading...</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4">
+                {Array.from({ length: teamMembers.length }).map((_, index) => (
+                  <Skeleton key={index} />
+                ))}
+              </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4">
                 {teamMembers.map((member, index) => (
