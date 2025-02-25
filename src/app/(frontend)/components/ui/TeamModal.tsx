@@ -1,16 +1,16 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaFacebook, FaWhatsapp } from 'react-icons/fa'
-import ceoImage from '../../public/assets/teamAssets/ceo_image.png'
-import salesDirectorImage from '../../public/assets/teamAssets/sales_director.png'
-import salesAgentImage from '../../public/assets/teamAssets/sales_agent.png'
+import { fetchTeamMembers } from '../../utils/api'
 
 interface TeamMember {
-  name: string
-  role: string
-  image: string
+  emp_name: string
+  emp_designation: string
+  emp_fb?: string
+  emp_wa?: string
+  url?: string
 }
 
 interface TeamModalProps {
@@ -18,25 +18,23 @@ interface TeamModalProps {
   onClose: () => void
 }
 
-const teamMembers: TeamMember[] = [
-  {
-    name: 'Paul Balita',
-    role: 'Owner',
-    image: ceoImage.src,
-  },
-  {
-    name: 'Helen Victoriano',
-    role: 'Sales Director',
-    image: salesDirectorImage.src,
-  },
-  {
-    name: 'Roselyn Cortez',
-    role: 'Sales Agent',
-    image: salesAgentImage.src,
-  },
-]
-
 const TeamModal: React.FC<TeamModalProps> = ({ isOpen, onClose }) => {
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (isOpen) {
+      getTeamMembers()
+    }
+  }, [isOpen])
+
+  const getTeamMembers = async () => {
+    setLoading(true)
+    const members = await fetchTeamMembers()
+    setTeamMembers(members)
+    setLoading(false)
+  }
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -53,31 +51,48 @@ const TeamModal: React.FC<TeamModalProps> = ({ isOpen, onClose }) => {
           onClick={onClose}
         >
           <motion.div
-            className="bg-white rounded-xl shadow-lg p-6 w-[90%] max-w-3xl"
+            className="bg-white rounded-xl shadow-lg p-6 sm:p-8 w-[90%] max-w-3xl max-h-[90vh] overflow-y-auto"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
           >
-            <h2 className="text-2xl font-bold text-center mb-4">Our Team Member</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {teamMembers.map((member, index) => (
-                <div key={index} className="border shadow-md p-4 text-center">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-40 object-cover rounded-lg"
-                  />
-                  <h3 className="text-lg font-semibold mt-2">{member.name}</h3>
-                  <p className="text-gray-500">{member.role}</p>
-                  <div className="flex justify-center gap-3 mt-2">
-                    <FaFacebook className="text-green-500 text-xl cursor-pointer" />
-                    <FaWhatsapp className="text-green-500 text-xl cursor-pointer" />
+            <h2 className="text-xl sm:text-2xl font-bold text-center mb-4">Our Team Members</h2>
+
+            {loading ? (
+              <p className="text-center text-gray-500">Loading...</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4">
+                {teamMembers.map((member, index) => (
+                  <div key={index} className="border shadow-md p-3 sm:p-4 text-center rounded-lg">
+                    <img
+                      src={member.url || '/default-profile.png'}
+                      alt={member.emp_name}
+                      className="w-full h-auto max-h-40 sm:max-h-56 object-contain rounded-md"
+                    />
+                    <h3 className="text-sm sm:text-lg font-semibold mt-2">{member.emp_name}</h3>
+                    <p className="text-xs sm:text-sm text-gray-500">{member.emp_designation}</p>
+                    <div className="flex justify-center gap-2 sm:gap-3 mt-2">
+                      {member.emp_fb && (
+                        <a href={member.emp_fb} target="_blank" rel="noopener noreferrer">
+                          <FaFacebook className="text-blue-500 text-lg sm:text-xl cursor-pointer" />
+                        </a>
+                      )}
+                      {member.emp_wa && (
+                        <a
+                          href={`https://wa.me/${member.emp_wa}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <FaWhatsapp className="text-green-500 text-lg sm:text-xl cursor-pointer" />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </motion.div>
         </motion.div>
       )}

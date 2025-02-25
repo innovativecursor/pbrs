@@ -16,7 +16,7 @@ export default function Home() {
       <PropertiesSection />
       <AboutSection />
       <BrowseProperties />
-      {/* <PropertiesByCities /> */}
+      <PropertiesByCities />
       <Footer />
     </>
   )
