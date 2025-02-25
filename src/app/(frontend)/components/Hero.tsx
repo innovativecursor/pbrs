@@ -7,7 +7,7 @@ import backgroundHero from '../public/assets/heroSection/hero_plain.png'
 
 const Hero = () => {
   return (
-    <header className="relative w-full h-screen flex flex-col items-center justify-center text-center text-white bg-cover bg-center px-4 md:px-0">
+    <header className="relative w-full h-screen flex flex-col items-center justify-center text-center text-white bg-cover bg-center px-4 md:px-0 pt-24 md:pt-0">
       {/* Background Image */}
       <Image
         src={backgroundHero}
@@ -29,7 +29,7 @@ const Hero = () => {
       <div className="relative z-10 max-w-2xl px-4 md:px-0">
         {/* Animated Heading */}
         <motion.h1
-          className="font-albertSans md:text-4xl lg:text-[60px] font-bold mb-[30px] md:mb-[50px]"
+          className="font-albertSans text-[28px] sm:text-[32px] md:text-4xl lg:text-[60px] font-bold mb-[30px] md:mb-[50px]"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: 'easeOut' }}
