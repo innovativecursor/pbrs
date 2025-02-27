@@ -1,8 +1,13 @@
 import React from 'react'
-import { FaFacebookF, FaWhatsapp } from 'react-icons/fa'
+import { FaFacebookF, FaMap, FaWhatsapp } from 'react-icons/fa'
 import logo from '../public/assets/pbrs_logo.png'
 import Image from 'next/image'
 import innocursor from '../public/assets/footerAssets/innocursor.svg'
+import ContactButton from './ui/ContactButton'
+import EmailIcon from '../public/assets/footerAssets/email_id.png'
+import PhoneIcon from '../public/assets/footerAssets/phone_call.png'
+import LocationIcon from '../public/assets/footerAssets/location.png'
+
 const Footer: React.FC = () => {
   return (
     <footer className="bg-black text-white pt-[100px] pb-[50px]">
@@ -43,9 +48,18 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold mb-3">CONTACT INFO</h3>
             <div className="w-34 border-b-2 border-[#71AE4C] mb-3"></div>
             <ul className="text-gray-400 space-y-2">
-              <li>📧 paulbalita7@gmail.com</li>
-              <li>📞 +63 910 526 6020</li>
-              <li>📍 Jordan Estate Subd., San Jose 2, Noveleta, Cavite 4106</li>
+              <li className="flex items-center gap-2">
+                <Image src={EmailIcon} width={20} height={20} alt="Email" />
+                paulbalita7@gmail.com
+              </li>
+              <li className="flex items-center gap-2">
+                <Image src={PhoneIcon} width={20} height={20} alt="Phone" />
+                +63 910 526 6020
+              </li>
+              <li className="flex items-center gap-2">
+                <Image src={LocationIcon} width={20} height={20} alt="Location" />
+                Estate Subd., San Jose 2, Noveleta, Cavite 4106
+              </li>
             </ul>
           </div>
 
@@ -56,9 +70,8 @@ const Footer: React.FC = () => {
             <p className="text-gray-400 mb-4">
               Do feel free to book an appointment by clicking the link below
             </p>
-            <button className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
-              Book Appointment
-            </button>
+
+            <ContactButton text="Book an appointment"></ContactButton>
           </div>
         </div>
 

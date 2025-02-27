@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoMdClose } from 'react-icons/io'
+import Link from 'next/link'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,12 +25,17 @@ const Navbar = () => {
 
         {/* Desktop Navigation (Visible on md+) */}
         <ul className="hidden lg:flex gap-10 xl:gap-12 text-white font-medium text-base xl:text-[15px]">
-          {['Home', 'About Us', 'Properties', 'Contact Us'].map((item) => (
+          {[
+            { name: 'Home', href: '/' },
+            { name: 'About Us', href: '#about' },
+            { name: 'Properties', href: '/properties' },
+            { name: 'Contact Us', href: '/contact' },
+          ].map((item) => (
             <li
-              key={item}
+              key={item.name}
               className="relative cursor-pointer after:content-[''] after:absolute after:left-0 after:top-[55px] after:h-[2px] after:w-full after:bg-white after:scale-x-0 after:transition-transform after:duration-300 after:ease-in-out after:mt-1 hover:after:scale-x-100"
             >
-              {item}
+              <Link href={item.href}>{item.name}</Link>
             </li>
           ))}
         </ul>

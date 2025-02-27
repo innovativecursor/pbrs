@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url'
 
 import config from '@/payload.config'
 import './styles.css'
-import Home from './pages/Home'
+import Home from './pages'
 
 export default async function HomePage() {
   const headers = await getHeaders()

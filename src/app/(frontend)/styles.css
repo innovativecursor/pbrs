@@ -21,6 +21,22 @@ body {
   overflow-x: hidden;
 }
 
+@media (max-width: 834px) {
+  /* iPad Air */
+  .about-section-content {
+    justify-items: center !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* iPad Mini */
+  .about-section-content {
+    justify-items: center !important;
+    text-align: center !important;
+  }
+}
+
 /* Add Albert Sans as a fallback or for specific elements */
 
 /* Poppins @font-face rules */
