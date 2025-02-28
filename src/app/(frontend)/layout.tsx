@@ -1,6 +1,8 @@
 import React from 'react'
 import './styles.css'
 import { Poppins, Albert_Sans } from 'next/font/google'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 // Define the font loaders in the module scope
 const poppins = Poppins({
@@ -22,7 +24,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={poppins.className}>
+        <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )

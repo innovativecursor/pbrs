@@ -13,7 +13,7 @@ import PropertiesSection from '../components/PropertiesSection'
 export default function Home() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Hero />
       <ExploreFeatures />
       <PropertiesSection />
@@ -22,7 +22,7 @@ export default function Home() {
       <PropertiesByCities />
       <ParallaxSection />
       <NewsAndBlogs />
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }
