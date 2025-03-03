@@ -22,6 +22,17 @@ body {
   width: 100%;
 }
 
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.custom-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
 @media (max-width: 834px) {
   /* iPad Air */
   .about-section-content {

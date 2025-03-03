@@ -6,16 +6,16 @@ const HeroProperties: React.FC = () => {
   return (
     <section className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] flex items-center justify-center bg-black">
       {/* Background Image */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0">
         <Image
-          src={propertiesHero} // Update with your actual image path
+          src={propertiesHero}
           alt="Explore Our Properties"
           className="w-full h-full object-cover brightness-75"
         />
       </div>
 
       {/* Overlay Content */}
-      <div className="relative z-10 text-center text-white">
+      <div className="relative z-10 text-center text-white flex flex-col justify-center items-center w-full h-full">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">Explore Our Properties</h1>
       </div>
     </section>

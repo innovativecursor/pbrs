@@ -8,6 +8,7 @@ import SortBar from '../components/ui/SortBar'
 // Fix typo in import
 import { useState } from 'react'
 import PropertyList from '../components/PropetyList'
+import DiscountPropertyList from '../components/DiscountPropertyList'
 
 export default function PropertiesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
@@ -27,6 +28,9 @@ export default function PropertiesPage() {
           <div className="md:col-span-3">
             <SortBar viewMode={viewMode} setViewMode={setViewMode} />
             <PropertyList viewMode={viewMode} />
+          </div>
+          <div className="md:col-span-5">
+            <DiscountPropertyList />
           </div>
         </div>
       </div>

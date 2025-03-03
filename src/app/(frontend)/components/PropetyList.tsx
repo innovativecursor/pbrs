@@ -74,6 +74,17 @@ const properties = [
     size: '768 sq ft',
     garage: 1,
   },
+  {
+    id: '7',
+    title: 'Elegant Townhouse',
+    location: 'Bacoor, Cavite',
+    price: '₱2,457,000',
+    image: cityImage3,
+    bedrooms: 2,
+    bathrooms: 2,
+    size: '768 sq ft',
+    garage: 1,
+  },
 ]
 
 interface PropertyListProps {
@@ -81,21 +92,27 @@ interface PropertyListProps {
 }
 
 const PropertyList: React.FC<PropertyListProps> = ({ viewMode }) => {
+  const isScrollable = properties.length > 6
+
   return (
     <div
-      className={
-        viewMode === 'grid'
-          ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'
-          : 'flex flex-col gap-4'
-      }
+      className={`relative ${isScrollable ? 'max-h-[700px] overflow-y-auto' : ''} custom-scrollbar`}
     >
-      {properties.map((property) =>
-        viewMode === 'grid' ? (
-          <PropertiesPageCard key={property.id} {...property} />
-        ) : (
-          <PropertyListItem key={property.id} {...property} />
-        ),
-      )}
+      <div
+        className={
+          viewMode === 'grid'
+            ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'
+            : 'flex flex-col gap-4'
+        }
+      >
+        {properties.map((property) =>
+          viewMode === 'grid' ? (
+            <PropertiesPageCard key={property.id} {...property} />
+          ) : (
+            <PropertyListItem key={property.id} {...property} />
+          ),
+        )}
+      </div>
     </div>
   )
 }
