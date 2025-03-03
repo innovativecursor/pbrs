@@ -37,7 +37,9 @@ const Navbar = () => {
           ].map((item) => (
             <li
               key={item.name}
-              className="relative cursor-pointer after:content-[''] after:absolute after:left-0 after:top-[55px] after:h-[2px] after:w-full after:bg-white after:scale-x-0 after:transition-transform after:duration-300 after:ease-in-out after:mt-1 hover:after:scale-x-100"
+              className={`relative cursor-pointer after:content-[''] after:absolute after:left-0 after:top-[55px] after:h-[2px] after:w-full after:bg-white after:scale-x-0 after:transition-transform after:duration-300 after:ease-in-out after:mt-1 hover:after:scale-x-100 ${
+                pathname === item.href ? 'font-semibold after:scale-x-100' : ''
+              }`}
             >
               <Link href={item.href}>{item.name}</Link>
             </li>
@@ -84,16 +86,25 @@ const Navbar = () => {
                 </button>
               </div>
 
-              {/* Menu Items */}
+              {/* Mobile Menu Items */}
               <ul className="flex flex-col text-white font-medium text-lg sm:text-xl gap-6 sm:gap-8">
-                {['Home', 'About Us', 'Properties', 'Contact Us'].map((item) => (
+                {[
+                  { name: 'Home', href: '/' },
+                  { name: 'About Us', href: '#about' },
+                  { name: 'Properties', href: '/properties' },
+                  { name: 'Contact Us', href: '#contact' },
+                ].map((item) => (
                   <motion.li
-                    key={item}
+                    key={item.name}
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
-                    className="cursor-pointer hover:text-gray-400"
+                    className={`cursor-pointer hover:text-gray-400 ${
+                      pathname === item.href ? 'font-semibold' : ''
+                    }`}
                   >
-                    {item}
+                    <Link href={item.href} onClick={() => setIsOpen(false)}>
+                      {item.name}
+                    </Link>
                   </motion.li>
                 ))}
               </ul>

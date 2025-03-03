@@ -50,7 +50,7 @@ const DropdownProperties: React.FC<DropdownProps> = ({ label, options, iconSrc }
             {options.map((option, index) => (
               <li
                 key={index}
-                className="p-2 hover:bg-[#9DD67B] hover:text-white transition-all"
+                className="p-2 hover:bg-[#9DD67B] text-[12px] hover:text-white transition-all"
                 onClick={() => {
                   setSelected(option)
                   setIsOpen(false)

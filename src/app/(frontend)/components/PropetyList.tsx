@@ -5,6 +5,7 @@ import cityImage1 from '../public/assets/propertiesCities/city_image_1.png'
 import cityImage2 from '../public/assets/propertiesCities/city_image_2.png'
 import cityImage3 from '../public/assets/propertiesCities/city_image_3.png'
 import PropertyListItem from './ui/PropertyListItem'
+import PropertiesPageCard from './ui/PropertiesPageCard'
 
 const properties = [
   {
@@ -40,6 +41,39 @@ const properties = [
     size: '768 sq ft',
     garage: 1,
   },
+  {
+    id: '4',
+    title: 'Elegant Townhouse',
+    location: 'Bacoor, Cavite',
+    price: '₱2,457,000',
+    image: cityImage3,
+    bedrooms: 2,
+    bathrooms: 2,
+    size: '768 sq ft',
+    garage: 1,
+  },
+  {
+    id: '5',
+    title: 'Elegant Townhouse',
+    location: 'Bacoor, Cavite',
+    price: '₱2,457,000',
+    image: cityImage3,
+    bedrooms: 2,
+    bathrooms: 2,
+    size: '768 sq ft',
+    garage: 1,
+  },
+  {
+    id: '6',
+    title: 'Elegant Townhouse',
+    location: 'Bacoor, Cavite',
+    price: '₱2,457,000',
+    image: cityImage3,
+    bedrooms: 2,
+    bathrooms: 2,
+    size: '768 sq ft',
+    garage: 1,
+  },
 ]
 
 interface PropertyListProps {
@@ -57,7 +91,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode }) => {
     >
       {properties.map((property) =>
         viewMode === 'grid' ? (
-          <PropertyCard key={property.id} {...property} />
+          <PropertiesPageCard key={property.id} {...property} />
         ) : (
           <PropertyListItem key={property.id} {...property} />
         ),

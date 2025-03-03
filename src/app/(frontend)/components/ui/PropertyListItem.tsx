@@ -1,7 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined, FaCar } from 'react-icons/fa'
-import ViewDetailsButton from './ViewDetailsButton'
+
+import PropertiesViewBtn from './PropertiesViewBtn'
 
 interface PropertyListItemProps {
   image: string
@@ -25,16 +26,16 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
   garage,
 }) => {
   return (
-    <div className="grid grid-cols-4 bg-white border border-[#F1F1F1] rounded-lg overflow-hidden p-4 items-center gap-6">
+    <div className="grid md:grid-cols-4 grid-cols-1 bg-white border border-[#F1F1F1] rounded-lg overflow-hidden items-center gap-6">
       {/* Column 1: Image */}
-      <div className="relative w-48 h-32">
+      <div className="relative w-full md:w-48 h-40 md:h-32">
         <Image src={image} alt={title} layout="fill" objectFit="cover" className="rounded-lg" />
       </div>
 
       {/* Column 2: Property Details */}
-      <div>
+      <div className="text-center md:text-left">
         <h3 className="text-lg font-semibold">{title}</h3>
-        <div className="flex items-center text-gray-500 text-sm mt-1">
+        <div className="flex justify-center md:justify-start items-center text-gray-500 text-sm mt-1">
           <FaMapMarkerAlt className="mr-1" />
           {location}
         </div>
@@ -42,7 +43,7 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
       </div>
 
       {/* Column 3: Features */}
-      <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 bg-gray-100 p-2 rounded-lg">
+      <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 bg-gray-100 p-2 rounded-lg w-full md:w-auto mx-auto">
         <div className="flex items-center gap-2">
           <FaBed />
           {bedrooms} Beds
@@ -62,8 +63,8 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
       </div>
 
       {/* Column 4: Button */}
-      <div className="flex justify-end">
-        <ViewDetailsButton label="View Details" />
+      <div className="flex justify-center md:justify-end w-full md:w-auto mt-4 md:mt-0 p-4 ">
+        <PropertiesViewBtn label="View Details" />
       </div>
     </div>
   )
