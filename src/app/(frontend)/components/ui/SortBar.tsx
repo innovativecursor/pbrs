@@ -8,9 +8,10 @@ import { IoChevronDown } from 'react-icons/io5'
 interface SortBarProps {
   viewMode: 'grid' | 'list'
   setViewMode: (mode: 'grid' | 'list') => void
+  totalResults: number // Accept total results as a prop
 }
 
-const SortBar: React.FC<SortBarProps> = ({ viewMode, setViewMode }) => {
+const SortBar: React.FC<SortBarProps> = ({ viewMode, setViewMode, totalResults }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false)
   const [selectedSort, setSelectedSort] = useState('Sort by Latest')
 
@@ -34,8 +35,8 @@ const SortBar: React.FC<SortBarProps> = ({ viewMode, setViewMode }) => {
           <FaList size={16} />
         </button>
 
-        {/* Results Count */}
-        <span className="text-gray-600 text-xs">Showing all 09 Results</span>
+        {/* ✅ Dynamic Results Count */}
+        <span className="text-gray-600 text-xs">Showing all {totalResults} Results</span>
       </div>
 
       {/* Custom Sort Dropdown */}

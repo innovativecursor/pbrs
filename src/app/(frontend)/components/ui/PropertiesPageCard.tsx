@@ -6,22 +6,24 @@ import PropertiesViewBtn from './PropertiesViewBtn'
 interface PropertyCardProps {
   image: string
   title: string
-  location: string
+  propDestination: string
+  propDestinationSub: string
   price: string
   bedrooms: number
   bathrooms: number
-  area: number
+  lotArea: number
   garage: number
 }
 
 const PropertiesPageCard: React.FC<PropertyCardProps> = ({
   image,
   title,
-  location,
+  propDestination,
+  propDestinationSub,
   price,
   bedrooms,
   bathrooms,
-  area,
+  lotArea,
   garage,
 }) => {
   return (
@@ -44,7 +46,7 @@ const PropertiesPageCard: React.FC<PropertyCardProps> = ({
           <h3 className="text-lg font-semibold">{title}</h3>
           <div className="flex items-center text-gray-500 text-[13px] mt-1">
             <FaMapMarkerAlt className="mr-1" />
-            {location}
+            {propDestination}, {propDestinationSub}
           </div>
           <p className="text-[#71AE4C] font-semibold text-lg mt-2">{price}</p>
 
@@ -60,7 +62,7 @@ const PropertiesPageCard: React.FC<PropertyCardProps> = ({
             </div>
             <div className="flex items-center gap-2">
               <FaRulerCombined />
-              {area} sq Ft
+              {lotArea} sq Ft
             </div>
             <div className="flex items-center gap-2">
               <FaCar />

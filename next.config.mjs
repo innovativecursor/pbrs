@@ -5,6 +5,7 @@ const nextConfig = {
   reactStrictMode: false,
   // Your Next.js config here
   images: {
+    domains: ['localhost'],
     remotePatterns: [
       {
         protocol: 'http',

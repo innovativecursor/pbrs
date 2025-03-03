@@ -1,109 +1,36 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import PropertyListItem from './ui/PropertyListItem'
 import PropertiesPageCard from './ui/PropertiesPageCard'
+import { fetchData } from '../utils/api'
+// Importing the API function
 
-import cityImage1 from '../public/assets/propertiesCities/city_image_1.png'
-import cityImage2 from '../public/assets/propertiesCities/city_image_2.png'
-import cityImage3 from '../public/assets/propertiesCities/city_image_3.png'
-
-const properties = [
-  {
-    id: '1',
-    title: 'Modern Family Home',
-    location: 'Cavite',
-    price: '₱4,500,000',
-    image: cityImage1,
-    bedrooms: 2,
-    bathrooms: 2,
-    size: '720 sq ft',
-    garage: 1,
-  },
-  {
-    id: '2',
-    title: 'Cozy Starter Home',
-    location: 'Imus, Cavite',
-    price: '₱8,447,000',
-    image: cityImage2,
-    bedrooms: 2,
-    bathrooms: 2,
-    size: '560 sq ft',
-    garage: 1,
-  },
-  {
-    id: '3',
-    title: 'Elegant Townhouse',
-    location: 'Bacoor, Cavite',
-    price: '₱2,457,000',
-    image: cityImage3,
-    bedrooms: 2,
-    bathrooms: 2,
-    size: '768 sq ft',
-    garage: 1,
-  },
-  {
-    id: '4',
-    title: 'Luxury Condo',
-    location: 'Makati, Manila',
-    price: '₱12,000,000',
-    image: cityImage3,
-    bedrooms: 3,
-    bathrooms: 3,
-    size: '1000 sq ft',
-    garage: 2,
-  },
-  {
-    id: '5',
-    title: 'Beachfront Villa',
-    location: 'Boracay',
-    price: '₱25,000,000',
-    image: cityImage3,
-    bedrooms: 4,
-    bathrooms: 3,
-    size: '2000 sq ft',
-    garage: 2,
-  },
-  {
-    id: '6',
-    title: 'Urban Loft',
-    location: 'Quezon City',
-    price: '₱5,800,000',
-    image: cityImage3,
-    bedrooms: 2,
-    bathrooms: 1,
-    size: '600 sq ft',
-    garage: 1,
-  },
-  {
-    id: '7',
-    title: 'Elegant Bungalow',
-    location: 'Tagaytay',
-    price: '₱3,900,000',
-    image: cityImage3,
-    bedrooms: 2,
-    bathrooms: 2,
-    size: '850 sq ft',
-    garage: 1,
-  },
-]
+interface Property {
+  id: string
+  prop_name: string
+  prop_location: { name: string }
+  prop_price: number
+  images: { url: string }[]
+  bedrooms: number
+  bathrooms: number
+  prop_size: number
+  garages: number
+}
 
 interface PropertyListProps {
   viewMode: 'grid' | 'list'
+  properties: Property[] // Accept properties from parent
 }
 
-const PropertyList: React.FC<PropertyListProps> = ({ viewMode }) => {
-  const [visibleCount, setVisibleCount] = useState(6) // Initially show 6 properties
+const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => {
+  const [visibleCount, setVisibleCount] = useState(6)
   const [expanded, setExpanded] = useState(false)
 
   const handleToggle = () => {
-    if (expanded) {
-      setVisibleCount(6) // Collapse to 6 items
-    } else {
-      setVisibleCount(properties.length) // Show all items
-    }
     setExpanded(!expanded)
+    setVisibleCount(expanded ? 6 : properties.length)
   }
 
   return (
@@ -123,10 +50,22 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode }) => {
               layout
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
             >
-              <PropertiesPageCard {...property} />
+              <PropertiesPageCard
+                title={property.prop_name}
+                propDestination={property.prop_location?.location_city || 'Unknown'}
+                propDestinationSub={property.prop_location?.location_province || 'Unknown'}
+                price={`₱${property.prop_price.toLocaleString()}`}
+                image={
+                  property.images?.[0]?.url
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].url}`
+                    : '/fallback-image.png'
+                }
+                bedrooms={property.bedrooms}
+                bathrooms={property.bathrooms}
+                lotArea={`${property.prop_size}`}
+                garage={property.garages}
+              />
             </motion.div>
           ) : (
             <motion.div
@@ -134,10 +73,22 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode }) => {
               layout
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.3 }}
             >
-              <PropertyListItem {...property} />
+              <PropertyListItem
+                title={property.prop_name}
+                propDestination={property.prop_location?.location_city || 'Unknown'}
+                propDestinationSub={property.prop_location?.location_province || 'Unknown'}
+                price={`₱${property.prop_price.toLocaleString()}`}
+                image={
+                  property.images?.[0]?.url
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].url}`
+                    : '/fallback-image.png'
+                }
+                bedrooms={property.bedrooms}
+                bathrooms={property.bathrooms}
+                size={`${property.prop_size} sq ft`}
+                garage={property.garages}
+              />
             </motion.div>
           ),
         )}
@@ -149,7 +100,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode }) => {
             onClick={handleToggle}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-md transition duration-300 hover:bg-blue-600"
+            className="px-12 py-2 bg-[#71AE4C] text-white text-[13px] font-medium rounded-md transition duration-300 hover:bg-[#000000]"
           >
             {expanded ? 'View Less' : 'View More'}
           </motion.button>

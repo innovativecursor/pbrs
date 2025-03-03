@@ -61,7 +61,7 @@ const DiscountPropertyList: React.FC = () => {
       <h4 className="text-[18px] font-medium uppercase text-justify mb-5 text-[#71AE4C]">
         Limited-Time Property Deals – Grab Yours Now!
       </h4>
-      <h2 className="text-[48px] font-bold text-justify mb-8">
+      <h2 className="text-[48px] font-semibold text-[#000000] text-justify mb-8">
         Popular Properties & Special Offers
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -7,7 +7,8 @@ import PropertiesViewBtn from './PropertiesViewBtn'
 interface PropertyListItemProps {
   image: string
   title: string
-  location: string
+  propDestination: string
+  propDestinationSub: string
   price: string
   bedrooms: number
   bathrooms: number
@@ -18,7 +19,8 @@ interface PropertyListItemProps {
 const PropertyListItem: React.FC<PropertyListItemProps> = ({
   image,
   title,
-  location,
+  propDestination,
+  propDestinationSub,
   price,
   bedrooms,
   bathrooms,
@@ -37,7 +39,7 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
         <h3 className="text-lg font-semibold">{title}</h3>
         <div className="flex justify-center md:justify-start items-center text-gray-500 text-sm mt-1">
           <FaMapMarkerAlt className="mr-1" />
-          {location}
+          {propDestination}, {propDestinationSub}
         </div>
         <p className="text-[#71AE4C] font-semibold text-lg mt-2">{price}</p>
       </div>
