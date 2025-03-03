@@ -24,7 +24,9 @@ const Navbar = () => {
       <div className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 md:px-8 py-4 border-b-[1px] border-[#6C6C6C] ">
         {/* Logo */}
         <div className="flex items-center border-b-0">
-          <Image src={logo} width={180} height={180} alt="PBRS-Image" />
+          <Link href={'/'}>
+            <Image src={logo} width={180} height={180} alt="PBRS-Image" />
+          </Link>
         </div>
 
         {/* Desktop Navigation (Visible on md+) */}
