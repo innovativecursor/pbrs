@@ -79,8 +79,14 @@ const Footer: React.FC = () => {
         <div className="mt-12 border-t border-gray-700 pt-6 text-gray-400 text-sm flex flex-col md:flex-row justify-between items-center">
           <p>© 2024 PB Realty Services. All Rights Reserved.</p>
           <p className="flex items-center">
-            Designed by
-            <Image src={innocursor} width={25} height={25} alt="Innovative Cursor Logo" />
+            Designed & Developed
+            <Image
+              src={innocursor}
+              className="mr-1 ml-1"
+              width={25}
+              height={25}
+              alt="Innovative Cursor Logo"
+            />
             <span className="text-white ml-1"> Innovative Cursor</span>
           </p>
         </div>
