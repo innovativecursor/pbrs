@@ -5,7 +5,7 @@ import ContactButton from './ui/ContactButton'
 
 const ParallaxSection = () => {
   return (
-    <section className="relative h-[50vh] w-full pt-16 md:pt-24 lg:pt-32">
+    <section id="contact" className="relative h-[50vh] w-full pt-16 md:pt-24 lg:pt-32">
       <div
         className="absolute inset-0 bg-fixed bg-cover bg-center"
         style={{

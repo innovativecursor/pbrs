@@ -2,20 +2,24 @@
 
 import Image from 'next/image'
 import { Button } from './ui/Button'
-
 import logo from '../public/assets/pbrs_logo.png'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoMdClose } from 'react-icons/io'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation' // ✅ Import usePathname
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname() // ✅ Get current page path
+
+  // ✅ Conditionally change background color for properties page
+  const navbarBg =
+    pathname === '/properties' ? 'bg-[#0B0D0A]' : 'bg-gradient-to-b from-black/50 to-transparent'
 
   return (
-    <nav className="absolute top-0 left-0 w-full bg-gradient-to-b from-black/50 to-transparent z-50">
+    <nav className={`absolute top-0 left-0 w-full z-50 ${navbarBg}`}>
       {/* Centered Container */}
       <div className="w-full max-w-7xl mx-auto flex items-center justify-between px-6 md:px-8 py-4 border-b-[1px] border-[#6C6C6C] ">
         {/* Logo */}
@@ -29,7 +33,7 @@ const Navbar = () => {
             { name: 'Home', href: '/' },
             { name: 'About Us', href: '#about' },
             { name: 'Properties', href: '/properties' },
-            { name: 'Contact Us', href: '/contact' },
+            { name: 'Contact Us', href: '#contact' },
           ].map((item) => (
             <li
               key={item.name}
@@ -65,7 +69,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Side Drawer Menu (Adjusted Width for Tablets) */}
+            {/* Side Drawer Menu */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
@@ -80,7 +84,7 @@ const Navbar = () => {
                 </button>
               </div>
 
-              {/* Menu Items (Better Font & Spacing for iPads) */}
+              {/* Menu Items */}
               <ul className="flex flex-col text-white font-medium text-lg sm:text-xl gap-6 sm:gap-8">
                 {['Home', 'About Us', 'Properties', 'Contact Us'].map((item) => (
                   <motion.li
@@ -93,7 +97,7 @@ const Navbar = () => {
                   </motion.li>
                 ))}
               </ul>
-              <Button className=" lg:block">Book a Site Tour</Button>
+              <Button className="lg:block">Book a Site Tour</Button>
             </motion.div>
           </>
         )}
