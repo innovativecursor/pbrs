@@ -1,7 +1,10 @@
-'use client'
-
 import React from 'react'
 import PropertyCard from './ui/PropertyCard'
+
+import cityImage1 from '../public/assets/propertiesCities/city_image_1.png'
+import cityImage2 from '../public/assets/propertiesCities/city_image_2.png'
+import cityImage3 from '../public/assets/propertiesCities/city_image_3.png'
+import PropertyListItem from './ui/PropertyListItem'
 
 const properties = [
   {
@@ -9,7 +12,7 @@ const properties = [
     title: 'Modern Family Home',
     location: 'Cavite',
     price: '₱4,500,000',
-    image: '/images/property1.jpg',
+    image: cityImage1,
     bedrooms: 2,
     bathrooms: 2,
     size: '720 sq ft',
@@ -20,7 +23,7 @@ const properties = [
     title: 'Cozy Starter Home',
     location: 'Imus, Cavite',
     price: '₱8,447,000',
-    image: '/images/property2.jpg',
+    image: cityImage2,
     bedrooms: 2,
     bathrooms: 2,
     size: '560 sq ft',
@@ -31,7 +34,7 @@ const properties = [
     title: 'Elegant Townhouse',
     location: 'Bacoor, Cavite',
     price: '₱2,457,000',
-    image: '/images/property3.jpg',
+    image: cityImage3,
     bedrooms: 2,
     bathrooms: 2,
     size: '768 sq ft',
@@ -39,7 +42,6 @@ const properties = [
   },
 ]
 
-// Accept `viewMode` as a prop
 interface PropertyListProps {
   viewMode: 'grid' | 'list'
 }
@@ -47,11 +49,19 @@ interface PropertyListProps {
 const PropertyList: React.FC<PropertyListProps> = ({ viewMode }) => {
   return (
     <div
-      className={`grid ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6' : 'grid-cols-1'}`}
+      className={
+        viewMode === 'grid'
+          ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'
+          : 'flex flex-col gap-4'
+      }
     >
-      {properties.map((property) => (
-        <PropertyCard key={property.id} {...property} />
-      ))}
+      {properties.map((property) =>
+        viewMode === 'grid' ? (
+          <PropertyCard key={property.id} {...property} />
+        ) : (
+          <PropertyListItem key={property.id} {...property} />
+        ),
+      )}
     </div>
   )
 }

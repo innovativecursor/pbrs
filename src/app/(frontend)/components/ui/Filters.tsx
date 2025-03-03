@@ -28,7 +28,7 @@ const Filters: React.FC = () => {
         options={['₱2M - ₱5M', '₱5M - ₱10M', '₱10M - ₱20M', '₱20M+']}
       />
 
-      <button className="w-full bg-[#71AE4C] hover:bg-[#71AE4C] transition-all text-white text-[12px] mt-4 p-3 rounded-lg shadow-md">
+      <button className="w-full bg-[#71AE4C] hover:bg-[#000000] transition-all text-white text-[12px] mt-4 p-3 rounded-lg shadow-md">
         Show Results
       </button>
     </div>
