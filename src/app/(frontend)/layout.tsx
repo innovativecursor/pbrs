@@ -1,33 +1,9 @@
 import React from 'react'
-import './styles.css'
-import { Poppins, Albert_Sans } from 'next/font/google'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
+import { metadata } from './metadata'
+import RootLayoutClient from './RootLayoutClient'
 
-// Define the font loaders in the module scope
-const poppins = Poppins({
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  subsets: ['latin'],
-})
+export { metadata }
 
-const albertSans = Albert_Sans({
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  subsets: ['latin'],
-})
-
-export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'PBRS',
-}
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body className={poppins.className}>
-        <Navbar />
-        <main className="pt-[80px]">{children}</main> {/* Adjust padding based on navbar height */}
-        <Footer />
-      </body>
-    </html>
-  )
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <RootLayoutClient>{children}</RootLayoutClient>
 }
