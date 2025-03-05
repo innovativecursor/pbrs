@@ -1,9 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
 export const Location: CollectionConfig = {
-  slug: 'location', // MUST match exactly
+  slug: 'location',
+  access: {
+    read: () => true,
+  },
   admin: {
-    useAsTitle: 'location_city', // 👈 This will display the city name in the dropdown
+    useAsTitle: 'location_city',
   },
   fields: [
     {
