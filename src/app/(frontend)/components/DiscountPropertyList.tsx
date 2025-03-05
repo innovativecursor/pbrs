@@ -66,7 +66,7 @@ const DiscountPropertyList: React.FC = () => {
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {properties.map((property, index) => (
-          <DiscountPropertyCard key={index} {...property} />
+          <DiscountPropertyCard key={index} {...property} image={property.image.src} />
         ))}
       </div>
     </section>
