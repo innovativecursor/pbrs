@@ -15,6 +15,8 @@ export interface Config {
     media: Media;
     property: Property;
     team: Team;
+    newsblogs: Newsblog;
+    location: Location;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -25,6 +27,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     property: PropertySelect<false> | PropertySelect<true>;
     team: TeamSelect<false> | TeamSelect<true>;
+    newsblogs: NewsblogsSelect<false> | NewsblogsSelect<true>;
+    location: LocationSelect<false> | LocationSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -32,8 +36,12 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    contact: Contact;
+  };
+  globalsSelect: {
+    contact: ContactSelect<false> | ContactSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -103,12 +111,71 @@ export interface Media {
  */
 export interface Property {
   id: number;
+  images: (number | Media)[];
   prop_name: string;
-  prop_location: string;
+  prop_price: number;
+  prop_location: number | Location;
+  prop_desc?: string | null;
   bedrooms?: number | null;
+  home_interior_bedrooms?: string | null;
   bathrooms?: number | null;
+  home_interior_bathroom?: string | null;
+  home_interior_kitchen?: string | null;
+  home_interior_dining?: string | null;
+  home_interior_Living?: string | null;
   garages?: number | null;
+  home_exterior_garage: string;
   prop_size: number;
+  home_exterior_balcony?: string | null;
+  home_exterior_accessibility?: string | null;
+  home_exterior_backyard?: string | null;
+  home_exterior_terrace?: string | null;
+  prop_type?: string | null;
+  lot_area?: number | null;
+  prop_destination: string;
+  prop_status?: string | null;
+  prop_ownership?: string | null;
+  prop_year: string;
+  prop_pkSpace?: string | null;
+  prop_furnishing?: string | null;
+  prop_discount?: string | null;
+  prop_featured?: boolean | null;
+  prop_offer?: boolean | null;
+  feature_gated?: boolean | null;
+  feature_spacious?: boolean | null;
+  feature_kitchen_cabinets?: boolean | null;
+  feature_bedroom?: boolean | null;
+  feature_covered_garage?: boolean | null;
+  feature_frontyard?: boolean | null;
+  feature_proximity?: boolean | null;
+  feature_internet?: boolean | null;
+  feature_play_clubhouse?: boolean | null;
+  feature_pet_friendly?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "location".
+ */
+export interface Location {
+  id: number;
+  images: number | Media;
+  location_city: string;
+  location_province: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team".
+ */
+export interface Team {
+  id: number;
+  emp_name: string;
+  emp_designation: string;
+  emp_fb?: string | null;
+  emp_wa?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -123,14 +190,27 @@ export interface Property {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "team".
+ * via the `definition` "newsblogs".
  */
-export interface Team {
+export interface Newsblog {
   id: number;
-  emp_name: string;
-  emp_designation: string;
-  emp_fb?: string | null;
-  emp_wa?: string | null;
+  title: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  Date: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -165,6 +245,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'team';
         value: number | Team;
+      } | null)
+    | ({
+        relationTo: 'newsblogs';
+        value: number | Newsblog;
+      } | null)
+    | ({
+        relationTo: 'location';
+        value: number | Location;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -246,23 +334,48 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "property_select".
  */
 export interface PropertySelect<T extends boolean = true> {
+  images?: T;
   prop_name?: T;
+  prop_price?: T;
   prop_location?: T;
+  prop_desc?: T;
   bedrooms?: T;
+  home_interior_bedrooms?: T;
   bathrooms?: T;
+  home_interior_bathroom?: T;
+  home_interior_kitchen?: T;
+  home_interior_dining?: T;
+  home_interior_Living?: T;
   garages?: T;
+  home_exterior_garage?: T;
   prop_size?: T;
+  home_exterior_balcony?: T;
+  home_exterior_accessibility?: T;
+  home_exterior_backyard?: T;
+  home_exterior_terrace?: T;
+  prop_type?: T;
+  lot_area?: T;
+  prop_destination?: T;
+  prop_status?: T;
+  prop_ownership?: T;
+  prop_year?: T;
+  prop_pkSpace?: T;
+  prop_furnishing?: T;
+  prop_discount?: T;
+  prop_featured?: T;
+  prop_offer?: T;
+  feature_gated?: T;
+  feature_spacious?: T;
+  feature_kitchen_cabinets?: T;
+  feature_bedroom?: T;
+  feature_covered_garage?: T;
+  feature_frontyard?: T;
+  feature_proximity?: T;
+  feature_internet?: T;
+  feature_play_clubhouse?: T;
+  feature_pet_friendly?: T;
   updatedAt?: T;
   createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -284,6 +397,37 @@ export interface TeamSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsblogs_select".
+ */
+export interface NewsblogsSelect<T extends boolean = true> {
+  title?: T;
+  content?: T;
+  Date?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "location_select".
+ */
+export interface LocationSelect<T extends boolean = true> {
+  images?: T;
+  location_city?: T;
+  location_province?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -316,6 +460,30 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+  id: number;
+  phone_number: number;
+  email: string;
+  address: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact_select".
+ */
+export interface ContactSelect<T extends boolean = true> {
+  phone_number?: T;
+  email?: T;
+  address?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
