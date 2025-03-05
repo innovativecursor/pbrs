@@ -10,12 +10,17 @@ import { fetchData } from '../utils/api'
 interface Property {
   id: string
   prop_name: string
-  prop_location: { name: string }
+  prop_location: {
+    location_city: string
+    location_province: string
+    name: string
+  }
   prop_price: number
   images: { url: string }[]
   bedrooms: number
   bathrooms: number
   prop_size: number
+  lotArea: number
   garages: number
 }
 
@@ -63,7 +68,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 }
                 bedrooms={property.bedrooms}
                 bathrooms={property.bathrooms}
-                lotArea={`${property.prop_size}`}
+                lotArea={property.lotArea}
                 garage={property.garages}
               />
             </motion.div>
