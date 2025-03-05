@@ -21,7 +21,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
         {blog.url && (
           <>
             <Image
-              src={blog.url}
+              src={`${process.env.NEXT_PUBLIC_API_URL}${blog.url}`}
               alt={blog.title}
               width={400}
               height={250}
