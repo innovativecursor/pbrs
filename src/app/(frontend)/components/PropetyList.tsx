@@ -70,6 +70,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 bathrooms={property.bathrooms}
                 lotArea={property.lotArea}
                 garage={property.garages}
+                slug="1"
               />
             </motion.div>
           ) : (

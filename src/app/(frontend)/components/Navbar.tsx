@@ -16,8 +16,9 @@ const Navbar = () => {
 
   // ✅ Conditionally change background color for properties page
   const navbarBg =
-    pathname === '/properties' ? 'bg-[#0B0D0A]' : 'bg-gradient-to-b from-black/50 to-transparent'
-
+    pathname.startsWith('/property') || pathname === '/properties'
+      ? 'bg-[#0B0D0A]'
+      : 'bg-gradient-to-b from-black/50 to-transparent'
   return (
     <nav className={`absolute top-0 left-0 w-full z-50 ${navbarBg}`}>
       {/* Centered Container */}
