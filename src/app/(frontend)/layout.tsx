@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={poppins.className}>
         <Navbar />
-        <main>{children}</main>
+        <main className="pt-[80px]">{children}</main> {/* Adjust padding based on navbar height */}
         <Footer />
       </body>
     </html>
