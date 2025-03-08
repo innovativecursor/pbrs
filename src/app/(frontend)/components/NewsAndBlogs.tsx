@@ -30,6 +30,9 @@ const NewsAndBlogs = () => {
     getBlogs()
   }, [])
 
+  // Hide the section if there are no blogs and no errors
+  if (!loading && blogs.length === 0 && !error) return null
+
   return (
     <motion.section
       className="w-full max-w-6xl mx-auto px-6 md:px-8 py-16 md:py-12"
