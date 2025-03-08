@@ -14,6 +14,7 @@ import { Team } from './collections/Team'
 import { Contact } from './globals/Contact'
 import { NewsBlogs } from './collections/NewsBlogs'
 import { Location } from './collections/Location'
+import { PropertyType } from './collections/PropertyType'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -24,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Property, Team, NewsBlogs, Location],
+  collections: [Users, Media, Property, Team, NewsBlogs, Location, PropertyType],
   globals: [Contact],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

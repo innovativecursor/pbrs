@@ -133,10 +133,11 @@ export const Property: CollectionConfig = {
       required: false,
     },
     {
-      label: 'Property Type (Example: House, bunglow, office, lot)',
+      label: 'Property Type',
       name: 'prop_type',
-      type: 'text',
-      required: false,
+      type: 'relationship',
+      relationTo: 'propertyType',
+      required: true,
     },
     {
       label: 'Size of the Total lot Area in Sq Ft',

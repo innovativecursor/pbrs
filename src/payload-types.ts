@@ -17,6 +17,7 @@ export interface Config {
     team: Team;
     newsblogs: Newsblog;
     location: Location;
+    propertyType: PropertyType;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -29,6 +30,7 @@ export interface Config {
     team: TeamSelect<false> | TeamSelect<true>;
     newsblogs: NewsblogsSelect<false> | NewsblogsSelect<true>;
     location: LocationSelect<false> | LocationSelect<true>;
+    propertyType: PropertyTypeSelect<false> | PropertyTypeSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -132,7 +134,7 @@ export interface Property {
   home_exterior_accessibility?: string | null;
   home_exterior_backyard?: string | null;
   home_exterior_terrace?: string | null;
-  prop_type?: string | null;
+  prop_type: number | PropertyType;
   lot_area?: number | null;
   prop_destination: string;
   prop_status?: string | null;
@@ -175,6 +177,16 @@ export interface Location {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "propertyType".
+ */
+export interface PropertyType {
+  id: number;
+  property_type: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -263,6 +275,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'location';
         value: number | Location;
+      } | null)
+    | ({
+        relationTo: 'propertyType';
+        value: number | PropertyType;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -450,6 +466,15 @@ export interface LocationSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "propertyType_select".
+ */
+export interface PropertyTypeSelect<T extends boolean = true> {
+  property_type?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
