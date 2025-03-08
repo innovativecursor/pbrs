@@ -1,4 +1,4 @@
-import Breadcrumbs from '../../components/ui/BreadCrumbs'
+import Breadcrumbs from '../../components/ui/Breadcrumbs'
 import PropertyGallery from '../../components/ui/PropertyGallery'
 import PropertyInfo from '../../components/ui/PropertyInfo'
 
