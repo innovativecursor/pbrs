@@ -1,11 +1,16 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import PropertyListItem from './ui/PropertyListItem'
 import PropertiesPageCard from './ui/PropertiesPageCard'
-import { fetchData } from '../utils/api'
-// Importing the API function
+
+// Define the correct structure for images
+interface Image {
+  image: {
+    url: string
+  }
+}
 
 interface Property {
   id: string
@@ -16,7 +21,7 @@ interface Property {
     name: string
   }
   prop_price: number
-  images: []
+  images: Image[] // Now explicitly defined as an array
   bedrooms: number
   bathrooms: number
   prop_size: number
@@ -62,7 +67,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 propDestinationSub={property.prop_location?.location_province || 'Unknown'}
                 price={`₱${property.prop_price.toLocaleString()}`}
                 image={
-                  property.images?.[0]?.image?.url
+                  property.images?.length && property.images[0]?.image?.url
                     ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].image.url}`
                     : '/fallback-image.png'
                 }
@@ -86,8 +91,8 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 propDestinationSub={property.prop_location?.location_province || 'Unknown'}
                 price={`₱${property.prop_price.toLocaleString()}`}
                 image={
-                  property.images?.[0]?.url
-                    ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].url}`
+                  property.images?.length && property.images[0]?.image?.url
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].image.url}`
                     : '/fallback-image.png'
                 }
                 bedrooms={property.bedrooms}
