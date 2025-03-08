@@ -1,3 +1,4 @@
+import { upload } from 'node_modules/payload/dist/fields/validations'
 import type { CollectionConfig } from 'payload'
 
 export const Location: CollectionConfig = {
@@ -9,13 +10,13 @@ export const Location: CollectionConfig = {
     useAsTitle: 'location_city',
   },
   fields: [
-    {
-      label: 'Property Images',
-      name: 'images',
-      type: 'upload',
-      relationTo: 'media',
-      required: true,
-    },
+    // {
+    //   label: 'Property Images',
+    //   name: 'images',
+    //   type: 'upload',
+    //   relationTo: 'media',
+    //   required: true,
+    // },
     {
       label: 'City Name',
       name: 'location_city',
@@ -29,4 +30,5 @@ export const Location: CollectionConfig = {
       required: true,
     },
   ],
+  upload: true,
 }

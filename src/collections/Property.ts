@@ -9,10 +9,16 @@ export const Property: CollectionConfig = {
     {
       label: 'Property Images',
       name: 'images',
-      type: 'upload',
-      relationTo: 'media',
+      type: 'array',
       required: true,
-      hasMany: true, // This enables multiple images
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media', // Ensure you have a media collection
+          required: true,
+        },
+      ],
     },
     {
       label: 'Name of the Property',
@@ -94,7 +100,7 @@ export const Property: CollectionConfig = {
       label: 'Home Exterior - Garage description',
       name: 'home_exterior_garage',
       type: 'textarea',
-      required: true,
+      required: false,
     },
     {
       label: 'Size of the Property in Sq Ft',

@@ -38,21 +38,22 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    cloudinaryStorage({
-      config: {
-        cloud_name: 'dpauqvsd6',
-        api_key: '368281367779355',
-        api_secret: 'MjkyCgAtXpBmoiGRA45q6y0MxNQ',
-      },
-      collections: {
-        media: true, // Enable for media collection
-        team: true,
-        // property: true,
-        // Add more collections as needed
-      },
-      folder: 'PBRS', // Optional, defaults to 'payload-media'
-      disableLocalStorage: true, // Optional, defaults to true
-      enabled: true, // Optional, defaults to true
-    }),
+    // cloudinaryStorage({
+    //   config: {
+    //     cloud_name: 'dpauqvsd6',
+    //     api_key: '368281367779355',
+    //     api_secret: 'MjkyCgAtXpBmoiGRA45q6y0MxNQ',
+    //   },
+    //   collections: {
+    //     media: true, // Enable for media collection
+    //     team: true,
+    //     // property: true,
+    //     // Add more collections as needed
+    //   },
+    //   folder: 'PBRS', // Optional, defaults to 'payload-media'
+    //   disableLocalStorage: true, // Optional, defaults to true
+    //   enabled: true, // Optional, defaults to true
+    // }),
+    payloadCloudPlugin(),
   ],
 })

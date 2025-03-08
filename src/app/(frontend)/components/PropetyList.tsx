@@ -16,7 +16,7 @@ interface Property {
     name: string
   }
   prop_price: number
-  images: { url: string }[]
+  images: []
   bedrooms: number
   bathrooms: number
   prop_size: number
@@ -62,8 +62,8 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 propDestinationSub={property.prop_location?.location_province || 'Unknown'}
                 price={`₱${property.prop_price.toLocaleString()}`}
                 image={
-                  property.images?.[0]?.url
-                    ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].url}`
+                  property.images?.[0]?.image?.url
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].image.url}`
                     : '/fallback-image.png'
                 }
                 bedrooms={property.bedrooms}

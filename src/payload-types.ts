@@ -92,7 +92,6 @@ export interface User {
  */
 export interface Media {
   id: number;
-  alt: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -111,7 +110,10 @@ export interface Media {
  */
 export interface Property {
   id: number;
-  images: (number | Media)[];
+  images: {
+    image: number | Media;
+    id?: string | null;
+  }[];
   prop_name: string;
   prop_price: number;
   prop_location: number | Location;
@@ -124,7 +126,7 @@ export interface Property {
   home_interior_dining?: string | null;
   home_interior_Living?: string | null;
   garages?: number | null;
-  home_exterior_garage: string;
+  home_exterior_garage?: string | null;
   prop_size: number;
   home_exterior_balcony?: string | null;
   home_exterior_accessibility?: string | null;
@@ -160,11 +162,19 @@ export interface Property {
  */
 export interface Location {
   id: number;
-  images: number | Media;
   location_city: string;
   location_province: string;
   updatedAt: string;
   createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -316,7 +326,6 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -334,7 +343,12 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "property_select".
  */
 export interface PropertySelect<T extends boolean = true> {
-  images?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
   prop_name?: T;
   prop_price?: T;
   prop_location?: T;
@@ -423,11 +437,19 @@ export interface NewsblogsSelect<T extends boolean = true> {
  * via the `definition` "location_select".
  */
 export interface LocationSelect<T extends boolean = true> {
-  images?: T;
   location_city?: T;
   location_province?: T;
   updatedAt?: T;
   createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
