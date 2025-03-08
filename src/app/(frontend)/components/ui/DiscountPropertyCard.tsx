@@ -4,9 +4,10 @@ import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined, FaCar } from 'react-ico
 import DiscountButton from './DiscountButton'
 
 interface PropertyCardProps {
-  image: string
+  image?: string
   title: string
-  location: string
+  propDestination: string
+  propDestinationSub: string
   price: string
   bedrooms: number
   bathrooms: number
@@ -17,9 +18,10 @@ interface PropertyCardProps {
 }
 
 const DiscountPropertyCard: React.FC<PropertyCardProps> = ({
-  image,
+  image = '/placeholder.jpg', // Default image
   title,
-  location,
+  propDestination,
+  propDestinationSub,
   price,
   bedrooms,
   bathrooms,
@@ -34,13 +36,19 @@ const DiscountPropertyCard: React.FC<PropertyCardProps> = ({
       <div className="relative transition-all duration-500 group-hover:-translate-y-20">
         {/* Property Image */}
         <div className="relative w-full h-56">
-          <Image
-            src={image}
-            alt={title}
-            layout="fill"
-            objectFit="cover"
-            className="transition-all duration-500"
-          />
+          {image ? (
+            <Image
+              src={image}
+              alt={title || 'Property Image'}
+              layout="fill"
+              objectFit="cover"
+              className="transition-all duration-500"
+            />
+          ) : (
+            <div className="w-full h-56 bg-gray-300 flex items-center justify-center">
+              <p className="text-gray-500 text-sm">No Image Available</p>
+            </div>
+          )}
           {badge && (
             <div className="absolute top-[60px] left-0 w-full bg-[#CB6ABA] text-white text-center py-2 text-xs font-semibold transform -translate-y-1/2">
               {badge}
@@ -53,7 +61,7 @@ const DiscountPropertyCard: React.FC<PropertyCardProps> = ({
           <h3 className="text-lg font-semibold">{title}</h3>
           <div className="flex items-center text-gray-500 text-[13px] mt-1">
             <FaMapMarkerAlt className="mr-1" />
-            {location}
+            {propDestination}, {propDestinationSub}
           </div>
           <p className="text-[#71AE4C] font-semibold text-lg mt-2">{price}</p>
 

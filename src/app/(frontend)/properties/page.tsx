@@ -16,13 +16,12 @@ export default function PropertiesPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // Fetch properties from API
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const data = await fetchData('property') // Call API
+        const data = await fetchData('property')
         setProperties(data)
-        setFilteredProperties(data) // Initially, all properties are displayed
+        setFilteredProperties(data)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
       } finally {
@@ -33,7 +32,6 @@ export default function PropertiesPage() {
     fetchProperties()
   }, [])
 
-  // Function to handle filtering
   const handleFilterChange = (filters: any) => {
     let filtered = properties
 
@@ -75,13 +73,11 @@ export default function PropertiesPage() {
       <HeroProperties />
       <div className="max-w-7xl mx-auto p-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Sidebar */}
           <div className="md:col-span-1 space-y-6">
             <Filters onFilterChange={handleFilterChange} />
             <HelpCard />
           </div>
 
-          {/* Main Content */}
           <div className="md:col-span-3">
             <SortBar
               viewMode={viewMode}
@@ -90,9 +86,7 @@ export default function PropertiesPage() {
             />
 
             {loading ? (
-              <p className="text-center">Loading properties...</p>
-            ) : error ? (
-              <p className="text-center text-red-500">Error: {error}</p>
+              <p>Loading properties...</p>
             ) : (
               <PropertyList viewMode={viewMode} properties={filteredProperties} />
             )}

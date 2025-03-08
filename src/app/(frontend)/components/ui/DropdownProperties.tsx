@@ -3,11 +3,10 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaChevronDown } from 'react-icons/fa'
-import Image from 'next/image'
 
 interface DropdownProps {
   label: string
-  options: string[]
+  options: string[] | null // Allow options to be null while loading
   iconSrc: string
   onChange: (option: string) => void
 }
@@ -32,7 +31,6 @@ const DropdownProperties: React.FC<DropdownProps> = ({ label, options, iconSrc, 
         />
       </div>
 
-      {/* Dropdown Options with Smooth Framer Motion Transition */}
       <AnimatePresence>
         {isOpen && (
           <motion.ul
@@ -42,20 +40,51 @@ const DropdownProperties: React.FC<DropdownProps> = ({ label, options, iconSrc, 
             transition={{ type: 'tween', duration: 0.3 }}
             className="absolute left-0 top-full w-full bg-white border border-[#71AE4C] rounded-lg shadow-md mt-1 overflow-hidden z-10"
           >
-            {options.map((option, index) => (
-              <motion.li
-                key={index}
-                whileHover={{ scale: 1.05 }}
-                className="p-2 hover:bg-[#9DD67B] text-[12px] hover:text-white transition-all cursor-pointer"
-                onClick={() => {
-                  setSelected(option)
-                  setIsOpen(false)
-                  onChange(option)
-                }}
-              >
-                {option}
-              </motion.li>
-            ))}
+            {options === null ? (
+              // Dotted Loader
+              <div className="flex justify-center items-center py-4">
+                <motion.div
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ repeat: Infinity, duration: 1 }}
+                  className="w-2 h-2 bg-[#9DD67B] rounded-full mx-1"
+                />
+                <motion.div
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ repeat: Infinity, duration: 1, delay: 0.2 }}
+                  className="w-2 h-2 bg-[#9DD67B] rounded-full mx-1"
+                />
+                <motion.div
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ repeat: Infinity, duration: 1, delay: 0.4 }}
+                  className="w-2 h-2 bg-[#9DD67B] rounded-full mx-1"
+                />
+              </div>
+            ) : (
+              options.map((option, index) => {
+                const optionText = String(option) // Ensure option is a string
+
+                return (
+                  <motion.li
+                    key={index}
+                    whileHover={{ scale: 1.05 }}
+                    className={`p-2 text-[12px] transition-all cursor-pointer ${
+                      optionText.includes('available')
+                        ? 'text-gray-400 cursor-not-allowed'
+                        : 'hover:bg-[#9DD67B] hover:text-white'
+                    }`}
+                    onClick={() => {
+                      if (!optionText.includes('available')) {
+                        setSelected(optionText)
+                        setIsOpen(false)
+                        onChange(optionText)
+                      }
+                    }}
+                  >
+                    {optionText}
+                  </motion.li>
+                )
+              })
+            )}
           </motion.ul>
         )}
       </AnimatePresence>

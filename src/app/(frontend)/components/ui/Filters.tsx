@@ -24,7 +24,9 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         ])
 
         setLocations(locationData.map((loc: any) => loc.location_city)) // Extract city names
-        setPropertyTypes(typeData.map((type: any) => type.prop_type)) // Extract property types
+        setPropertyTypes(
+          typeData.map((type: any) => type.prop_type?.property_type || 'Unknown Type'),
+        ) // Extract property types safely
         setBudgets(budgetData.map((budget: any) => budget.prop_price)) // Extract price ranges
       } catch (error) {
         console.error('Error fetching filter data:', error)
@@ -52,10 +54,12 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
       <DropdownProperties
         iconSrc={location.src}
         label="Select Location"
-        options={locations}
+        options={locations.length > 0 ? locations : ['Location not available currently']}
         onChange={(option) => {
-          setSelectedLocation(option)
-          handleFilterChange()
+          if (option !== 'Location not available currently') {
+            setSelectedLocation(option)
+            handleFilterChange()
+          }
         }}
       />
 
@@ -63,10 +67,12 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
       <DropdownProperties
         iconSrc={homepage.src}
         label="Select Type"
-        options={propertyTypes}
+        options={propertyTypes.length > 0 ? propertyTypes : ['No type available currently']}
         onChange={(option) => {
-          setSelectedType(option)
-          handleFilterChange()
+          if (option !== 'No type available currently') {
+            setSelectedType(option)
+            handleFilterChange()
+          }
         }}
       />
 
@@ -74,10 +80,12 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
       <DropdownProperties
         iconSrc={budget.src}
         label="Select Budget"
-        options={budgets}
+        options={budgets.length > 0 ? budgets : ['No budget available']}
         onChange={(option) => {
-          setSelectedBudget(option)
-          handleFilterChange()
+          if (option !== 'No budget available') {
+            setSelectedBudget(option)
+            handleFilterChange()
+          }
         }}
       />
 

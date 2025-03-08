@@ -28,7 +28,6 @@ const PropertiesPageCard: React.FC<PropertyCardProps> = ({
   garage,
   slug,
 }) => {
-  debugger
   return (
     <Link href={`/property/${slug}`}>
       <div className="group bg-white border border-[#F1F1F1] overflow-hidden relative transition-all duration-500 hover:shadow-lg cursor-pointer">
