@@ -8,12 +8,14 @@ const PropertyPage = () => {
       <Breadcrumbs />
       <button className="mt-4 text-gray-700">← Back</button>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
-        {/* Sidebar (Optional for Filters/Extras) */}
-
-        {/* Main Content */}
-        <div className="md:col-span-6 flex gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        {/* Property Gallery (Left) */}
+        <div className="w-full">
           <PropertyGallery />
+        </div>
+
+        {/* Property Info (Right) */}
+        <div className="w-full">
           <PropertyInfo />
         </div>
       </div>

@@ -36,19 +36,9 @@ export const fetchProperties = async (): Promise<Property[]> => {
 
 // Fetch Unique Locations
 export const fetchLocations = async (): Promise<string[]> => {
-  const properties: Property[] = await fetchProperties()
+  const locations = await fetchData('location') // Fetch locations from the API
 
-  return [
-    ...new Set(
-      properties.map((property) => {
-        // Ensure we extract only the city name if prop_location is an object
-        if (typeof property.prop_location === 'object' && property.prop_location !== null) {
-          return property.prop_location.location_city // Extract the city name
-        }
-        return property.prop_location as string // Return the location as string if it's already correct
-      }),
-    ),
-  ]
+  return locations.map((loc: { location_city: string }) => loc.location_city) // Extract city names
 }
 
 export const fetchPropertyTypes = async (): Promise<string[]> => {
