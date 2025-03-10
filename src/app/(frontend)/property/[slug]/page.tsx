@@ -5,6 +5,8 @@ import PropertyAgent from '../../components/ui/PropertyAgent'
 import PropertyDescription from '../../components/ui/PropertyDescription'
 import PropertyFeatures from '../../components/ui/PropertyFeatures'
 import { IoIosArrowRoundBack } from 'react-icons/io'
+import HomeInteriorDetails from '../../components/ui/HomeInteriorDetails'
+import HomeExteriorDetails from '../../components/ui/HomeExteriorDetails'
 
 const PropertyPage = () => {
   return (
@@ -27,7 +29,7 @@ const PropertyPage = () => {
         </div>
 
         {/* Features & Property Agent Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 relative overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 relative overflow-hidden border-b border-gray-300 pb-10">
           <div className="md:col-span-2">
             <PropertyDescription />
             <PropertyFeatures />
@@ -37,6 +39,12 @@ const PropertyPage = () => {
           <div className="relative">
             <PropertyAgent />
           </div>
+        </div>
+
+        {/* HomeInteriorDetails & HomeExteriorDetails Section */}
+        <div className="md:col-span-5">
+          <HomeInteriorDetails />
+          <HomeExteriorDetails />
         </div>
       </div>
     </div>
