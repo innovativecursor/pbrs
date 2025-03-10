@@ -1,60 +1,67 @@
-import { FaBed, FaBath, FaRulerCombined, FaCar } from 'react-icons/fa'
-import { IoArrowBackOutline } from 'react-icons/io5'
+import { FaBed, FaBath, FaRulerCombined, FaCar, FaLocationArrow } from 'react-icons/fa'
 
 const PropertyInfo = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="">
       {/* Back Button */}
 
-      <h2 className="text-3xl font-bold text-purple-600">Price: ₱4,500,000</h2>
-      <p className="text-xl font-semibold mt-1">Modern Family Home</p>
-      <p className="text-gray-500">📍 Noveleta, Cavite</p>
+      <h2 className="text-4xl font-medium text-[#CB6ABA] mb-4">Price: ₱4,500,000</h2>
+      <p className="text-2xl font-semibold mt-1 mb-3">Modern Family Home</p>
+      <p className="text-gray-500 flex items-center gap-2">
+        <FaLocationArrow />
+        <span>Noveleta, Cavite</span>
+      </p>
 
       {/* Icons Section */}
-      <div className="flex items-center gap-4 bg-gray-100 p-4 rounded-lg mt-4">
-        <span className="flex items-center gap-1 text-gray-700">
-          <FaBed /> 2 Bedrooms
-        </span>
-        <span className="flex items-center gap-1 text-gray-700">
-          <FaBath /> 2 Bathrooms
-        </span>
-        <span className="flex items-center gap-1 text-gray-700">
-          <FaRulerCombined /> 380 Sq Ft
-        </span>
-        <span className="flex items-center gap-1 text-gray-700">
-          <FaCar /> 1 Car Garage
-        </span>
+      <div className="flex flex-wrap bg-gray-100 py-3 px-6 rounded-lg mt-4 w-full sm:w-fit gap-4 sm:gap-[12px] items-center justify-between">
+        <div className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
+          <FaBed />
+          <span className="flex items-center gap-1">
+            <span>2</span> <span className="text-sm">Bedrooms</span>
+          </span>
+        </div>
+        <div className="h-10 w-px bg-gray-300 hidden sm:block"></div>
+        <div className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
+          <FaBath />
+          <span className="flex items-center gap-1">
+            <span>2</span> <span className="text-sm">Bathrooms</span>
+          </span>
+        </div>
+        <div className="h-10 w-px bg-gray-300 hidden sm:block"></div>
+        <div className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
+          <FaRulerCombined />
+          <span className="flex items-center gap-1">
+            <span>380</span> <span className="text-sm">Sq Ft</span>
+          </span>
+        </div>
+        <div className="h-10 w-px bg-gray-300 hidden sm:block"></div>
+        <div className="flex items-center gap-2 text-gray-700 whitespace-nowrap">
+          <FaCar />
+          <span className="flex items-center gap-1">
+            <span>1</span> <span className="text-sm">Car Garage</span>
+          </span>
+        </div>
       </div>
 
       {/* Property Details */}
-      <div className="grid grid-cols-2 gap-4 mt-4 text-gray-800">
-        <p>
-          <strong>Property Type:</strong> House & Lot
-        </p>
-        <p>
-          <strong>Lot Area:</strong> 120 sqm
-        </p>
-        <p>
-          <strong>Floor Area:</strong> 90 sqm
-        </p>
-        <p>
-          <strong>Status:</strong> Ready for occupancy
-        </p>
-        <p>
-          <strong>Year Built:</strong> 2023
-        </p>
-        <p>
-          <strong>Parking Space:</strong> 1 Car
-        </p>
-        <p>
-          <strong>Furnishing:</strong> Semi-furnished
-        </p>
-        <p>
-          <strong>Ownership:</strong> Freehold
-        </p>
-        <p className="col-span-2">
-          <strong>Destination:</strong> Jordan Estate Subd., San Jose 2, Noveleta, Cavite
-        </p>
+      <div className="flex flex-wrap gap-4 sm:grid sm:grid-cols-2 md:grid-cols-3 sm:gap-6 mt-6 text-gray-800">
+        {/* Property Items */}
+        {[
+          { label: 'Property Type', value: 'House & Lot' },
+          { label: 'Lot Area', value: '120 sqm' },
+          { label: 'Destination', value: 'Jordan Estate Subd., San Jose 2, Noveleta, Cavite' },
+          { label: 'Floor Area', value: '90 sqm' },
+          { label: 'Status', value: 'Ready for occupancy' },
+          { label: 'Ownership', value: 'Freehold' },
+          { label: 'Year Built', value: '2023' },
+          { label: 'Parking Space', value: '1 Car' },
+          { label: 'Furnishing', value: 'Semi-furnished' },
+        ].map((item, index) => (
+          <div key={index} className="w-[calc(50%-8px)] sm:w-full max-w-[250px]">
+            <span className="block font-medium text-[#858585]">{item.label}</span>
+            <p className="text-[14px] text-[#000000]">{item.value}</p>
+          </div>
+        ))}
       </div>
     </div>
   )
