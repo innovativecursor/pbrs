@@ -4,8 +4,6 @@ import { CiLocationOn } from 'react-icons/ci'
 const PropertyInfo = () => {
   return (
     <div className="">
-      {/* Back Button */}
-
       <h2 className="text-4xl font-medium text-[#CB6ABA] mb-4">Price: ₱4,500,000</h2>
       <p className="text-2xl font-semibold mt-1 mb-3">Modern Family Home</p>
       <p className="text-gray-500 flex items-center gap-2">

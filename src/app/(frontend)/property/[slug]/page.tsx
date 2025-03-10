@@ -10,13 +10,13 @@ import BackButton from '../../components/ui/BackButton'
 
 const PropertyPage = () => {
   return (
-    <div className="mx-auto">
+    <div className="mx-auto w-full max-w-full">
       <Breadcrumbs />
 
-      <div className="max-w-7xl mx-auto p-6">
+      <div className="max-w-7xl mx-auto p-6 w-full">
         <BackButton />
         {/* Property Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 border-b border-gray-300 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 border-b border-gray-300 pb-10 w-full max-w-[95%] mx-auto">
           <div className="w-full">
             <PropertyGallery />
           </div>
@@ -26,20 +26,20 @@ const PropertyPage = () => {
         </div>
 
         {/* Features & Property Agent Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 relative overflow-hidden border-b border-gray-300 pb-10">
-          <div className="md:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 relative overflow-hidden border-b border-gray-300 pb-10 w-full max-w-[95%] mx-auto">
+          <div className="md:col-span-1 lg:col-span-2 w-full">
             <PropertyDescription />
             <PropertyFeatures />
           </div>
 
           {/* Floating Property Agent */}
-          <div className="relative md:col-span-1">
+          <div className="relative md:col-span-1 w-full max-w-[90%] mx-auto">
             <PropertyAgent />
           </div>
         </div>
 
         {/* HomeInteriorDetails & HomeExteriorDetails Section */}
-        <div className="md:col-span-5">
+        <div className="w-full max-w-[95%] mx-auto">
           <HomeInteriorDetails />
           <HomeExteriorDetails />
         </div>
