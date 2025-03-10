@@ -4,7 +4,6 @@ import PropertyInfo from '../../components/ui/PropertyInfo'
 import PropertyAgent from '../../components/ui/PropertyAgent'
 import PropertyDescription from '../../components/ui/PropertyDescription'
 import PropertyFeatures from '../../components/ui/PropertyFeatures'
-import { IoIosArrowRoundBack } from 'react-icons/io'
 import HomeInteriorDetails from '../../components/ui/HomeInteriorDetails'
 import HomeExteriorDetails from '../../components/ui/HomeExteriorDetails'
 import BackButton from '../../components/ui/BackButton'
@@ -34,7 +33,7 @@ const PropertyPage = () => {
           </div>
 
           {/* Floating Property Agent */}
-          <div className="relative">
+          <div className="relative md:col-span-1">
             <PropertyAgent />
           </div>
         </div>
