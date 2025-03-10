@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
               Do feel free to book an appointment by clicking the link below
             </p>
 
-            <ContactButton text="Book an appointment"></ContactButton>
+            <ContactButton text="Book an Agent"></ContactButton>
           </div>
         </div>
 
