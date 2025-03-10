@@ -7,6 +7,7 @@ import PropertyFeatures from '../../components/ui/PropertyFeatures'
 import { IoIosArrowRoundBack } from 'react-icons/io'
 import HomeInteriorDetails from '../../components/ui/HomeInteriorDetails'
 import HomeExteriorDetails from '../../components/ui/HomeExteriorDetails'
+import BackButton from '../../components/ui/BackButton'
 
 const PropertyPage = () => {
   return (
@@ -14,10 +15,7 @@ const PropertyPage = () => {
       <Breadcrumbs />
 
       <div className="max-w-7xl mx-auto p-6">
-        <button className="text-gray-700 flex items-center">
-          <IoIosArrowRoundBack size={30} />
-          Back
-        </button>
+        <BackButton />
         {/* Property Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 border-b border-gray-300 pb-10">
           <div className="w-full">
