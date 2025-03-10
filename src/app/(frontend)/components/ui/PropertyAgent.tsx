@@ -42,7 +42,7 @@ const PropertyAgent = () => {
   const yTransform = useTransform(
     scrollYProgress,
     [0, 1],
-    deviceType === 'desktop' ? [-25, 450] : deviceType === 'tablet' ? [1, 500] : [0, 0],
+    deviceType === 'desktop' ? [-30, 450] : deviceType === 'tablet' ? [1, 500] : [0, 0],
   )
 
   return (

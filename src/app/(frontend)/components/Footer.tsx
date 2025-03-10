@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaFacebookF, FaMap, FaWhatsapp } from 'react-icons/fa'
+import { FaFacebookF, FaViber, FaWhatsapp } from 'react-icons/fa'
 import logo from '../public/assets/pbrs_logo.png'
 import Image from 'next/image'
 import innocursor from '../public/assets/footerAssets/innocursor.svg'
@@ -24,9 +24,15 @@ const Footer: React.FC = () => {
               securing your dream home hassle-free!
             </p>
             <div className="flex space-x-4 mt-4">
-              <FaFacebookF className="text-green-500 text-xl cursor-pointer hover:scale-110 transition-transform" />
-              <FaWhatsapp className="text-green-500 text-xl cursor-pointer hover:scale-110 transition-transform" />
-              <FaWhatsapp className="text-green-500 text-xl cursor-pointer hover:scale-110 transition-transform" />
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform">
+                <FaFacebookF className="text-[#71AE4C] text-[16px]" />
+              </div>
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform">
+                <FaWhatsapp className="text-[#71AE4C] text-[16px]" />
+              </div>
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform">
+                <FaViber className="text-[#71AE4C] text-[16px]" />
+              </div>
             </div>
           </div>
 

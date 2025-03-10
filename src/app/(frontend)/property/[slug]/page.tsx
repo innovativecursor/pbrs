@@ -7,6 +7,7 @@ import PropertyFeatures from '../../components/ui/PropertyFeatures'
 import HomeInteriorDetails from '../../components/ui/HomeInteriorDetails'
 import HomeExteriorDetails from '../../components/ui/HomeExteriorDetails'
 import BackButton from '../../components/ui/BackButton'
+import InquiryForm from '../../components/ui/InquiryForm'
 
 const PropertyPage = () => {
   return (
@@ -42,6 +43,9 @@ const PropertyPage = () => {
         <div className="w-full max-w-[95%] mx-auto">
           <HomeInteriorDetails />
           <HomeExteriorDetails />
+        </div>
+        <div className="w-full max-w-[95%] mx-auto pt-8 pb-15">
+          <InquiryForm />
         </div>
       </div>
     </div>
