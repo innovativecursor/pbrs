@@ -11,21 +11,22 @@ interface Image {
     url: string
   }
 }
+interface PropertyLocation {
+  location_city: string
+  location_province: string
+  url?: string // Ensure TypeScript recognizes `url`
+}
 
 interface Property {
-  id: string
+  id: number // Ensure id is a number
   prop_name: string
-  prop_location: {
-    location_city: string
-    location_province: string
-    name: string
-  }
+  prop_location: PropertyLocation
+  images?: { image: { url: string } }[]
   prop_price: number
-  images: Image[] // Now explicitly defined as an array
   bedrooms: number
   bathrooms: number
   prop_size: number
-  lotArea: number
+  lot_area: number // Ensure correct mapping
   garages: number
 }
 
@@ -69,11 +70,13 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 image={
                   property.images?.length && property.images[0]?.image?.url
                     ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].image.url}`
-                    : '/fallback-image.png'
+                    : property.prop_location?.url
+                      ? `${process.env.NEXT_PUBLIC_API_URL}${property.prop_location.url}`
+                      : '/fallback-image.png'
                 }
                 bedrooms={property.bedrooms}
                 bathrooms={property.bathrooms}
-                lotArea={property.lotArea}
+                lotArea={property.lot_area}
                 garage={property.garages}
                 slug="1"
               />
@@ -93,11 +96,13 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 image={
                   property.images?.length && property.images[0]?.image?.url
                     ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].image.url}`
-                    : '/fallback-image.png'
+                    : property.prop_location?.url
+                      ? `${process.env.NEXT_PUBLIC_API_URL}${property.prop_location.url}`
+                      : '/fallback-image.png'
                 }
                 bedrooms={property.bedrooms}
                 bathrooms={property.bathrooms}
-                size={`${property.prop_size} sq ft`}
+                size={`${property.lot_area} sq ft`}
                 garage={property.garages}
               />
             </motion.div>

@@ -41,6 +41,8 @@ const PropertiesPageCard: React.FC<PropertyCardProps> = ({
               layout="fill"
               objectFit="cover"
               className="transition-all duration-500"
+              priority // Forces the image to load first
+              unoptimized // Avoid Next.js optimization issues
             />
           </div>
 
