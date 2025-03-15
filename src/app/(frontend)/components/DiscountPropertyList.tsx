@@ -3,14 +3,27 @@
 import React, { useEffect, useState } from 'react'
 import DiscountPropertyCard from './ui/DiscountPropertyCard'
 import { fetchData } from '../utils/api'
+interface Property {
+  image: string
+  title: string
+  propDestination: string
+  propDestinationSub: string
+  price: string
+  bedrooms: number
+  bathrooms: number
+  size: string
+  garage: string
+  badge: string
+  buttonText: string
+}
 
 const DiscountPropertyList: React.FC = () => {
-  const [discountProperties, setDiscountProperties] = useState([])
+  const [discountProperties, setDiscountProperties] = useState<Property[]>([])
 
   useEffect(() => {
     async function fetchDiscountedProperties() {
       try {
-        const data = await fetchData('property')
+        const data: any[] = await fetchData('property')
 
         const formattedData = data.map((property: any) => ({
           image: property.images?.[0]?.image?.url || '/placeholder.jpg',
