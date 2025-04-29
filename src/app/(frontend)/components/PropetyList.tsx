@@ -78,7 +78,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 bathrooms={property.bathrooms}
                 lotArea={property.lot_area}
                 garage={property.garages}
-                slug="1"
+                id={property.id.toString()}
               />
             </motion.div>
           ) : (
@@ -104,6 +104,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 bathrooms={property.bathrooms}
                 size={`${property.lot_area} sq ft`}
                 garage={property.garages}
+                id={property.id.toString()}
               />
             </motion.div>
           ),

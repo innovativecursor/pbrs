@@ -8,6 +8,15 @@ interface PropertyType {
   property_type: string
 }
 
+interface ContactUs {
+  name: string
+  email: string
+  phone: string
+  message: string
+  createdAt: string
+  emailSent: boolean
+}
+
 export const fetchData = async (endpoint: string) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${endpoint}`, {
@@ -32,6 +41,17 @@ export const fetchData = async (endpoint: string) => {
 // Fetch Properties
 export const fetchProperties = async (): Promise<Property[]> => {
   return await fetchData('property')
+}
+
+export const fetchPropertyById = async (id: string): Promise<Property | null> => {
+  const allProperties = await fetchProperties()
+  console.log('All Properties:', allProperties)
+
+  // Compare the id as string to ensure proper matching
+  const property = allProperties.find((prop: any) => String(prop.id) === String(id))
+  console.log('Property found:', property)
+
+  return property || null
 }
 
 // Fetch Unique Locations
@@ -63,4 +83,49 @@ export const fetchTeamMembers = async () => {
 // Fetch News & Blogs
 export const fetchNewsBlogs = async () => {
   return await fetchData('newsblogs')
+}
+// Fetch Contact Us Submissions
+export const fetchContactUs = async (): Promise<ContactUs[]> => {
+  return await fetchData('contact-us')
+}
+
+// Fetch Contact Us Submission by ID
+export const fetchContactUsById = async (id: string): Promise<ContactUs | null> => {
+  const allContactUs = await fetchContactUs()
+  const contact = allContactUs.find((form) => String(form.id) === String(id))
+  return contact || null
+}
+
+// Submit a new Contact Us Inquiry (POST)
+export const submitContactUs = async (formData: {
+  fullName: string
+  email: string
+  phone: string
+  contactMethod: string
+  message: string
+}): Promise<boolean> => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact-us`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        contactMethod: formData.contactMethod,
+        message: formData.message,
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+
+    return true
+  } catch (error) {
+    console.error('Error submitting contact us form:', error)
+    return false
+  }
 }

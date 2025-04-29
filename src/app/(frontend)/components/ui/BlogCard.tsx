@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface BlogCardProps {
   blog: any
@@ -35,12 +36,12 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
       <div className="p-4">
         <h3 className="text-[20px] font-semibold">{blog.title}</h3>
         <p className="text-[#5A5A5A] text-[12px] mb-2 mt-4">{extractText(blog.content)}</p>
-        <a
+        <Link
           href="#"
           className="text-[#71AE4C] text-[13px] font-semibold uppercase mt-3 inline-block"
         >
           Read More
-        </a>
+        </Link>
       </div>
       <div className="p-2 border-t border-t-[#c6c4c4]">
         <p className="text-gray-600 text-[12px] flex items-center gap-2">

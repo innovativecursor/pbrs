@@ -1,11 +1,15 @@
 'use client'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined, FaCar } from 'react-icons/fa'
 import { motion } from 'framer-motion'
+
+import { FaAngleRight } from 'react-icons/fa6'
+import { FaAngleLeft } from 'react-icons/fa6'
 
 // Define the type for property data
 interface Property {
@@ -33,13 +37,29 @@ const cardVariants = {
 const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ properties }) => {
   return (
     <div className="my-12 bg-[#FAF9F9] px-4">
-      <h2 className="mx-auto max-w-7xl text-2xl pt-10 pb-10 font-semibold text-left mb-6 text-[#000000]">
-        Similar Properties You May Like
-      </h2>
+      {/* Heading and Arrows */}
+      <div className="mx-auto max-w-7xl flex items-center justify-between pt-10 pb-6">
+        <h2 className="text-[38px] font-semibold text-[#000000]">
+          Similar Properties You May Like
+        </h2>
+        <div className="flex items-center gap-2">
+          <button className="swiper-button-prev-custom group disabled:cursor-not-allowed text-xl p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition disabled:bg-gray-300 disabled:text-gray-400">
+            <FaAngleLeft className="group-disabled:text-gray-400 group-enabled:text-black" />
+          </button>
+          <button className="swiper-button-next-custom group disabled:cursor-not-allowed text-xl p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition disabled:bg-gray-300 disabled:text-gray-400">
+            <FaAngleRight className="group-disabled:text-gray-400 group-enabled:text-black" />
+          </button>
+        </div>
+      </div>
 
-      {/* Centered Swiper */}
+      {/* Swiper */}
       <div className="mx-auto max-w-7xl pb-12">
         <Swiper
+          modules={[Navigation]}
+          navigation={{
+            prevEl: '.swiper-button-prev-custom',
+            nextEl: '.swiper-button-next-custom',
+          }}
           spaceBetween={20}
           slidesPerView={1}
           breakpoints={{
@@ -56,7 +76,7 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ properties }) => 
                 initial="hidden"
                 animate="visible"
                 whileHover="hover"
-                className="border rounded-lg shadow-lg overflow-hidden bg-white mx-auto max-w-xs"
+                className="border-[#C4C4C4] border-1 rounded-lg shadow-lg overflow-hidden bg-white mx-auto max-w-xs"
               >
                 <img
                   src={property.image}
@@ -66,9 +86,9 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ properties }) => 
                 <div className="p-4 text-center">
                   <h3 className="text-lg font-semibold">{property.title}</h3>
                   <p className="text-gray-600 flex items-center justify-center gap-1 text-sm">
-                    <FaMapMarkerAlt className="text-green-600" /> {property.location}
+                    <FaMapMarkerAlt className="text-[#71ae4c]" /> {property.location}
                   </p>
-                  <p className="text-green-600 font-bold text-lg mt-2">{property.price}</p>
+                  <p className="text-[#71ae4c] font-bold text-lg mt-2">{property.price}</p>
                   <div className="flex justify-center gap-4 text-sm text-gray-700 mt-3">
                     <span className="flex items-center gap-1">
                       <FaBed /> {property.bedrooms} Beds
@@ -88,7 +108,7 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ properties }) => 
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="mt-4 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
+                    className="mt-4 w-full bg-[#71ae4c] text-white py-2 rounded-lg hover:bg-green-700 transition"
                   >
                     View Details
                   </motion.button>

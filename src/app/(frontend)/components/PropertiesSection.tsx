@@ -1,63 +1,55 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import PropertyCard from './ui/PropertyCard'
 import PropertySkeleton from './ui/PropertySkeleton'
 import tilt from '../public/assets/tilt_image.png'
-import image1 from '../public/assets/exploreFeatures/image_1.png'
-import image2 from '../public/assets/exploreFeatures/image_2.png'
-import image3 from '../public/assets/exploreFeatures/image_3.png'
 
 const PropertiesSection: React.FC = () => {
   const [properties, setProperties] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
   const { ref, inView } = useInView({
-    threshold: 0.3, // Adjusted threshold for better visibility detection
-    triggerOnce: false, // Ensures animation triggers only once
+    threshold: 0.3,
+    triggerOnce: false,
   })
 
-  useState(() => {
-    setLoading(true)
-    setTimeout(() => {
-      setProperties([
-        {
-          image: image1,
-          title: 'AIRA - Single Family Home',
-          location: 'Dasmarinas, Cavite',
-          price: '₱4,567,000',
-          bedrooms: 2,
-          bathrooms: 2,
-          area: 720,
-          garage: 1,
-        },
-        {
-          image: image2,
-          title: 'New York - Single Family Home',
-          location: 'Dasmarinas, Cavite',
-          price: '₱8,447,000',
-          bedrooms: 2,
-          bathrooms: 2,
-          area: 560,
-          garage: 1,
-        },
-        {
-          image: image3,
-          title: 'Cozy Starter Home',
-          location: 'Jordan Estate Subd, San Jose 2, Noveleta, Cavite',
-          price: '₱2,457,000',
-          bedrooms: 2,
-          bathrooms: 2,
-          area: 780,
-          garage: 1,
-        },
-      ])
-      setLoading(false)
-    }, 100)
-  })
+  useEffect(() => {
+    const fetchProperties = async () => {
+      setLoading(true)
+
+      try {
+        const res = await fetch('/api/property') // Replace with actual API endpoint
+        const data = await res.json()
+
+        // Map the API response data to the expected format
+        const mappedProperties = data.docs
+          .filter((property: any) => property.prop_featured) // Filter for featured properties
+          .map((property: any) => ({
+            id: property.id, // Assuming the ID is available in the response
+            image: property.images[0]?.image.url, // Assuming first image is used
+            title: property.prop_name,
+            location: `${property.prop_location.location_city}, ${property.prop_location.location_province}`,
+            price: `₱${property.prop_price.toLocaleString()}`,
+            bedrooms: property.bedrooms,
+            bathrooms: property.bathrooms,
+            area: property.prop_size,
+            garage: property.garages,
+          }))
+
+        setProperties(mappedProperties)
+      } catch (error) {
+        console.error('Error fetching properties:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProperties()
+  }, [])
 
   return (
     <motion.section
@@ -70,7 +62,6 @@ const PropertiesSection: React.FC = () => {
         visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
       }}
     >
-      {/* Title Section with Motion Animation */}
       <motion.div
         className="text-center mb-8"
         initial={{ opacity: 0, y: -20 }}
@@ -86,9 +77,8 @@ const PropertiesSection: React.FC = () => {
         </h2>
       </motion.div>
 
-      {/* Property List / Skeleton */}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        className={`grid ${properties.length === 1 ? 'grid-cols-1 justify-center' : properties.length === 2 ? 'grid-cols-2 justify-center' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'} gap-6`}
         initial="hidden"
         animate={inView ? 'visible' : 'hidden'}
         variants={{

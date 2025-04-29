@@ -73,6 +73,7 @@ export interface Config {
     newsblogs: Newsblog;
     location: Location;
     propertyType: PropertyType;
+    'contact-us': ContactUs;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -86,6 +87,7 @@ export interface Config {
     newsblogs: NewsblogsSelect<false> | NewsblogsSelect<true>;
     location: LocationSelect<false> | LocationSelect<true>;
     propertyType: PropertyTypeSelect<false> | PropertyTypeSelect<true>;
+    'contact-us': ContactUsSelect<false> | ContactUsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -302,6 +304,20 @@ export interface Newsblog {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-us".
+ */
+export interface ContactUs {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  createdAt: string;
+  emailSent?: boolean | null;
+  updatedAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -334,6 +350,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'propertyType';
         value: number | PropertyType;
+      } | null)
+    | ({
+        relationTo: 'contact-us';
+        value: number | ContactUs;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -530,6 +550,19 @@ export interface PropertyTypeSelect<T extends boolean = true> {
   property_type?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-us_select".
+ */
+export interface ContactUsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  message?: T;
+  createdAt?: T;
+  emailSent?: T;
+  updatedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

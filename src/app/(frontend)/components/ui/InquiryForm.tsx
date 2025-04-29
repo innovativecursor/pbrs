@@ -2,6 +2,9 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { submitContactUs } from '../../utils/api'
+import { showToast } from './Toaster'
+import { error } from 'console'
 
 const InquiryForm = () => {
   const [formData, setFormData] = useState({
@@ -21,9 +24,24 @@ const InquiryForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form Submitted:', formData)
+
+    const success = await submitContactUs(formData)
+
+    if (success) {
+      // Optional: Reset form or show a success message
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        contactMethod: '',
+        message: '',
+      })
+      showToast(`Thank you, we'll get back to you!`, 'success')
+    } else {
+      showToast('Failed to submit inquiry.', 'error')
+    }
   }
 
   return (

@@ -13,7 +13,7 @@ interface PropertyCardProps {
   bathrooms: number
   lotArea: number
   garage: number
-  slug: string // Unique identifier for each property
+  id: string // Unique identifier for each property
 }
 
 const PropertiesPageCard: React.FC<PropertyCardProps> = ({
@@ -26,10 +26,10 @@ const PropertiesPageCard: React.FC<PropertyCardProps> = ({
   bathrooms,
   lotArea,
   garage,
-  slug,
+  id,
 }) => {
   return (
-    <Link href={`/property/${slug}`}>
+    <Link href={`/property/${id}`}>
       <div className="group bg-white border border-[#F1F1F1] overflow-hidden relative transition-all duration-500 hover:shadow-lg cursor-pointer">
         {/* Wrapper to Move Image & Content Up More */}
         <div className="relative transition-all duration-500 group-hover:-translate-y-20">
@@ -79,9 +79,9 @@ const PropertiesPageCard: React.FC<PropertyCardProps> = ({
 
         {/* Button - Smooth Fade In/Out */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
-          {/* <Link href={`/property/${slug}`}> */}
-          <PropertiesViewBtn label="View Details" />
-          {/* </Link> */}
+          <Link href={`/property/${id}`}>
+            <PropertiesViewBtn label="View Details" />
+          </Link>
         </div>
       </div>
     </Link>

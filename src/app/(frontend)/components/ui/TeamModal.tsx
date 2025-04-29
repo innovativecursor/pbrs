@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FaFacebook, FaWhatsapp } from 'react-icons/fa'
 import { fetchTeamMembers } from '../../utils/api'
 import Skeleton from './Skeleton'
+import Link from 'next/link'
+import Image from 'next/image'
 
 interface TeamMember {
   emp_name: string
@@ -71,7 +73,9 @@ const TeamModal: React.FC<TeamModalProps> = ({ isOpen, onClose }) => {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4">
                 {teamMembers.map((member, index) => (
                   <div key={index} className="border shadow-md p-3 sm:p-4 text-center rounded-lg">
-                    <img
+                    <Image
+                      width={40}
+                      height={40}
                       src={member.url || '/default-profile.png'}
                       alt={member.emp_name}
                       className="w-full h-auto max-h-40 sm:max-h-56 object-contain rounded-md"
@@ -80,18 +84,18 @@ const TeamModal: React.FC<TeamModalProps> = ({ isOpen, onClose }) => {
                     <p className="text-xs sm:text-sm text-gray-500">{member.emp_designation}</p>
                     <div className="flex justify-center gap-2 sm:gap-3 mt-2">
                       {member.emp_fb && (
-                        <a href={member.emp_fb} target="_blank" rel="noopener noreferrer">
+                        <Link href={member.emp_fb} target="_blank" rel="noopener noreferrer">
                           <FaFacebook className="text-blue-500 text-lg sm:text-xl cursor-pointer" />
-                        </a>
+                        </Link>
                       )}
                       {member.emp_wa && (
-                        <a
+                        <Link
                           href={`https://wa.me/${member.emp_wa}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           <FaWhatsapp className="text-green-500 text-lg sm:text-xl cursor-pointer" />
-                        </a>
+                        </Link>
                       )}
                     </div>
                   </div>

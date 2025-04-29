@@ -1,6 +1,11 @@
 import Link from 'next/link'
 
-const Breadcrumbs = () => {
+interface BreadcrumbsProps {
+  propertyName: string
+  propertyDestination: string
+}
+
+const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ propertyName, propertyDestination }) => {
   return (
     <nav className="bg-[#71AE4C1A] w-full py-3 pt-7">
       <div className="max-w-7xl mx-auto px-4 text-gray-600 text-sm">
@@ -8,9 +13,13 @@ const Breadcrumbs = () => {
           Home
         </Link>
         <span className="mx-2">&gt;</span>
-        <span>Properties</span>
+        <Link href="/properties" className="hover:underline">
+          Properties
+        </Link>
         <span className="mx-2">&gt;</span>
-        <span className="font-semibold">Modern Family Home - Noveleta, Cavite</span>
+        <span>{propertyDestination}</span>
+        <span className="mx-2">&gt;</span>
+        <span className="font-semibold">{propertyName}</span>
       </div>
     </nav>
   )
