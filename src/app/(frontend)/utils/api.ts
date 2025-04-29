@@ -92,6 +92,7 @@ export const fetchContactUs = async (): Promise<ContactUs[]> => {
 // Fetch Contact Us Submission by ID
 export const fetchContactUsById = async (id: string): Promise<ContactUs | null> => {
   const allContactUs = await fetchContactUs()
+  // @ts-ignore - Ignore "unused attribute" warning
   const contact = allContactUs.find((form) => String(form.id) === String(id))
   return contact || null
 }
