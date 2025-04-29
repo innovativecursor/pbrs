@@ -66,7 +66,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
                   : `/api${images[selectedIndex].image.url}`
               }
               controls
-              className="rounded-lg w-full h-[60vh] object-cover"
+              className="rounded-lg w-full h-[40vh] object-cover"
             />
           )}
         </div>
@@ -92,7 +92,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
               <video
                 src={item.image.url.startsWith('/api') ? item.image.url : `/api${item.image.url}`}
                 controls
-                className="rounded-lg w-[200px] h-[150px] object-cover"
+                className="rounded-lg w-[200px] h-[132px] object-cover"
               />
             )}
           </div>

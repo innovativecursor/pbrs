@@ -69,6 +69,7 @@ export interface Config {
     users: User;
     media: Media;
     property: Property;
+    'similar-properties': SimilarProperty;
     team: Team;
     newsblogs: Newsblog;
     location: Location;
@@ -83,6 +84,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     property: PropertySelect<false> | PropertySelect<true>;
+    'similar-properties': SimilarPropertiesSelect<false> | SimilarPropertiesSelect<true>;
     team: TeamSelect<false> | TeamSelect<true>;
     newsblogs: NewsblogsSelect<false> | NewsblogsSelect<true>;
     location: LocationSelect<false> | LocationSelect<true>;
@@ -247,6 +249,17 @@ export interface PropertyType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "similar-properties".
+ */
+export interface SimilarProperty {
+  id: number;
+  base_property: number | Property;
+  similar_properties?: (number | Property)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team".
  */
 export interface Team {
@@ -334,6 +347,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'property';
         value: number | Property;
+      } | null)
+    | ({
+        relationTo: 'similar-properties';
+        value: number | SimilarProperty;
       } | null)
     | ({
         relationTo: 'team';
@@ -479,6 +496,16 @@ export interface PropertySelect<T extends boolean = true> {
   feature_internet?: T;
   feature_play_clubhouse?: T;
   feature_pet_friendly?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "similar-properties_select".
+ */
+export interface SimilarPropertiesSelect<T extends boolean = true> {
+  base_property?: T;
+  similar_properties?: T;
   updatedAt?: T;
   createdAt?: T;
 }

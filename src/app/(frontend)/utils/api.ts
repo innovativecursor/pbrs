@@ -17,6 +17,12 @@ interface ContactUs {
   emailSent: boolean
 }
 
+interface SimilarPropertyData {
+  id: string
+  base_property: string
+  similar_properties: string[]
+}
+
 export const fetchData = async (endpoint: string) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${endpoint}`, {
@@ -129,4 +135,8 @@ export const submitContactUs = async (formData: {
     console.error('Error submitting contact us form:', error)
     return false
   }
+}
+
+export const fetchSimilarProperties = async (): Promise<SimilarPropertyData[]> => {
+  return await fetchData('similar-properties') // Reuses your fetchData helper
 }
