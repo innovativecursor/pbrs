@@ -55,7 +55,7 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ properties }) => 
       {/* Swiper */}
       <div className="mx-auto max-w-7xl pb-12">
         <Swiper
-          modules={[navigation]}
+          // modules={[navigation]}
           navigation={{
             prevEl: '.swiper-button-prev-custom',
             nextEl: '.swiper-button-next-custom',
