@@ -13,7 +13,7 @@ import image8 from '../../public/assets/propertyImages/image_8.png'
 import image9 from '../../public/assets/propertyImages/image_9.png'
 import image10 from '../../public/assets/propertyImages/image_10.png'
 
-const PropertyFeatures = ({ property }) => {
+const PropertyFeatures = ({ property }: { property: any }) => {
   return (
     <div className="pt-8 md:col-span-2">
       <h2 className="text-2xl font-medium mb-8">Features & Amenities</h2>
