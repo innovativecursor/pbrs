@@ -1,7 +1,7 @@
 'use client'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import navigation from 'swiper'
+import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -55,7 +55,7 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ properties }) => 
       {/* Swiper */}
       <div className="mx-auto max-w-7xl pb-12">
         <Swiper
-          // modules={[navigation]}
+          modules={[Navigation]}
           navigation={{
             prevEl: '.swiper-button-prev-custom',
             nextEl: '.swiper-button-next-custom',
