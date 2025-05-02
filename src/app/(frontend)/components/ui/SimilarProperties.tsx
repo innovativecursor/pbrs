@@ -1,7 +1,6 @@
 'use client'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-// @ts-ignore - Ignore "unused attribute" warning
 import { Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -87,7 +86,7 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ properties }) => 
                 <div className="p-4 text-center">
                   <h3 className="text-lg font-semibold">{property.title}</h3>
                   <p className="text-gray-600 flex items-center justify-center gap-1 text-sm">
-                    <FaMapMarkerAlt className="text-[#71ae4c]" /> {property.location}
+                    <FaMapMarkerAlt className="text-green-600" /> {property.location}
                   </p>
                   <p className="text-[#71ae4c] font-bold text-lg mt-2">{property.price}</p>
                   <div className="flex justify-center gap-4 text-sm text-gray-700 mt-3">
