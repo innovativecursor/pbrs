@@ -8,6 +8,7 @@ import SortBar from '../components/ui/SortBar'
 import DiscountPropertyList from '../components/DiscountPropertyList'
 import { fetchData } from '../utils/api'
 import PropertyList from '../components/PropetyList'
+import Loader from '../components/ui/Loader'
 
 export default function PropertiesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
@@ -86,7 +87,9 @@ export default function PropertiesPage() {
             />
 
             {loading ? (
-              <p>Loading properties...</p>
+              <div className="flex justify-center items-center py-24">
+                <Loader />
+              </div>
             ) : (
               <PropertyList viewMode={viewMode} properties={filteredProperties} />
             )}

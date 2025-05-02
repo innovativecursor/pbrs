@@ -19,6 +19,7 @@ import property4 from '../../public/assets/propertyImages/houses_4.jpeg'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { fetchPropertyById } from '../../utils/api'
+import Loader from '../../components/ui/Loader'
 
 const PropertyPage = () => {
   const propertiesData = [
@@ -91,7 +92,13 @@ const PropertyPage = () => {
     fetchProperty()
   }, [propertyId])
 
-  if (!property) return <div>Loading...</div>
+  if (!property) {
+    return (
+      <div className="flex justify-center items-center py-24">
+        <Loader />
+      </div>
+    )
+  }
 
   return (
     <>

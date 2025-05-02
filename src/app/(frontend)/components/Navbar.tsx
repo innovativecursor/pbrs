@@ -19,6 +19,14 @@ const Navbar = () => {
     pathname.startsWith('/property') || pathname === '/properties'
       ? 'bg-[#0B0D0A]'
       : 'bg-gradient-to-b from-black/50 to-transparent'
+
+  const isHomePage = pathname === '/'
+  const navItems = [
+    { name: 'Home', href: '/' },
+    { name: 'About Us', href: isHomePage ? '#about' : '#about' },
+    { name: 'Properties', href: '/properties' },
+    { name: 'Contact Us', href: isHomePage ? '#contact' : '#contact' },
+  ]
   return (
     <nav className={`absolute top-0 left-0 w-full z-50 ${navbarBg}`}>
       {/* Centered Container */}
@@ -32,12 +40,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation (Visible on md+) */}
         <ul className="hidden lg:flex gap-10 xl:gap-12 text-white font-medium text-base xl:text-[15px]">
-          {[
-            { name: 'Home', href: '/' },
-            { name: 'About Us', href: '#about' },
-            { name: 'Properties', href: '/properties' },
-            { name: 'Contact Us', href: '#contact' },
-          ].map((item) => (
+          {navItems.map((item) => (
             <li
               key={item.name}
               className={`relative cursor-pointer after:content-[''] after:absolute after:left-0 after:top-[55px] after:h-[2px] after:w-full after:bg-white after:scale-x-0 after:transition-transform after:duration-300 after:ease-in-out after:mt-1 hover:after:scale-x-100 ${
