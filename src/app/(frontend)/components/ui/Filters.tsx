@@ -5,6 +5,16 @@ import budget from '../../public/assets/propertiesHero/budegt_image.png'
 import location from '../../public/assets/propertiesHero/location.png'
 import { fetchData } from '../../utils/api'
 
+// Define types
+interface LocationData {
+  location_city: string
+}
+
+interface PropertyData {
+  prop_type?: { property_type?: string }
+  prop_price: number
+}
+
 const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilterChange }) => {
   const [locations, setLocations] = useState<string[]>([])
   const [propertyTypes, setPropertyTypes] = useState<string[]>([])
@@ -17,17 +27,32 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
   useEffect(() => {
     async function fetchFilters() {
       try {
-        const [locationData, typeData, budgetData] = await Promise.all([
-          fetchData('location'),
-          fetchData('property'),
-          fetchData('property'),
+        const [locationData, propertyData] = await Promise.all([
+          fetchData('location') as Promise<LocationData[]>,
+          fetchData('property') as Promise<PropertyData[]>,
         ])
 
-        setLocations(locationData.map((loc: any) => loc.location_city)) // Extract city names
-        setPropertyTypes(
-          typeData.map((type: any) => type.prop_type?.property_type || 'Unknown Type'),
-        ) // Extract property types safely
-        setBudgets(budgetData.map((budget: any) => budget.prop_price)) // Extract price ranges
+        // Extract and deduplicate cities
+        const uniqueLocations = Array.from(new Set(locationData.map((loc) => loc.location_city)))
+        setLocations(uniqueLocations)
+
+        // Extract and deduplicate property types
+        const rawTypes = propertyData.map((type) => type.prop_type?.property_type || 'Unknown Type')
+        const uniqueTypes = Array.from(new Set(rawTypes))
+        setPropertyTypes(uniqueTypes)
+
+        // Extract price ranges and map to buckets
+        const priceRanges = propertyData.map((item) => {
+          const price = item.prop_price
+          if (price >= 1000000 && price <= 5000000) return '1-5M'
+          if (price > 5000000 && price <= 10000000) return '5-10M'
+          if (price > 10000000 && price <= 25000000) return '10-25M'
+          if (price > 25000000) return '25M+'
+          return 'Under 1M'
+        })
+
+        const uniqueBudgetRanges = Array.from(new Set(priceRanges))
+        setBudgets(uniqueBudgetRanges)
       } catch (error) {
         console.error('Error fetching filter data:', error)
       }
