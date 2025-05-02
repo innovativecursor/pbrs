@@ -28,6 +28,19 @@ const Dropdown = ({ icon, options, withBorder = false, onSelect }: DropdownProps
     if (onSelect) onSelect(selectedOption)
   }, [selectedOption, onSelect])
 
+  useEffect(() => {
+    const handleCloseDropdowns = () => setIsOpen(false)
+
+    if (isMobile && isOpen) {
+      window.dispatchEvent(new Event('dropdown-close-all'))
+    }
+
+    window.addEventListener('dropdown-close-all', handleCloseDropdowns)
+    return () => {
+      window.removeEventListener('dropdown-close-all', handleCloseDropdowns)
+    }
+  }, [isOpen, isMobile])
+
   return (
     <div
       className={`relative flex-1 ${withBorder ? 'border-l border-r border-white/30' : ''} w-full md:w-auto`}
@@ -57,8 +70,10 @@ const Dropdown = ({ icon, options, withBorder = false, onSelect }: DropdownProps
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className={`absolute top-full left-0 w-full mt-2 border border-white/30 rounded-lg overflow-hidden ${
-              isMobile ? 'bg-white text-black' : 'bg-white/20 backdrop-blur-xl text-white'
+            className={`absolute top-full left-0 w-full mt-2 z-50 border border-white/30 rounded-lg overflow-hidden ${
+              isMobile
+                ? 'bg-white text-black w-full shadow-lg'
+                : 'bg-white/20 backdrop-blur-xl text-white'
             }`}
           >
             <div className="max-h-60 overflow-y-auto scroll-smooth">
