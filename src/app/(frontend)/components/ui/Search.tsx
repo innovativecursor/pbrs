@@ -29,8 +29,20 @@ const Search = () => {
         const fetchedBudgets = await fetchBudgets()
         const fetchedPropertyTypes = await fetchPropertyTypes()
 
+        const getBudgetRangeLabel = (value: number): string => {
+          if (value <= 5000000) return '1-5M'
+          if (value <= 10000000) return '5-10M'
+          if (value <= 20000000) return '10-20M'
+          if (value <= 50000000) return '20-50M'
+          return '50M+'
+        }
+
+        const uniqueBudgetRanges = Array.from(
+          new Set(fetchedBudgets.map((b) => getBudgetRangeLabel(b))),
+        )
+
         setLocations(['Location', ...fetchedLocations])
-        setBudgets(['Budget', ...fetchedBudgets.map((b) => `$${b.toLocaleString()}`)])
+        setBudgets(['Budget', ...uniqueBudgetRanges])
         setPropertyTypes(['Property Type', ...fetchedPropertyTypes])
       } catch (error) {
         console.error('Error fetching filters:', error)
@@ -40,14 +52,31 @@ const Search = () => {
     loadFilters()
   }, [])
 
-  // Function to handle search
   const handleSearch = () => {
     const queryParams = new URLSearchParams()
 
     if (selectedPropertyType !== 'Property Type') queryParams.append('type', selectedPropertyType)
     if (selectedLocation !== 'Location') queryParams.append('location', selectedLocation)
-    if (selectedBudget !== 'Budget')
-      queryParams.append('budget', selectedBudget.replace(/\$/g, '').replace(/,/g, ''))
+
+    if (selectedBudget !== 'Budget') {
+      switch (selectedBudget) {
+        case '1-5M':
+          queryParams.append('budget', '5000000')
+          break
+        case '5-10M':
+          queryParams.append('budget', '10000000')
+          break
+        case '10-20M':
+          queryParams.append('budget', '20000000')
+          break
+        case '20-50M':
+          queryParams.append('budget', '50000000')
+          break
+        case '50M+':
+          queryParams.append('budget', '99999999')
+          break
+      }
+    }
 
     router.push(`/properties?${queryParams.toString()}`)
   }
