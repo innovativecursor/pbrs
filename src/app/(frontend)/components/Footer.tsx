@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="mt-12 border-t border-gray-700 pt-6 text-gray-400 text-sm flex flex-col md:flex-row justify-between items-center">
           <p>© 2024 PB Realty Services. All Rights Reserved.</p>
-          <p className="flex items-center">
+          {/* <p className="flex items-center">
             Designed & Developed
             <Image
               src={innocursor}
@@ -94,7 +94,7 @@ const Footer: React.FC = () => {
               alt="Innovative Cursor Logo"
             />
             <span className="text-white ml-1"> Innovative Cursor</span>
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>

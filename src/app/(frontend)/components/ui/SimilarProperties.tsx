@@ -1,7 +1,7 @@
 'use client'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-// @ts-ignore - Ignore "unused attribute" warning
+
 import { Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'

@@ -11,69 +11,69 @@ import HomeInteriorDetails from '../../components/ui/HomeInteriorDetails'
 import HomeExteriorDetails from '../../components/ui/HomeExteriorDetails'
 import BackButton from '../../components/ui/BackButton'
 import InquiryForm from '../../components/ui/InquiryForm'
-import SimilarProperties from '../../components/ui/SimilarProperties'
-import property1 from '../../public/assets/propertyImages/houses_1.jpg'
-import property2 from '../../public/assets/propertyImages/houses_2.jpg'
-import property3 from '../../public/assets/propertyImages/houses_3.jpg'
-import property4 from '../../public/assets/propertyImages/houses_4.jpeg'
+// import SimilarProperties from '../../components/ui/SimilarProperties'
+// import property1 from '../../public/assets/propertyImages/houses_1.jpg'
+// import property2 from '../../public/assets/propertyImages/houses_2.jpg'
+// import property3 from '../../public/assets/propertyImages/houses_3.jpg'
+// import property4 from '../../public/assets/propertyImages/houses_4.jpeg'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { fetchPropertyById } from '../../utils/api'
 import Loader from '../../components/ui/Loader'
 
 const PropertyPage = () => {
-  const propertiesData = [
-    {
-      title: 'Cozy 2-Bedroom Home',
-      location: 'Bacoor, Cavite',
-      price: '₱3,800,000',
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 820,
-      garage: '1 Garage',
-      image: property1.src,
-    },
-    {
-      title: 'Cozy 2-Bedroom Home',
-      location: 'Bacoor, Cavite',
-      price: '₱3,800,000',
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 820,
-      garage: '1 Garage',
-      image: property2.src,
-    },
-    {
-      title: 'Cozy 2-Bedroom Home',
-      location: 'Bacoor, Cavite',
-      price: '₱3,800,000',
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 820,
-      garage: '1 Garage',
-      image: property3.src,
-    },
-    {
-      title: 'Cozy 2-Bedroom Home',
-      location: 'Bacoor, Cavite',
-      price: '₱3,800,000',
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 820,
-      garage: '1 Garage',
-      image: property4.src,
-    },
-    {
-      title: 'Cozy 2-Bedroom Home',
-      location: 'Bacoor, Cavite',
-      price: '₱3,800,000',
-      bedrooms: 3,
-      bathrooms: 2,
-      area: 820,
-      garage: '1 Garage',
-      image: 'your-image-url.jpg',
-    },
-  ]
+  // const propertiesData = [
+  //   {
+  //     title: 'Cozy 2-Bedroom Home',
+  //     location: 'Bacoor, Cavite',
+  //     price: '₱3,800,000',
+  //     bedrooms: 3,
+  //     bathrooms: 2,
+  //     area: 820,
+  //     garage: '1 Garage',
+  //     image: property1.src,
+  //   },
+  //   {
+  //     title: 'Cozy 2-Bedroom Home',
+  //     location: 'Bacoor, Cavite',
+  //     price: '₱3,800,000',
+  //     bedrooms: 3,
+  //     bathrooms: 2,
+  //     area: 820,
+  //     garage: '1 Garage',
+  //     image: property2.src,
+  //   },
+  //   {
+  //     title: 'Cozy 2-Bedroom Home',
+  //     location: 'Bacoor, Cavite',
+  //     price: '₱3,800,000',
+  //     bedrooms: 3,
+  //     bathrooms: 2,
+  //     area: 820,
+  //     garage: '1 Garage',
+  //     image: property3.src,
+  //   },
+  //   {
+  //     title: 'Cozy 2-Bedroom Home',
+  //     location: 'Bacoor, Cavite',
+  //     price: '₱3,800,000',
+  //     bedrooms: 3,
+  //     bathrooms: 2,
+  //     area: 820,
+  //     garage: '1 Garage',
+  //     image: property4.src,
+  //   },
+  //   {
+  //     title: 'Cozy 2-Bedroom Home',
+  //     location: 'Bacoor, Cavite',
+  //     price: '₱3,800,000',
+  //     bedrooms: 3,
+  //     bathrooms: 2,
+  //     area: 820,
+  //     garage: '1 Garage',
+  //     image: 'your-image-url.jpg',
+  //   },
+  // ]
 
   const params = useParams()
   const propertyId = params?.id as string
@@ -152,7 +152,7 @@ const PropertyPage = () => {
         </div>
       </div>
 
-      <SimilarProperties properties={propertiesData} />
+      {/* <SimilarProperties properties={propertiesData} /> */}
     </>
   )
 }
