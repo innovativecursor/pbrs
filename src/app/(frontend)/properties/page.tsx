@@ -94,10 +94,13 @@ export default function PropertiesPage() {
               <PropertyList viewMode={viewMode} properties={filteredProperties} />
             )}
           </div>
+        </div>
+      </div>
 
-          <div className="md:col-span-5">
-            <DiscountPropertyList />
-          </div>
+      {/* Full-width background for DiscountPropertyList */}
+      <div className="w-full bg-[#FAF1F9]">
+        <div className="max-w-7xl mx-auto px-6 py-10">
+          <DiscountPropertyList />
         </div>
       </div>
     </>

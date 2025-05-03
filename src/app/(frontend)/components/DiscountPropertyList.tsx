@@ -35,7 +35,7 @@ const DiscountPropertyList: React.FC = () => {
           bathrooms: property.bathrooms || 0,
           size: `${property.prop_size} sqft` || 'N/A',
           garage: property.garages || 'No Garage',
-          badge: property.prop_offer ? 'Special Offer' : '',
+          badge: property.prop_offer ? 'Special Offer for 10%' : '',
           buttonText: 'Inquire Now',
           id: property.id.toString(),
         }))
