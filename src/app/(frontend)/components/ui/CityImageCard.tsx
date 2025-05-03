@@ -14,7 +14,7 @@ const CityImageCard: React.FC<CityImageCardProps> = ({ img, cityName, index }) =
         alt={`City ${index + 1}`}
         width={350} // Enforcing consistent width for all images
         height={250} // Enforcing consistent height for all images
-        className="object-cover w-full h-full transform transition-transform duration-300 group-hover:scale-105"
+        className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-300"
       />
 
       <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-black/40 via-transparent to-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
