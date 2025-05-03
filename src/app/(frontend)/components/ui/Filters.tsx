@@ -1,9 +1,12 @@
+'use client'
+
 import React, { useEffect, useState } from 'react'
 import DropdownProperties from './DropdownProperties'
 import homepage from '../../public/assets/propertiesHero/home-2.png'
 import budget from '../../public/assets/propertiesHero/budegt_image.png'
 import location from '../../public/assets/propertiesHero/location.png'
 import { fetchData } from '../../utils/api'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 // Define types
 interface LocationData {
@@ -20,9 +23,15 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
   const [propertyTypes, setPropertyTypes] = useState<string[]>([])
   const [budgets, setBudgets] = useState<string[]>([])
 
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
-  const [selectedType, setSelectedType] = useState<string | null>(null)
-  const [selectedBudget, setSelectedBudget] = useState<string | null>(null)
+  const [selectedLocations, setSelectedLocations] = useState<string[]>([])
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([])
+  const [selectedBudgets, setSelectedBudgets] = useState<string[]>([])
+
+  // Shared state for controlling open dropdown
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     async function fetchFilters() {
@@ -32,16 +41,13 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
           fetchData('property') as Promise<PropertyData[]>,
         ])
 
-        // Extract and deduplicate cities
         const uniqueLocations = Array.from(new Set(locationData.map((loc) => loc.location_city)))
         setLocations(uniqueLocations)
 
-        // Extract and deduplicate property types
         const rawTypes = propertyData.map((type) => type.prop_type?.property_type || 'Unknown Type')
         const uniqueTypes = Array.from(new Set(rawTypes))
         setPropertyTypes(uniqueTypes)
 
-        // Extract price ranges and map to buckets
         const priceRanges = propertyData.map((item) => {
           const price = item.prop_price
           if (price >= 1000000 && price <= 5000000) return '1-5M'
@@ -61,12 +67,38 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
     fetchFilters()
   }, [])
 
-  const handleFilterChange = () => {
+  const handleMultiSelect = (
+    option: string,
+    selectedItems: string[],
+    setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>,
+  ) => {
+    const isAlreadySelected = selectedItems.includes(option)
+    const updated = isAlreadySelected
+      ? selectedItems.filter((item) => item !== option)
+      : [...selectedItems, option]
+
+    setSelectedItems(updated)
+    handleFilterChange(updated, selectedTypes, selectedBudgets)
+  }
+
+  const handleFilterChange = (
+    locationVals = selectedLocations,
+    typeVals = selectedTypes,
+    budgetVals = selectedBudgets,
+  ) => {
     onFilterChange({
-      location: selectedLocation,
-      type: selectedType,
-      budget: selectedBudget,
+      location: locationVals,
+      type: typeVals,
+      budget: budgetVals,
     })
+
+    const params = new URLSearchParams()
+
+    if (locationVals.length) params.set('location', locationVals.join(','))
+    if (typeVals.length) params.set('type', typeVals.join(','))
+    if (budgetVals.length) params.set('budget', budgetVals.join(','))
+
+    router.push(`?${params.toString()}`)
   }
 
   const handleApplyFilters = () => {
@@ -80,12 +112,10 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         iconSrc={location.src}
         label="Select Location"
         options={locations.length > 0 ? locations : ['Location not available currently']}
-        onChange={(option) => {
-          if (option !== 'Location not available currently') {
-            setSelectedLocation(option)
-            handleFilterChange()
-          }
-        }}
+        selectedItems={selectedLocations}
+        onChange={(option) => handleMultiSelect(option, selectedLocations, setSelectedLocations)}
+        isOpen={openDropdown === 'location'}
+        setIsOpen={() => setOpenDropdown((prev) => (prev === 'location' ? null : 'location'))}
       />
 
       <h3 className="text-[14px] text-[#71AE4C] font-medium mb-3">Filter by Property Type</h3>
@@ -93,12 +123,10 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         iconSrc={homepage.src}
         label="Select Type"
         options={propertyTypes.length > 0 ? propertyTypes : ['No type available currently']}
-        onChange={(option) => {
-          if (option !== 'No type available currently') {
-            setSelectedType(option)
-            handleFilterChange()
-          }
-        }}
+        selectedItems={selectedTypes}
+        onChange={(option) => handleMultiSelect(option, selectedTypes, setSelectedTypes)}
+        isOpen={openDropdown === 'type'}
+        setIsOpen={() => setOpenDropdown((prev) => (prev === 'type' ? null : 'type'))}
       />
 
       <h3 className="text-[14px] text-[#71AE4C] font-medium mb-3">Filter by Budget</h3>
@@ -106,12 +134,10 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         iconSrc={budget.src}
         label="Select Budget"
         options={budgets.length > 0 ? budgets : ['No budget available']}
-        onChange={(option) => {
-          if (option !== 'No budget available') {
-            setSelectedBudget(option)
-            handleFilterChange()
-          }
-        }}
+        selectedItems={selectedBudgets}
+        onChange={(option) => handleMultiSelect(option, selectedBudgets, setSelectedBudgets)}
+        isOpen={openDropdown === 'budget'}
+        setIsOpen={() => setOpenDropdown((prev) => (prev === 'budget' ? null : 'budget'))}
       />
 
       <button

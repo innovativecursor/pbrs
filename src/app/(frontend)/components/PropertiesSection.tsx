@@ -51,6 +51,8 @@ const PropertiesSection: React.FC = () => {
     fetchProperties()
   }, [])
 
+  if (!loading && properties.length === 0) return null
+
   return (
     <motion.section
       ref={ref}

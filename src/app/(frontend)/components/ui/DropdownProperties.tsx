@@ -6,24 +6,32 @@ import { FaChevronDown } from 'react-icons/fa'
 
 interface DropdownProps {
   label: string
-  options: string[] | null // Allow options to be null while loading
+  options: string[] | null
   iconSrc: string
-  onChange: (option: string) => void
+  selectedItems: string[]
+  onChange: (option: string) => void // toggles selection
+  isOpen?: boolean // Add this prop to control open state externally
+  setIsOpen?: () => void // Add this prop to set open state externally
 }
 
-const DropdownProperties: React.FC<DropdownProps> = ({ label, options, iconSrc, onChange }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState(label)
-
+const DropdownProperties: React.FC<DropdownProps> = ({
+  label,
+  options,
+  iconSrc,
+  selectedItems,
+  onChange,
+  isOpen = false,
+  setIsOpen,
+}) => {
   return (
     <div className="relative bg-[#9DD67B36] p-2 rounded-lg border border-[#71AE4C] mb-4 cursor-pointer">
       <div
         className="flex justify-between items-center p-2 relative"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen?.()} // Control open state from parent
       >
         <img src={iconSrc} alt="Icon" className="w-4 h-4" />
         <span className="absolute left-1/2 transform -translate-x-1/2 text-[#000000] text-[12px]">
-          {selected}
+          {selectedItems.length > 0 ? selectedItems.join(', ') : label}
         </span>
         <FaChevronDown
           size={12}
@@ -41,7 +49,6 @@ const DropdownProperties: React.FC<DropdownProps> = ({ label, options, iconSrc, 
             className="absolute left-0 top-full w-full bg-white border border-[#71AE4C] rounded-lg shadow-md mt-1 overflow-hidden z-10"
           >
             {options === null ? (
-              // Dotted Loader
               <div className="flex justify-center items-center py-4">
                 <motion.div
                   animate={{ opacity: [0.3, 1, 0.3] }}
@@ -61,25 +68,31 @@ const DropdownProperties: React.FC<DropdownProps> = ({ label, options, iconSrc, 
               </div>
             ) : (
               options.map((option, index) => {
-                const optionText = String(option) // Ensure option is a string
+                const optionText = String(option)
+                const isDisabled = optionText.includes('available')
+                const isChecked = selectedItems.includes(optionText)
 
                 return (
                   <motion.li
                     key={index}
-                    whileHover={{ scale: 1.05 }}
-                    className={`p-2 text-[12px] transition-all cursor-pointer ${
-                      optionText.includes('available')
+                    whileHover={{ scale: !isDisabled ? 1.05 : 1 }}
+                    className={`flex items-center justify-start gap-2 p-2 text-[12px] transition-all cursor-pointer ${
+                      isDisabled
                         ? 'text-gray-400 cursor-not-allowed'
                         : 'hover:bg-[#9DD67B] hover:text-white'
                     }`}
                     onClick={() => {
-                      if (!optionText.includes('available')) {
-                        setSelected(optionText)
-                        setIsOpen(false)
+                      if (!isDisabled) {
                         onChange(optionText)
                       }
                     }}
                   >
+                    <input
+                      type="checkbox"
+                      checked={isChecked}
+                      readOnly
+                      className="accent-[#9DD67B]"
+                    />
                     {optionText}
                   </motion.li>
                 )
