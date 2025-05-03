@@ -56,7 +56,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
               alt={images[selectedIndex].image.filename}
               width={1000}
               height={600}
-              className="rounded-[30px] object-cover w-full h-[40vh] max-h-[40vh]"
+              className="rounded-[13px] object-cover w-full h-[40vh] max-h-[40vh]"
             />
           ) : (
             <video
@@ -66,7 +66,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
                   : `/api${images[selectedIndex].image.url}`
               }
               controls
-              className="rounded-[30px] w-full h-[40vh] object-cover max-h-[40vh]"
+              className="rounded-[13px] w-full h-[40vh] object-cover max-h-[40vh]"
             />
           )}
         </div>
