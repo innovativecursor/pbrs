@@ -26,6 +26,8 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
               alt={blog.title}
               width={400}
               height={250}
+              priority // Forces the image to load first
+              unoptimized // Avoid Next.js optimization issues
               className="object-cover w-full h-[250px] transition-transform duration-300 group-hover:scale-105"
             />
             {/* Gradient Overlay on Hover */}
