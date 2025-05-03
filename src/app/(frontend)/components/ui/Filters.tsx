@@ -142,9 +142,9 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
 
       <button
         onClick={handleApplyFilters}
-        className="mt-4 w-full bg-[#71AE4C] text-white p-3 rounded-full hover:bg-[#3E7B1A]"
+        className="mt-4 text-[12px] w-full bg-[#71AE4C] text-white p-3 rounded-xl hover:bg-[#3E7B1A]"
       >
-        Apply Filters
+        Show Results
       </button>
     </div>
   )
