@@ -79,7 +79,7 @@ const PropertiesByCities = () => {
             {[...locations, ...locations].map((loc, index) => (
               <div
                 key={index}
-                className="flex-none w-[250px] md:w-[300px] lg:w-[350px] h-[250px] md:h-[300px] lg:h-[400px] overflow-hidden shadow-md"
+                className="flex-none w-[250px] md:w-[300px] lg:w-[350px] h-[250px] md:h-[300px] lg:h-[250px] overflow-hidden shadow-md"
               >
                 <CityImageCard img={loc.url} cityName={loc.location_city} index={index} />
               </div>

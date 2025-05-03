@@ -12,9 +12,8 @@ const CityImageCard: React.FC<CityImageCardProps> = ({ img, cityName, index }) =
       <Image
         src={typeof img === 'string' ? img : img.src}
         alt={`City ${index + 1}`}
-        width={0} // width: 0 for auto scaling
-        height={0} // height: 0 for auto scaling
-        layout="responsive" // Makes the image responsive to its container size
+        width={350} // Enforcing consistent width for all images
+        height={250} // Enforcing consistent height for all images
         className="object-cover w-full h-full transform transition-transform duration-300 group-hover:scale-105"
       />
 
