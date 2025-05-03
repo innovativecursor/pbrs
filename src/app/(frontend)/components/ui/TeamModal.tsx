@@ -72,13 +72,16 @@ const TeamModal: React.FC<TeamModalProps> = ({ isOpen, onClose }) => {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4">
                 {teamMembers.map((member, index) => (
-                  <div key={index} className="border shadow-md p-3 sm:p-4 text-center rounded-lg">
+                  <div
+                    key={index}
+                    className="border shadow-md p-3 sm:p-4 text-center rounded-lg flex flex-col justify-between"
+                  >
                     <Image
                       width={300}
                       height={224}
                       src={member.url || '/default-profile.png'}
                       alt={member.emp_name}
-                      className="max-h-40 min-h-40 sm:max-h-56 object-contain rounded-md"
+                      className="h-40 sm:h-56 min-h-40 sm:max-h-56 object-cover rounded-md"
                     />
                     <h3 className="text-sm sm:text-lg font-semibold mt-2">{member.emp_name}</h3>
                     <p className="text-xs sm:text-sm text-gray-500">{member.emp_designation}</p>
