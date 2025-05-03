@@ -49,7 +49,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
             <p className="text-[#71AE4C] font-semibold text-lg mt-2">{price}</p>
 
             {/* Property Features */}
-            <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mt-4">
+            <div className="-mx-4 mt-4 bg-[#F1F1F1] text-[#181818] text-sm grid grid-cols-2 gap-2 px-4 py-3">
               <div className="flex items-center gap-2">
                 <FaBed />
                 {bedrooms} Bedrooms
