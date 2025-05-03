@@ -42,7 +42,7 @@ const PropertyAgent = () => {
   const yTransform = useTransform(
     scrollYProgress,
     [0, 1],
-    deviceType === 'desktop' ? [-30, 450] : deviceType === 'tablet' ? [1, 500] : [0, 0],
+    deviceType === 'desktop' ? [-25, 340] : deviceType === 'tablet' ? [1, 500] : [0, 0],
   )
 
   return (
@@ -50,7 +50,7 @@ const PropertyAgent = () => {
       <h3 className="text-[28px] font-medium mb-2">Property Agent</h3>
       {deviceType !== 'mobile' ? (
         <motion.div
-          className="absolute top-0 bg-white shadow-lg rounded-2xl p-6 w-full max-w-sm"
+          className="absolute top-0 bg-white shadow-lg rounded-2xl p-6 w-full max-w-sm mt-8" // Added margin-top
           style={{ y: yTransform }}
         >
           <AgentContent />
