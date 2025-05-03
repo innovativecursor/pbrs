@@ -49,22 +49,24 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
         </div>
 
         {/* Column 3: Features */}
-        <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 bg-gray-100 p-2 rounded-lg w-full md:w-auto mx-auto">
-          <div className="flex items-center gap-2">
-            <FaBed />
-            {bedrooms} Beds
-          </div>
-          <div className="flex items-center gap-2">
-            <FaBath />
-            {bathrooms} Baths
-          </div>
-          <div className="flex items-center gap-2">
-            <FaRulerCombined />
-            {size}
-          </div>
-          <div className="flex items-center gap-2">
-            <FaCar />
-            {garage} Garage
+        <div className="bg-gray-100 w-full h-full p-2 flex items-center justify-center">
+          <div className="grid grid-cols-2 w-full h-full">
+            <div className="flex text-[12px] items-center gap-2 border-b border-r border-[#DADADA] p-2">
+              <FaBed />
+              {bedrooms} Beds
+            </div>
+            <div className="flex text-[12px] items-center gap-2 border-b border-[#DADADA] p-2">
+              <FaBath />
+              {bathrooms} Baths
+            </div>
+            <div className="flex text-[12px] items-center gap-2 border-r border-[#DADADA] p-2">
+              <FaRulerCombined />
+              {size}
+            </div>
+            <div className="flex text-[12px] items-center gap-2 p-2">
+              <FaCar />
+              {garage} Garage
+            </div>
           </div>
         </div>
 
