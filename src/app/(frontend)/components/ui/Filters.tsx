@@ -133,7 +133,7 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
       <DropdownProperties
         iconSrc={budget.src}
         label="Select Budget"
-        options={budgets.length > 0 ? budgets : ['No budget available']}
+        options={budgets.length > 0 ? budgets : ['No budget available currently']}
         selectedItems={selectedBudgets}
         onChange={(option) => handleMultiSelect(option, selectedBudgets, setSelectedBudgets)}
         isOpen={openDropdown === 'budget'}
@@ -142,9 +142,9 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
 
       <button
         onClick={handleApplyFilters}
-        className="w-full bg-[#71AE4C] hover:bg-[#000000] transition-all text-white text-[12px] mt-4 p-3 rounded-lg shadow-md"
+        className="mt-4 w-full bg-[#71AE4C] text-white p-3 rounded-full hover:bg-[#3E7B1A]"
       >
-        Show Results
+        Apply Filters
       </button>
     </div>
   )

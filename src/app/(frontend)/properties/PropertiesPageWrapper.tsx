@@ -66,19 +66,22 @@ export default function PropertiesPage() {
     }
 
     setFilteredProperties(filtered)
+
+    // Trigger filter change for reflected filters
+    handleFilterChange({ location: [location], type: [type], budget: [budget] })
   }, [searchParams, properties])
 
   const handleFilterChange = (filters: any) => {
     let filtered = properties
 
     if (filters.location) {
-      filtered = filtered.filter(
-        (property: any) => property.prop_location?.location_city === filters.location,
+      filtered = filtered.filter((property: any) =>
+        filters.location.includes(property.prop_location?.location_city),
       )
     }
 
     if (filters.type) {
-      filtered = filtered.filter((property: any) => property.prop_type === filters.type)
+      filtered = filtered.filter((property: any) => filters.type.includes(property.prop_type))
     }
 
     if (filters.budget) {
