@@ -47,7 +47,7 @@ const PropertiesPageCard: React.FC<PropertyCardProps> = ({
           </div>
 
           {/* Property Details */}
-          <div className="p-4">
+          <div className="pt-4 px-4">
             <h3 className="text-lg font-semibold">{title}</h3>
             <div className="flex items-center text-gray-500 text-[13px] mt-1">
               <FaMapMarkerAlt className="mr-1" />
@@ -56,20 +56,20 @@ const PropertiesPageCard: React.FC<PropertyCardProps> = ({
             <p className="text-[#71AE4C] font-semibold text-lg mt-2">{price}</p>
 
             {/* Property Features */}
-            <div className="grid grid-cols-2 gap-2 text-sm text-gray-600 mt-4">
-              <div className="flex items-center gap-2">
+            <div className="-mx-4 mt-4 grid grid-cols-2 gap-0 text-sm bg-[#F1F1F1] text-[#181818] px-4 py-3">
+              <div className="flex text-[12px] items-center gap-2 border-b border-r border-[#DADADA] pb-2 pr-2">
                 <FaBed />
                 {bedrooms} Bedrooms
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex text-[12px] items-center gap-2 border-b border-[#DADADA] pb-2 pl-2">
                 <FaBath />
                 {bathrooms} Bathrooms
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex text-[12px] items-center gap-2 border-r border-[#DADADA] pt-2 pr-2">
                 <FaRulerCombined />
                 {lotArea} sq Ft
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex text-[12px] items-center gap-2 pt-2 pl-2">
                 <FaCar />
                 {garage} Garage
               </div>

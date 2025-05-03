@@ -37,6 +37,7 @@ const DiscountPropertyList: React.FC = () => {
           garage: property.garages || 'No Garage',
           badge: property.prop_offer ? 'Special Offer' : '',
           buttonText: 'Inquire Now',
+          id: property.id.toString(),
         }))
 
         setDiscountProperties(formattedData)
@@ -59,7 +60,7 @@ const DiscountPropertyList: React.FC = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {discountProperties.map((property, index) => (
-          <DiscountPropertyCard key={index} {...property} />
+          <DiscountPropertyCard id="" key={index} {...property} />
         ))}
       </div>
     </section>
