@@ -12,8 +12,8 @@ const CityImageCard: React.FC<CityImageCardProps> = ({ img, cityName, index }) =
       <Image
         src={typeof img === 'string' ? img : img.src}
         alt={`City ${index + 1}`}
-        width={350}
-        height={250}
+        width={0}
+        height={0}
         className="w-full group-hover:scale-105 transition-transform duration-300"
       />
 
