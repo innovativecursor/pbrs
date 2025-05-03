@@ -74,11 +74,11 @@ const TeamModal: React.FC<TeamModalProps> = ({ isOpen, onClose }) => {
                 {teamMembers.map((member, index) => (
                   <div key={index} className="border shadow-md p-3 sm:p-4 text-center rounded-lg">
                     <Image
-                      width={40}
-                      height={40}
+                      width={300}
+                      height={224}
                       src={member.url || '/default-profile.png'}
                       alt={member.emp_name}
-                      className="w-full h-auto max-h-40 sm:max-h-56 object-contain rounded-md"
+                      className="max-h-40 min-h-40 sm:max-h-56 object-contain rounded-md"
                     />
                     <h3 className="text-sm sm:text-lg font-semibold mt-2">{member.emp_name}</h3>
                     <p className="text-xs sm:text-sm text-gray-500">{member.emp_designation}</p>
