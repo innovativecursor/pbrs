@@ -8,13 +8,14 @@ type CityImageCardProps = {
 
 const CityImageCard: React.FC<CityImageCardProps> = ({ img, cityName, index }) => {
   return (
-    <div className="relative overflow-hidden shadow-md group">
+    <div className="relative aspect-[4/3] overflow-hidden shadow-md group rounded-lg">
       <Image
         src={typeof img === 'string' ? img : img.src}
         alt={`City ${index + 1}`}
-        width={0}
-        height={0}
-        className="w-full group-hover:scale-105 transition-transform duration-300"
+        fill
+        className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+        quality={80}
+        sizes="(max-width: 768px) 100vw, 25vw"
       />
 
       <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-black/40 via-transparent to-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
