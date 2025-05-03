@@ -1,14 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
+
 import HeroProperties from '../components/HeroProperties'
 import Filters from '../components/ui/Filters'
 import HelpCard from '../components/ui/HelpCard'
 import SortBar from '../components/ui/SortBar'
 import DiscountPropertyList from '../components/DiscountPropertyList'
-import { fetchData } from '../utils/api'
 import PropertyList from '../components/PropetyList'
 import Loader from '../components/ui/Loader'
+
+import { fetchData } from '../utils/api'
 
 export default function PropertiesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
@@ -16,6 +19,8 @@ export default function PropertiesPage() {
   const [filteredProperties, setFilteredProperties] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     async function fetchProperties() {
@@ -32,6 +37,36 @@ export default function PropertiesPage() {
 
     fetchProperties()
   }, [])
+
+  // Apply filters from search bar if query parameters exist
+  useEffect(() => {
+    if (!properties.length) return
+
+    const type = searchParams.get('type')
+    const location = searchParams.get('location')
+    const budget = searchParams.get('budget')
+
+    if (!type && !location && !budget) return
+
+    let filtered = [...properties]
+
+    if (location) {
+      filtered = filtered.filter(
+        (property: any) => property.prop_location?.location_city === location,
+      )
+    }
+
+    if (type) {
+      filtered = filtered.filter((property: any) => property.prop_type === type)
+    }
+
+    if (budget) {
+      const maxBudget = parseInt(budget)
+      filtered = filtered.filter((property: any) => property.prop_price <= maxBudget)
+    }
+
+    setFilteredProperties(filtered)
+  }, [searchParams, properties])
 
   const handleFilterChange = (filters: any) => {
     let filtered = properties
