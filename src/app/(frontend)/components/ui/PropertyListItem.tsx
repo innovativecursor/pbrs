@@ -35,7 +35,15 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
       <div className="grid md:grid-cols-4 grid-cols-1 bg-white border border-[#F1F1F1] rounded-lg overflow-hidden items-center gap-6">
         {/* Column 1: Image */}
         <div className="relative w-full md:w-48 h-40 md:h-32">
-          <Image src={image} alt={title} layout="fill" objectFit="cover" />
+          <Image
+            src={image}
+            alt={title}
+            layout="fill"
+            objectFit="cover"
+            className="transition-all duration-500"
+            priority // Forces the image to load first
+            unoptimized // Avoid Next.js optimization issues
+          />
         </div>
 
         {/* Column 2: Property Details */}
