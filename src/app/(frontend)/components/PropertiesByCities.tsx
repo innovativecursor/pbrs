@@ -7,8 +7,7 @@ import { motion, useAnimation } from 'framer-motion'
 import tilt from '../public/assets/tilt_image.png'
 import { ButtonProperties } from './ui/ButtonProperties'
 import CityImageCard from './ui/CityImageCard'
-import { fetchData, fetchLocations } from '../utils/api'
-// adjust path as needed
+import { fetchLocationsCities } from '../utils/api'
 
 const scrollSpeed = 50
 
@@ -24,12 +23,11 @@ const PropertiesByCities = () => {
 
   useEffect(() => {
     const getLocations = async () => {
-      const data = await fetchLocations()
+      const data = await fetchLocationsCities()
       const formatted = data.docs.map((loc: any) => ({
         location_city: loc.location_city,
         url: loc.url,
       }))
-
       setLocations(formatted)
     }
 

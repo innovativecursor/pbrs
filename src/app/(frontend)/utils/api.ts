@@ -67,6 +67,18 @@ export const fetchLocations = async (): Promise<string[]> => {
   return locations.map((loc: { location_city: string }) => loc.location_city) // Extract city names
 }
 
+export const fetchLocationsCities = async () => {
+  try {
+    const res = await fetch('/api/location') // ✅ fix path
+    if (!res.ok) throw new Error('Failed to fetch locations')
+    const data = await res.json()
+    return data // expected { docs: [...] }
+  } catch (error) {
+    console.error('Error fetching locations:', error)
+    return { docs: [] }
+  }
+}
+
 export const fetchPropertyTypes = async (): Promise<string[]> => {
   const propertyTypes: PropertyType[] = await fetchData('propertyType')
 
