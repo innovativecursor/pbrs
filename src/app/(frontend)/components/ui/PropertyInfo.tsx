@@ -19,6 +19,9 @@ interface Property {
   prop_destination: string
   prop_status: string
   prop_furnishing: string
+  prop_ownership: string
+  prop_year: number
+  prop_pkSpace: number
 }
 
 const PropertyInfo = ({ property }: { property: Property | null }) => {
@@ -81,6 +84,12 @@ const PropertyInfo = ({ property }: { property: Property | null }) => {
           { label: 'Lot Area', value: `${property.lot_area} sqm` },
           { label: 'Destination', value: property.prop_destination || 'N/A' },
           { label: 'Status', value: property.prop_status || 'N/A' },
+          { label: 'Ownership', value: property.prop_ownership || 'N/A' },
+          {
+            label: 'Year Built',
+            value: property.prop_year ? new Date(property.prop_year).getFullYear() : 'N/A',
+          },
+          { label: 'Parking Space', value: property.prop_pkSpace || 'N/A' },
           { label: 'Furnishing', value: property.prop_furnishing || 'N/A' },
         ].map((item, index) => (
           <div key={index} className="w-[calc(50%-8px)] sm:w-full max-w-[250px]">

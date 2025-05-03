@@ -45,7 +45,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
     <div className="space-y-4">
       {/* Main Image Display */}
       {images.length > 0 && (
-        <div className="relative">
+        <div className="relative cursor-pointer" onClick={() => handleOpen(selectedIndex)}>
           {images[selectedIndex].image.mimeType.startsWith('image') ? (
             <Image
               src={
@@ -78,7 +78,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
           <div
             key={item.id}
             className="cursor-pointer relative flex-shrink-0"
-            onClick={() => handleOpen(index)}
+            onClick={() => setSelectedIndex(index)} // ✅ Only update main view, don't open modal
           >
             {item.image.mimeType.startsWith('image') ? (
               <Image

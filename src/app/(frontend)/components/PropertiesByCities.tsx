@@ -1,35 +1,46 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion, useAnimation } from 'framer-motion'
 
 import tilt from '../public/assets/tilt_image.png'
-
-import cityImage1 from '../public/assets/propertiesCities/city_image_1.png'
-import cityImage2 from '../public/assets/propertiesCities/city_image_2.png'
-import cityImage3 from '../public/assets/propertiesCities/city_image_3.png'
-import cityImage4 from '../public/assets/propertiesCities/city_image_4.png'
-import cityImage5 from '../public/assets/propertiesCities/city_image_5.png'
-
 import { ButtonProperties } from './ui/ButtonProperties'
 import CityImageCard from './ui/CityImageCard'
+import { fetchData, fetchLocations } from '../utils/api'
+// adjust path as needed
 
-// Array of city images
-const cityImages = [cityImage1, cityImage2, cityImage3, cityImage4, cityImage5]
-
-// Scrolling speed in pixels per second
 const scrollSpeed = 50
+
+type LocationItem = {
+  location_city: string
+  url: string
+}
 
 const PropertiesByCities = () => {
   const controls = useAnimation()
   const containerRef = useRef<HTMLDivElement>(null)
+  const [locations, setLocations] = useState<LocationItem[]>([])
+
+  useEffect(() => {
+    const getLocations = async () => {
+      const data = await fetchLocations()
+      const formatted = data.docs.map((loc: any) => ({
+        location_city: loc.location_city,
+        url: loc.url,
+      }))
+
+      setLocations(formatted)
+    }
+
+    getLocations()
+  }, [])
 
   useEffect(() => {
     const animateScroll = async () => {
-      if (!containerRef.current) return
+      if (!containerRef.current || locations.length === 0) return
 
-      const totalWidth = containerRef.current.scrollWidth / 2 // Half due to duplication
+      const totalWidth = containerRef.current.scrollWidth / 2
       const duration = totalWidth / scrollSpeed
 
       await controls.start({
@@ -43,7 +54,7 @@ const PropertiesByCities = () => {
     }
 
     animateScroll()
-  }, [controls])
+  }, [controls, locations])
 
   return (
     <>
@@ -64,17 +75,15 @@ const PropertiesByCities = () => {
         </div>
       </section>
 
-      {/* Custom Marquee Section */}
       <section className="pb-28 overflow-hidden">
         <div className="relative w-full" ref={containerRef}>
           <motion.div className="flex gap-x-4 w-max" animate={controls} initial={{ x: 0 }}>
-            {/* Duplicate the images to create infinite scroll effect */}
-            {[...cityImages, ...cityImages].map((img, index) => (
+            {[...locations, ...locations].map((loc, index) => (
               <div
                 key={index}
                 className="flex-none w-[250px] md:w-[300px] lg:w-[350px] h-[250px] md:h-[300px] lg:h-[400px] overflow-hidden shadow-md"
               >
-                <CityImageCard img={typeof img === 'string' ? img : img.src} index={index} />
+                <CityImageCard img={loc.url} cityName={loc.location_city} index={index} />
               </div>
             ))}
           </motion.div>
