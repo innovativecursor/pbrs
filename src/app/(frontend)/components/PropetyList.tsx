@@ -32,7 +32,7 @@ interface Property {
 
 interface PropertyListProps {
   viewMode: 'grid' | 'list'
-  properties: Property[] // Accept properties from parent
+  properties: any[]
 }
 
 const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => {
@@ -51,7 +51,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
         className={
           viewMode === 'grid'
             ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'
-            : 'flex flex-col gap-4'
+            : 'flex flex-col gap-6'
         }
       >
         {properties.slice(0, visibleCount).map((property) =>
@@ -68,11 +68,9 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 propDestinationSub={property.prop_location?.location_province || 'Unknown'}
                 price={`₱${property.prop_price.toLocaleString()}`}
                 image={
-                  property.images?.length && property.images[0]?.image?.url
+                  property.images?.[0]?.image?.url
                     ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].image.url}`
-                    : property.prop_location?.url
-                      ? `${process.env.NEXT_PUBLIC_API_URL}${property.prop_location.url}`
-                      : '/fallback-image.png'
+                    : '/fallback-image.png'
                 }
                 bedrooms={property.bedrooms}
                 bathrooms={property.bathrooms}
@@ -94,11 +92,9 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 propDestinationSub={property.prop_location?.location_province || 'Unknown'}
                 price={`₱${property.prop_price.toLocaleString()}`}
                 image={
-                  property.images?.length && property.images[0]?.image?.url
+                  property.images?.[0]?.image?.url
                     ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].image.url}`
-                    : property.prop_location?.url
-                      ? `${process.env.NEXT_PUBLIC_API_URL}${property.prop_location.url}`
-                      : '/fallback-image.png'
+                    : '/fallback-image.png'
                 }
                 bedrooms={property.bedrooms}
                 bathrooms={property.bathrooms}

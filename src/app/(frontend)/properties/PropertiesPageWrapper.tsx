@@ -8,15 +8,16 @@ import Filters from '../components/ui/Filters'
 import HelpCard from '../components/ui/HelpCard'
 import SortBar from '../components/ui/SortBar'
 import DiscountPropertyList from '../components/DiscountPropertyList'
-import PropertyList from '../components/PropetyList'
+
 import Loader from '../components/ui/Loader'
 
 import { fetchData } from '../utils/api'
+import PropertyList from '../components/PropetyList'
 
 export default function PropertiesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
-  const [properties, setProperties] = useState([])
-  const [filteredProperties, setFilteredProperties] = useState([])
+  const [properties, setProperties] = useState<any[]>([])
+  const [filteredProperties, setFilteredProperties] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -38,7 +39,6 @@ export default function PropertiesPage() {
     fetchProperties()
   }, [])
 
-  // Apply filters from search bar if query parameters exist
   useEffect(() => {
     if (!properties.length) return
 
@@ -46,62 +46,49 @@ export default function PropertiesPage() {
     const location = searchParams.get('location')
     const budget = searchParams.get('budget')
 
-    if (!type && !location && !budget) return
-
     let filtered = [...properties]
+
+    if (type) {
+      filtered = filtered.filter(
+        (p: any) =>
+          typeof p.prop_type === 'string' && p.prop_type.toLowerCase() === type.toLowerCase(),
+      )
+    }
 
     if (location) {
       filtered = filtered.filter(
-        (property: any) => property.prop_location?.location_city === location,
+        (p: any) => p.prop_location?.location_city?.toLowerCase() === location.toLowerCase(),
       )
-    }
-
-    if (type) {
-      filtered = filtered.filter((property: any) => property.prop_type === type)
     }
 
     if (budget) {
-      const maxBudget = parseInt(budget)
-      filtered = filtered.filter((property: any) => property.prop_price <= maxBudget)
+      const max = parseInt(budget, 10)
+      if (!isNaN(max)) {
+        filtered = filtered.filter((p: any) => p.prop_price <= max)
+      }
     }
 
     setFilteredProperties(filtered)
-
-    // Trigger filter change for reflected filters
-    handleFilterChange({ location: [location], type: [type], budget: [budget] })
   }, [searchParams, properties])
 
   const handleFilterChange = (filters: any) => {
-    let filtered = properties
+    let filtered = [...properties]
 
-    if (filters.location) {
-      filtered = filtered.filter((property: any) =>
-        filters.location.includes(property.prop_location?.location_city),
+    if (filters.location?.length) {
+      filtered = filtered.filter((p: any) =>
+        filters.location.includes(p.prop_location?.location_city),
       )
     }
 
-    if (filters.type) {
-      filtered = filtered.filter((property: any) => filters.type.includes(property.prop_type))
+    if (filters.type?.length) {
+      filtered = filtered.filter((p: any) => filters.type.includes(p.prop_type))
     }
 
-    if (filters.budget) {
-      let min = 0,
-        max = Infinity
-
-      if (typeof filters.budget === 'string') {
-        const priceRange = filters.budget.match(/\d+/g)?.map(Number)
-        if (priceRange) {
-          min = priceRange[0] ?? 0
-          max = priceRange[1] ?? Infinity
-        }
-      } else if (typeof filters.budget === 'number') {
-        min = filters.budget
-        max = filters.budget
+    if (filters.budget?.length) {
+      const max = parseInt(filters.budget[0], 10)
+      if (!isNaN(max)) {
+        filtered = filtered.filter((p: any) => p.prop_price <= max)
       }
-
-      filtered = filtered.filter(
-        (property: any) => property.prop_price >= min && property.prop_price <= max,
-      )
     }
 
     setFilteredProperties(filtered)
@@ -135,7 +122,6 @@ export default function PropertiesPage() {
         </div>
       </div>
 
-      {/* Full-width background for DiscountPropertyList */}
       <div className="w-full bg-[#FAF1F9]">
         <div className="max-w-7xl mx-auto px-6 py-10">
           <DiscountPropertyList />

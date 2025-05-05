@@ -21,11 +21,13 @@ const Navbar = () => {
       : 'bg-gradient-to-b from-black/50 to-transparent'
 
   const isHomePage = pathname === '/'
+  const isPropertiesPage = pathname.includes('properties') || pathname.includes('property') // Check if it's the properties or property page
+
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'About Us', href: isHomePage ? '#about' : '#about' },
+    { name: 'About Us', href: isPropertiesPage ? '/' : '#about' }, // If Home or Properties page, link to homepage
     { name: 'Properties', href: '/properties' },
-    { name: 'Contact Us', href: isHomePage ? '#contact' : '#contact' },
+    { name: 'Contact Us', href: isPropertiesPage ? '/' : '#contact' }, // If Home or Properties page, link to homepage
   ]
   return (
     <nav className={`absolute top-0 left-0 w-full z-50 ${navbarBg}`}>
