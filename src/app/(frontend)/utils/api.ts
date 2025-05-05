@@ -150,5 +150,5 @@ export const submitContactUs = async (formData: {
 }
 
 export const fetchSimilarProperties = async (): Promise<SimilarPropertyData[]> => {
-  return await fetchData('similar-properties') // Reuses your fetchData helper
+  return await fetchData('similar-properties')
 }

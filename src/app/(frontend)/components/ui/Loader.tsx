@@ -3,7 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import logo from '../../public/assets/pbrs_logo.png'
+import logo from '../../public/assets/pbrs_logo_new.png'
 
 export default function Loader() {
   return (
