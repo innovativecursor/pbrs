@@ -25,7 +25,10 @@ const DiscountPropertyList: React.FC = () => {
       try {
         const data: any[] = await fetchData('property')
 
-        const formattedData = data.map((property: any) => ({
+        // Only include properties with `prop_offer` set to true
+        const discountedData = data.filter((property) => property.prop_offer === true)
+
+        const formattedData = discountedData.map((property: any) => ({
           image: property.images?.[0]?.image?.url || '/placeholder.jpg',
           title: property.prop_name || 'No Title',
           propDestination: property.prop_location?.location_city || 'Unknown City',
@@ -35,7 +38,7 @@ const DiscountPropertyList: React.FC = () => {
           bathrooms: property.bathrooms || 0,
           size: `${property.prop_size} sqft` || 'N/A',
           garage: property.garages || 'No Garage',
-          badge: property.prop_offer ? 'Special Offer for 10%' : '',
+          badge: property.prop_discount,
           buttonText: 'Inquire Now',
           id: property.id.toString(),
         }))
@@ -48,6 +51,8 @@ const DiscountPropertyList: React.FC = () => {
 
     fetchDiscountedProperties()
   }, [])
+
+  if (discountProperties.length === 0) return null
 
   return (
     <section className="py-12">
