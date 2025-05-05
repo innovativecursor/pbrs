@@ -30,7 +30,7 @@ const DiscountPropertyList: React.FC = () => {
           title: property.prop_name || 'No Title',
           propDestination: property.prop_location?.location_city || 'Unknown City',
           propDestinationSub: property.prop_location?.location_province || 'Unknown Province',
-          price: `$${property.prop_price?.toLocaleString()}` || 'Price Not Available',
+          price: `₱${property.prop_price?.toLocaleString()}` || 'Price Not Available',
           bedrooms: property.bedrooms || 0,
           bathrooms: property.bathrooms || 0,
           size: `${property.prop_size} sqft` || 'N/A',

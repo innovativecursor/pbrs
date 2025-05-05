@@ -46,6 +46,8 @@ export default function PropertiesPage() {
     const location = searchParams.get('location')
     const budget = searchParams.get('budget')
 
+    console.log('Filters:', { type, location, budget })
+
     let filtered = [...properties]
 
     if (type) {
@@ -67,6 +69,8 @@ export default function PropertiesPage() {
         filtered = filtered.filter((p: any) => p.prop_price <= max)
       }
     }
+
+    console.log('Filtered Properties:', filtered)
 
     setFilteredProperties(filtered)
   }, [searchParams, properties])
