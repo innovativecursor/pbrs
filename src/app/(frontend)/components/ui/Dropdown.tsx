@@ -70,23 +70,29 @@ const Dropdown = ({ icon, options, withBorder = false, onSelect }: DropdownProps
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className={`absolute top-full left-0 w-full mt-2 z-50 border border-white/30 rounded-lg overflow-hidden ${
-              isMobile
-                ? 'bg-white text-black w-full shadow-lg'
-                : 'bg-white/20 backdrop-blur-xl text-white'
-            }`}
+            className={`absolute top-full left-0 w-full mt-2 z-60 border border-white/30 rounded-lg overflow-hidden
+  ${
+    isMobile
+      ? 'bg-white text-black w-full shadow-lg'
+      : 'bg-white/10 md:bg-gray-400 lg:bg-gray-400 backdrop-blur-md text-white'
+  }`}
           >
             <div className="max-h-60 overflow-y-auto scroll-smooth">
               {options.map((option, index) => (
                 <div
                   key={index}
-                  className="px-4 py-2 transition hover:bg-gray-200 md:hover:bg-white/30 cursor-pointer border-b-[1px] last:border-b-0"
+                  className={`group px-4 py-2 transition-all duration-200 cursor-pointer border-b border-white/10
+                ${
+                  isMobile
+                    ? 'hover:bg-gray-100 hover:text-black'
+                    : 'hover:bg-white/20 hover:pl-6 rounded-md'
+                }`}
                   onClick={() => {
                     setSelectedOption(option)
                     setIsOpen(false)
                   }}
                 >
-                  {option}
+                  <span className="truncate">{option}</span>
                 </div>
               ))}
             </div>

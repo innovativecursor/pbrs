@@ -94,7 +94,7 @@ const PropertyInfo = ({ property }: { property: Property | null }) => {
         ].map((item, index) => (
           <div key={index} className="w-[calc(50%-8px)] sm:w-full max-w-[250px]">
             <span className="block font-medium text-[#858585]">{item.label}</span>
-            <p className="text-[14px] text-[#000000]">{item.value}</p>
+            <p className="text-[14px] font-semibold text-[#000000]">{item.value}</p>
           </div>
         ))}
       </div>

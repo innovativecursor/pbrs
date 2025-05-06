@@ -32,7 +32,7 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
 }) => {
   return (
     <Link href={`/property/${id}`}>
-      <div className="grid md:grid-cols-4 grid-cols-1 bg-white border border-[#F1F1F1] rounded-lg overflow-hidden items-center gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 bg-white border border-[#F1F1F1] rounded-lg overflow-hidden items-center gap-6">
         {/* Column 1: Image */}
         <div className="relative w-full md:w-48 h-40 md:h-32">
           <Image
@@ -59,21 +59,21 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
         {/* Column 3: Features */}
         <div className="bg-gray-100 w-full h-full p-2 flex items-center justify-center">
           <div className="grid grid-cols-2 w-full h-full">
-            <div className="flex text-[12px] items-center gap-2 border-b border-r border-[#DADADA] p-2">
+            <div className="flex text-[11px] items-center gap-2 border-b border-r border-[#DADADA] p-2">
               <FaBed />
-              {bedrooms} Beds
+              {bedrooms ? `${bedrooms} Beds` : 'N/A'}
             </div>
-            <div className="flex text-[12px] items-center gap-2 border-b border-[#DADADA] p-2">
+            <div className="flex text-[11px] items-center gap-2 border-b border-[#DADADA] p-2">
               <FaBath />
-              {bathrooms} Baths
+              {bathrooms ? `${bathrooms} Baths` : 'N/A'}
             </div>
-            <div className="flex text-[12px] items-center gap-2 border-r border-[#DADADA] p-2">
+            <div className="flex text-[11px] items-center gap-2 border-r border-[#DADADA] p-2">
               <FaRulerCombined />
-              {size}
+              {size && size.trim() !== '' ? size : 'N/A'}
             </div>
-            <div className="flex text-[12px] items-center gap-2 p-2">
+            <div className="flex text-[11px] items-center gap-2 p-2">
               <FaCar />
-              {garage} Garage
+              {garage ? `${garage} Garage` : 'No Garage'}
             </div>
           </div>
         </div>

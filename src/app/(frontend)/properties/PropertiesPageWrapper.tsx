@@ -13,6 +13,7 @@ import Loader from '../components/ui/Loader'
 
 import { fetchData } from '../utils/api'
 import PropertyList from '../components/PropetyList'
+import ContactSection from '../components/ContactSection'
 
 export default function PropertiesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
@@ -131,6 +132,11 @@ export default function PropertiesPage() {
           <DiscountPropertyList />
         </div>
       </div>
+      {/* <div className="w-full">
+        <div className="max-w-7xl">
+          <ContactSection />
+        </div>
+      </div> */}
     </>
   )
 }

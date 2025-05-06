@@ -7,7 +7,7 @@ import backgroundHero from '../public/assets/heroSection/hero_plain.png'
 
 const Hero = () => {
   return (
-    <header className="relative w-full h-screen flex flex-col items-center justify-center text-center text-white bg-cover bg-center px-4 md:px-0 pt-24 md:pt-0">
+    <header className="relative w-full min-h-screen flex flex-col items-center justify-center text-center text-white bg-cover bg-center px-4 md:px-0 pt-24 md:pt-0">
       {/* Background Image */}
       <Image
         src={backgroundHero}

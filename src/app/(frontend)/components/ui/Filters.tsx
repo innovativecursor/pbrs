@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import DropdownProperties from './DropdownProperties'
 import homepage from '../../public/assets/propertiesHero/home-2.png'
 import budget from '../../public/assets/propertiesHero/budegt_image.png'
@@ -23,7 +23,7 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
   const [locations, setLocations] = useState<string[]>([])
   const [propertyTypes, setPropertyTypes] = useState<string[]>([])
   const [budgets, setBudgets] = useState<string[]>([])
-
+  const dropdownRef = useRef<HTMLDivElement>(null)
   const [selectedLocations, setSelectedLocations] = useState<string[]>([])
   const [selectedTypes, setSelectedTypes] = useState<string[]>([])
   const [selectedBudgets, setSelectedBudgets] = useState<string[]>([])
@@ -49,12 +49,14 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         setPropertyTypes(uniqueTypes)
 
         const priceRanges = propertyData.map((item) => {
-          const price = item.prop_price
-          if (price >= 1000000 && price <= 5000000) return '1-5M'
-          if (price > 5000000 && price <= 10000000) return '5-10M'
-          if (price > 10000000 && price <= 25000000) return '10-25M'
-          if (price > 25000000) return '25M+'
-          return 'Under 1M'
+          const price = Number(item.prop_price)
+
+          if (price < 100000) return '₱0 - ₱999,999'
+          else if (price < 5000000) return '₱1M - ₱5M'
+          else if (price < 10000000) return '₱5M - ₱10M'
+          else if (price < 25000000) return '₱10M - ₱25M'
+          else if (price < 50000000) return '₱25M - ₱50M'
+          else return '₱50M+'
         })
 
         const uniqueBudgetRanges = Array.from(new Set(priceRanges))
@@ -111,17 +113,17 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
 
     if (locationVals.length) params.set('location', locationVals.join(','))
     if (typeVals.length) {
-      // Replace '&' with safe placeholder
       const encodedTypes = typeVals.map((type) => type.replace(/&/g, '__AND__'))
       params.set('type', encodedTypes.join(','))
     }
 
     const budgetMap: Record<string, string> = {
-      'Under 1M': '0-999999',
-      '1-5M': '1000000-5000000',
-      '5-10M': '5000001-10000000',
-      '10-25M': '10000001-25000000',
-      '25M+': '25000001-999999999',
+      '₱0 - ₱999,999': '0-1000000',
+      '₱1M - ₱5M': '1000000-5000000',
+      '₱5M - ₱10M': '5000000-10000000',
+      '₱10M - ₱25M': '10000000-25000000',
+      '₱25M - ₱50M': '25000000-50000000',
+      '₱50M+': '50000000-999999999',
     }
 
     if (budgetVals.length) {
@@ -136,8 +138,21 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
     handleFilterChange()
   }
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div ref={dropdownRef} className="bg-white p-6 rounded-lg shadow-md">
       <Toaster />
       <h3 className="text-[14px] text-[#71AE4C] font-medium mb-3">Filter by Location</h3>
       <DropdownProperties

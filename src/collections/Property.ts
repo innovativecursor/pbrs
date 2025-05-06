@@ -31,7 +31,7 @@ export const Property: CollectionConfig = {
       label: 'Property Price',
       name: 'prop_price',
       type: 'number',
-      defaultValue: 1000000,
+      defaultValue: 100000,
       required: true,
     },
     {

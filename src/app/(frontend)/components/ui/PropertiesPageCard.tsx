@@ -59,19 +59,19 @@ const PropertiesPageCard: React.FC<PropertyCardProps> = ({
             <div className="-mx-4 mt-4 grid grid-cols-2 gap-0 text-sm bg-[#F1F1F1] text-[#181818] px-4 py-3">
               <div className="flex text-[12px] items-center gap-2 border-b border-r border-[#DADADA] pb-2 pr-2">
                 <FaBed />
-                {bedrooms} Bedrooms
+                {bedrooms ? `${bedrooms} Bedrooms` : 'N/A'}
               </div>
               <div className="flex text-[12px] items-center gap-2 border-b border-[#DADADA] pb-2 pl-2">
                 <FaBath />
-                {bathrooms} Bathrooms
+                {bathrooms ? `${bathrooms} Bathrooms` : 'N/A'}
               </div>
               <div className="flex text-[12px] items-center gap-2 border-r border-[#DADADA] pt-2 pr-2">
                 <FaRulerCombined />
-                {lotArea} sq Ft
+                {lotArea ? `${lotArea} sq Ft` : 'N/A'}
               </div>
               <div className="flex text-[12px] items-center gap-2 pt-2 pl-2">
                 <FaCar />
-                {garage} Garage
+                {garage ? `${garage} Garage` : 'No Garage'}
               </div>
             </div>
           </div>

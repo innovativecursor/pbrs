@@ -83,10 +83,16 @@ const Search = () => {
 
   return (
     <div className="relative z-10 mt-8 bg-white/20 backdrop-blur-xl border-[1px] border-[#fff] rounded-lg p-4 flex flex-col md:flex-row items-center gap-4 shadow-lg w-full max-w-5xl px-4 md:px-0">
-      <Dropdown icon={home} options={propertyTypes} onSelect={setSelectedPropertyType} />
-      <Dropdown withBorder icon={map} options={locations} onSelect={setSelectedLocation} />
-      <Dropdown icon={wallet} options={budgets} onSelect={setSelectedBudget} />
-      <div className="mr-[0] sm:mr-[16px]">
+      <div className="flex-1 min-w-[160px] w-full">
+        <Dropdown icon={home} options={propertyTypes} onSelect={setSelectedPropertyType} />
+      </div>
+      <div className="flex-1 min-w-[160px] w-full">
+        <Dropdown withBorder icon={map} options={locations} onSelect={setSelectedLocation} />
+      </div>
+      <div className="flex-1 min-w-[160px] w-full">
+        <Dropdown icon={wallet} options={budgets} onSelect={setSelectedBudget} />
+      </div>
+      <div className="w-full md:w-auto mr-0 sm:mr-4">
         <SearchButton onClick={handleSearch}>Search</SearchButton>
       </div>
     </div>
