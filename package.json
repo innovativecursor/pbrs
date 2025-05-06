@@ -25,6 +25,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.5.0",
     "eslint-config-next": "^15.2.1",
+    "express": "^5.1.0",
     "framer-motion": "^12.4.7",
     "graphql": "^16.8.1",
     "next": "15.1.5",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.1",
     "@types/node": "^22.5.4",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "19.0.7",
