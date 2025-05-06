@@ -22,6 +22,7 @@
     "@payloadcms/payload-cloud": "latest",
     "@payloadcms/richtext-lexical": "latest",
     "@tailwindcss/postcss": "^4.0.6",
+    "axios": "^1.9.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.5.0",
     "eslint-config-next": "^15.2.1",

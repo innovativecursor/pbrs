@@ -81,7 +81,6 @@ export const fetchLocationsCities = async () => {
 
 export const fetchPropertyTypes = async (): Promise<string[]> => {
   const propertyTypes: PropertyType[] = await fetchData('propertyType')
-
   return propertyTypes.map((type) => type.property_type) // Extract only the names
 }
 

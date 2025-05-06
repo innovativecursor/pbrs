@@ -48,19 +48,9 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         const uniqueTypes = Array.from(new Set(rawTypes))
         setPropertyTypes(uniqueTypes)
 
-        const priceRanges = propertyData.map((item) => {
-          const price = Number(item.prop_price)
-
-          if (price < 100000) return '₱0 - ₱999,999'
-          else if (price < 5000000) return '₱1M - ₱5M'
-          else if (price < 10000000) return '₱5M - ₱10M'
-          else if (price < 25000000) return '₱10M - ₱25M'
-          else if (price < 50000000) return '₱25M - ₱50M'
-          else return '₱50M+'
-        })
-
-        const uniqueBudgetRanges = Array.from(new Set(priceRanges))
-        setBudgets(uniqueBudgetRanges)
+        // Hardcoded budget options as requested
+        const hardcodedBudgets = ['Under 3M', 'Under 5M', 'Under 10M']
+        setBudgets(hardcodedBudgets)
       } catch (error) {
         console.error('Error fetching filter data:', error)
       }
@@ -117,18 +107,16 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
       params.set('type', encodedTypes.join(','))
     }
 
+    // Updated budget mapping with hardcoded values
     const budgetMap: Record<string, string> = {
-      '₱0 - ₱999,999': '0-1000000',
-      '₱1M - ₱5M': '1000000-5000000',
-      '₱5M - ₱10M': '5000000-10000000',
-      '₱10M - ₱25M': '10000000-25000000',
-      '₱25M - ₱50M': '25000000-50000000',
-      '₱50M+': '50000000-999999999',
+      'Under 3M': '2999999',
+      'Under 5M': '4999999',
+      'Under 10M': '9999999',
     }
 
     if (budgetVals.length) {
-      const budgetRanges = budgetVals.map((label) => budgetMap[label]).filter(Boolean)
-      params.set('budget', budgetRanges.join(','))
+      const budgetValues = budgetVals.map((label) => budgetMap[label]).filter(Boolean)
+      params.set('budget', budgetValues.join(','))
     }
 
     router.push(`?${params.toString()}`)
@@ -192,7 +180,7 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
       />
 
       <button
-        onClick={handleApplyFilters}
+        // onClick={handleApplyFilters}
         className="mt-4 text-[12px] w-full bg-[#71AE4C] text-white p-3 rounded-xl hover:bg-[#3E7B1A]"
       >
         Show Results

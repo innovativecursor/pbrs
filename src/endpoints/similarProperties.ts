@@ -17,7 +17,6 @@ const similarPropertiesEndpoint: Endpoint = {
       id,
       depth: 2,
     })
-    console.log('property==>', property)
     if (!property) {
       return Response.json({
         error: 'Property not found',
@@ -27,7 +26,7 @@ const similarPropertiesEndpoint: Endpoint = {
 
     // Step 2: Get the location information
     const location = property.prop_location as { id: number }
-    // Step 3: Find properties with the same location
+    // Step 3: Find properties with the same location and filter out the ones without
     const similarProperties = await payload.find({
       collection: 'property',
       where: {
