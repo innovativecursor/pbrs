@@ -7,6 +7,7 @@ import budget from '../../public/assets/propertiesHero/budegt_image.png'
 import location from '../../public/assets/propertiesHero/location.png'
 import { fetchData } from '../../utils/api'
 import { useRouter, useSearchParams } from 'next/navigation'
+import Toaster, { showToast } from './Toaster'
 
 // Define types
 interface LocationData {
@@ -27,7 +28,6 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
   const [selectedTypes, setSelectedTypes] = useState<string[]>([])
   const [selectedBudgets, setSelectedBudgets] = useState<string[]>([])
 
-  // Shared state for controlling open dropdown
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
 
   const router = useRouter()
@@ -71,14 +71,29 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
     option: string,
     selectedItems: string[],
     setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>,
+    filterType: 'location' | 'type' | 'budget',
   ) => {
     const isAlreadySelected = selectedItems.includes(option)
+
+    // 🚫 Prevent more than one selection
+    if (!isAlreadySelected && selectedItems.length >= 1) {
+      showToast(`You can only select one ${filterType}`, 'error')
+      return
+    }
+
     const updated = isAlreadySelected
       ? selectedItems.filter((item) => item !== option)
       : [...selectedItems, option]
 
     setSelectedItems(updated)
-    handleFilterChange(updated, selectedTypes, selectedBudgets)
+
+    if (filterType === 'location') {
+      handleFilterChange(updated, selectedTypes, selectedBudgets)
+    } else if (filterType === 'type') {
+      handleFilterChange(selectedLocations, updated, selectedBudgets)
+    } else if (filterType === 'budget') {
+      handleFilterChange(selectedLocations, selectedTypes, updated)
+    }
   }
 
   const handleFilterChange = (
@@ -95,8 +110,24 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
     const params = new URLSearchParams()
 
     if (locationVals.length) params.set('location', locationVals.join(','))
-    if (typeVals.length) params.set('type', typeVals.join(','))
-    if (budgetVals.length) params.set('budget', budgetVals.join(','))
+    if (typeVals.length) {
+      // Replace '&' with safe placeholder
+      const encodedTypes = typeVals.map((type) => type.replace(/&/g, '__AND__'))
+      params.set('type', encodedTypes.join(','))
+    }
+
+    const budgetMap: Record<string, string> = {
+      'Under 1M': '0-999999',
+      '1-5M': '1000000-5000000',
+      '5-10M': '5000001-10000000',
+      '10-25M': '10000001-25000000',
+      '25M+': '25000001-999999999',
+    }
+
+    if (budgetVals.length) {
+      const budgetRanges = budgetVals.map((label) => budgetMap[label]).filter(Boolean)
+      params.set('budget', budgetRanges.join(','))
+    }
 
     router.push(`?${params.toString()}`)
   }
@@ -107,13 +138,16 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
+      <Toaster />
       <h3 className="text-[14px] text-[#71AE4C] font-medium mb-3">Filter by Location</h3>
       <DropdownProperties
         iconSrc={location.src}
         label="Select Location"
         options={locations.length > 0 ? locations : ['Location not available currently']}
         selectedItems={selectedLocations}
-        onChange={(option) => handleMultiSelect(option, selectedLocations, setSelectedLocations)}
+        onChange={(option) =>
+          handleMultiSelect(option, selectedLocations, setSelectedLocations, 'location')
+        }
         isOpen={openDropdown === 'location'}
         setIsOpen={() => setOpenDropdown((prev) => (prev === 'location' ? null : 'location'))}
       />
@@ -124,7 +158,7 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         label="Select Type"
         options={propertyTypes.length > 0 ? propertyTypes : ['No type available currently']}
         selectedItems={selectedTypes}
-        onChange={(option) => handleMultiSelect(option, selectedTypes, setSelectedTypes)}
+        onChange={(option) => handleMultiSelect(option, selectedTypes, setSelectedTypes, 'type')}
         isOpen={openDropdown === 'type'}
         setIsOpen={() => setOpenDropdown((prev) => (prev === 'type' ? null : 'type'))}
       />
@@ -135,7 +169,9 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         label="Select Budget"
         options={budgets.length > 0 ? budgets : ['No budget available currently']}
         selectedItems={selectedBudgets}
-        onChange={(option) => handleMultiSelect(option, selectedBudgets, setSelectedBudgets)}
+        onChange={(option) =>
+          handleMultiSelect(option, selectedBudgets, setSelectedBudgets, 'budget')
+        }
         isOpen={openDropdown === 'budget'}
         setIsOpen={() => setOpenDropdown((prev) => (prev === 'budget' ? null : 'budget'))}
       />
