@@ -33,7 +33,11 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
         <Navbar />
         {loading && <Loader />} {/* Show Loader when loading */}
         <main
-          className={`${pathname.includes('/property') ? 'pt-[80px]' : ''} ${loading ? 'opacity-0' : 'opacity-100 transition-opacity duration-500'}`}
+          className={`${
+            pathname.includes('/property') || pathname.includes('/news-and-blogs')
+              ? 'pt-[80px]'
+              : ''
+          } ${loading ? 'opacity-0' : 'opacity-100 transition-opacity duration-500'}`}
         >
           {children}
         </main>
