@@ -32,12 +32,13 @@ export default function BlogDetailsPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold text-center mb-6">{blog.title}</h1>
-      <div className="w-full h-64 relative mb-6">
+      <div className="w-full relative mb-6">
         <Image
           src={`${process.env.NEXT_PUBLIC_API_URL}${blog.url}`}
           alt={blog.title}
-          fill
-          className="object-cover rounded-lg"
+          width={blog.width || 800} // fallback width
+          height={blog.height || 500} // fallback height
+          className="object-cover rounded-lg w-full h-auto"
           unoptimized
         />
       </div>
