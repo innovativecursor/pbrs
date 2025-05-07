@@ -54,7 +54,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
             : 'flex flex-col gap-6'
         }
       >
-        {properties.slice(0, visibleCount).map((property) =>
+        {properties?.slice(0, visibleCount).map((property) =>
           viewMode === 'grid' ? (
             <motion.div
               key={property.id}

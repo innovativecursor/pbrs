@@ -14,22 +14,31 @@ import Loader from '../components/ui/Loader'
 import { fetchData } from '../utils/api'
 import PropertyList from '../components/PropetyList'
 import ContactSection from '../components/ContactSection'
-
 export default function PropertiesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [properties, setProperties] = useState<any[]>([])
   const [filteredProperties, setFilteredProperties] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-
+  const [filteredResultsChanged, setFilteredResultsChanged] = useState(false)
   const searchParams = useSearchParams()
 
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const data = await fetchData('property')
-        setProperties(data)
-        setFilteredProperties(data)
+        // const data = await fetchData('property')
+        const storedFilters = sessionStorage.getItem('searchFilters')
+
+        if (storedFilters) {
+          sessionStorage.removeItem('searchFilters') // Clear after use
+        }
+
+        const res = await fetch(`/api/properties?${storedFilters}`)
+        if (!res.ok) throw new Error('Failed to fetch results')
+        const data = await res.json()
+        //Calling the queried API over here
+        setProperties(data?.properties?.docs)
+        setFilteredProperties(data?.properties?.docs)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
       } finally {
@@ -38,65 +47,68 @@ export default function PropertiesPage() {
     }
 
     fetchProperties()
-  }, [])
+  }, [filteredResultsChanged])
 
-  useEffect(() => {
-    if (!properties.length) return
+  // useEffect(() => {
+  //   if (!properties.length) return
 
-    const type = searchParams.get('type')
-    const location = searchParams.get('location')
-    const budget = searchParams.get('budget')
+  //   const type = searchParams.get('type')
+  //   const location = searchParams.get('location')
+  //   const budget = searchParams.get('budget')
 
-    console.log('Filters:', { type, location, budget })
+  //   console.log('Filters:', { type, location, budget })
 
-    let filtered = [...properties]
+  //   let filtered = [...properties]
 
-    if (type) {
-      filtered = filtered.filter(
-        (p: any) =>
-          typeof p.prop_type === 'string' && p.prop_type.toLowerCase() === type.toLowerCase(),
-      )
-    }
+  //   if (type) {
+  //     filtered = filtered.filter(
+  //       (p: any) =>
+  //         typeof p.prop_type === 'string' && p.prop_type.toLowerCase() === type.toLowerCase(),
+  //     )
+  //   }
 
-    if (location) {
-      filtered = filtered.filter(
-        (p: any) => p.prop_location?.location_city?.toLowerCase() === location.toLowerCase(),
-      )
-    }
+  //   if (location) {
+  //     filtered = filtered.filter(
+  //       (p: any) => p.prop_location?.location_city?.toLowerCase() === location.toLowerCase(),
+  //     )
+  //   }
 
-    if (budget) {
-      const max = parseInt(budget, 10)
-      if (!isNaN(max)) {
-        filtered = filtered.filter((p: any) => p.prop_price <= max)
-      }
-    }
+  //   if (budget) {
+  //     const max = parseInt(budget, 10)
+  //     if (!isNaN(max)) {
+  //       filtered = filtered.filter((p: any) => p.prop_price <= max)
+  //     }
+  //   }
 
-    console.log('Filtered Properties:', filtered)
+  //   console.log('Filtered Properties:', filtered)
 
-    setFilteredProperties(filtered)
-  }, [searchParams, properties])
+  //   setFilteredProperties(filtered)
+  // }, [searchParams, properties])
 
-  const handleFilterChange = (filters: any) => {
-    let filtered = [...properties]
+  // const handleFilterChange = (filters: any) => {
+  //   let filtered = [...properties]
 
-    if (filters.location?.length) {
-      filtered = filtered.filter((p: any) =>
-        filters.location.includes(p.prop_location?.location_city),
-      )
-    }
+  //   if (filters.location?.length) {
+  //     filtered = filtered.filter((p: any) =>
+  //       filters.location.includes(p.prop_location?.location_city),
+  //     )
+  //   }
 
-    if (filters.type?.length) {
-      filtered = filtered.filter((p: any) => filters.type.includes(p.prop_type))
-    }
+  //   if (filters.type?.length) {
+  //     filtered = filtered.filter((p: any) => filters.type.includes(p.prop_type))
+  //   }
 
-    if (filters.budget?.length) {
-      const max = parseInt(filters.budget[0], 10)
-      if (!isNaN(max)) {
-        filtered = filtered.filter((p: any) => p.prop_price <= max)
-      }
-    }
+  //   if (filters.budget?.length) {
+  //     const max = parseInt(filters.budget[0], 10)
+  //     if (!isNaN(max)) {
+  //       filtered = filtered.filter((p: any) => p.prop_price <= max)
+  //     }
+  //   }
 
-    setFilteredProperties(filtered)
+  //   setFilteredProperties(filtered)
+  // }
+  const handleFilterChange = (trigger: boolean) => {
+    if (trigger) setFilteredResultsChanged(!filteredResultsChanged)
   }
   const [sortOption, setSortOption] = useState('Featured')
   const handleSortChange = (option: string) => {

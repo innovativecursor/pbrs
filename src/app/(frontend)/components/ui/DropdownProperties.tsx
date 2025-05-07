@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaChevronDown } from 'react-icons/fa'
+import Image from 'next/image'
 
 interface DropdownProps {
   label: string
@@ -29,7 +30,7 @@ const DropdownProperties: React.FC<DropdownProps> = ({
         className="flex justify-between items-center p-2 relative"
         onClick={() => setIsOpen?.()} // Control open state from parent
       >
-        <img src={iconSrc} alt="Icon" className="w-4 h-4" />
+        <Image width={100} height={100} src={iconSrc} alt="Icon" className="w-4 h-4" />
         <span className="absolute left-1/2 transform -translate-x-1/2 text-[#000000] text-[12px]">
           {selectedItems.length > 0 ? selectedItems.join(', ') : label}
         </span>
