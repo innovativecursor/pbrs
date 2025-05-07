@@ -98,7 +98,22 @@ export default function PropertiesPage() {
 
     setFilteredProperties(filtered)
   }
+  const [sortOption, setSortOption] = useState('Featured')
+  const handleSortChange = (option: string) => {
+    setSortOption(option)
 
+    let sorted = [...filteredProperties]
+
+    if (option === 'Price: Low to High') {
+      sorted.sort((a, b) => a.prop_price - b.prop_price)
+    } else if (option === 'Price: High to Low') {
+      sorted.sort((a, b) => b.prop_price - a.prop_price)
+    } else {
+      sorted = [...properties] // Featured: show as initially fetched
+    }
+
+    setFilteredProperties(sorted)
+  }
   return (
     <>
       <HeroProperties />
@@ -114,6 +129,8 @@ export default function PropertiesPage() {
               viewMode={viewMode}
               setViewMode={setViewMode}
               totalResults={filteredProperties.length}
+              onSortChange={handleSortChange}
+              selectedSort={sortOption}
             />
 
             {loading ? (

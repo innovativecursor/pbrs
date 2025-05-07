@@ -179,10 +179,7 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         setIsOpen={() => setOpenDropdown((prev) => (prev === 'budget' ? null : 'budget'))}
       />
 
-      <button
-        // onClick={handleApplyFilters}
-        className="mt-4 text-[12px] w-full bg-[#71AE4C] text-white p-3 rounded-xl hover:bg-[#3E7B1A]"
-      >
+      <button className="mt-4 text-[12px] w-full bg-[#71AE4C] text-white p-3 rounded-xl hover:bg-[#3E7B1A]">
         Show Results
       </button>
     </div>

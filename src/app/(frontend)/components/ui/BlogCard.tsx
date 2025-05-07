@@ -10,14 +10,16 @@ interface BlogCardProps {
 const extractText = (content: any) => {
   if (!content?.root?.children) return 'No content available'
 
-  return content.root.children
+  const text = content.root.children
     .map((child: any) => (child.children ? child.children.map((c: any) => c.text).join(' ') : ''))
     .join(' ')
+
+  return text.length > 100 ? text.slice(0, 100) + '...' : text
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
   return (
-    <Link href={`/news-and-blogs/${blog.id}`}>
+    <Link href={`/news-and-blogs/${blog.id}`} target="_blank" rel="noopener noreferrer">
       <div className="bg-white border border-[#c6c4c4] overflow-hidden transition-shadow duration-300 hover:shadow-lg group">
         <div className="relative">
           {blog.url && (
@@ -40,7 +42,10 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
           <h3 className="text-[20px] font-semibold">{blog.title}</h3>
           <p className="text-[#5A5A5A] text-[12px] mb-2 mt-4">{extractText(blog.content)}</p>
           <Link
-            href="#"
+            href={`/news-and-blogs/${blog.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Read more about ${blog.title}`}
             className="text-[#71AE4C] text-[13px] font-semibold uppercase mt-3 inline-block"
           >
             Read More

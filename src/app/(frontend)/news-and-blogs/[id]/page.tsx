@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { fetchNewsBlogs } from '../../utils/api'
+import Loader from '../../components/ui/Loader'
 // adjust import as per structure
 
 export default function BlogDetailsPage() {
@@ -26,7 +27,7 @@ export default function BlogDetailsPage() {
     }
   }, [id])
 
-  if (loading) return <p className="text-center mt-10">Loading...</p>
+  if (loading) return <Loader />
   if (!blog) return <p className="text-center mt-10 text-red-500">Blog not found</p>
 
   return (

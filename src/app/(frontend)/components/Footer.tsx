@@ -19,9 +19,9 @@ const Footer: React.FC = () => {
               <Image src={logo} alt="PBRS Logo" width={200} height={200} />
             </div>
             <p className="text-gray-400 mt-4 text-sm leading-relaxed">
-              PB Realty Services provides expert real estate solutions to simplify your home search,
-              ensuring you find a property that fits your lifestyle and budget. Let us guide you in
-              securing your dream home hassle-free!
+              Welcome to Paul Balita Realty Services 🏡 Discover the perfect place to call home with
+              our expert realty services. From cozy apartments to luxurious estates, we’re dedicated
+              to helping you find a property that fits your lifestyle and budget.
             </p>
             <div className="flex space-x-4 mt-4">
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform">

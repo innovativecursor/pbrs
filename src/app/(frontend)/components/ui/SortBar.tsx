@@ -8,14 +8,21 @@ import { IoChevronDown } from 'react-icons/io5'
 interface SortBarProps {
   viewMode: 'grid' | 'list'
   setViewMode: (mode: 'grid' | 'list') => void
-  totalResults: number // Accept total results as a prop
+  totalResults: number
+  onSortChange: (option: string) => void
+  selectedSort: string
 }
 
-const SortBar: React.FC<SortBarProps> = ({ viewMode, setViewMode, totalResults }) => {
+const SortBar: React.FC<SortBarProps> = ({
+  viewMode,
+  setViewMode,
+  totalResults,
+  onSortChange,
+  selectedSort,
+}) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false)
-  const [selectedSort, setSelectedSort] = useState('Sort by Latest')
 
-  const sortOptions = ['Sort by Latest', 'Sort by Price', 'Sort by Popularity']
+  const sortOptions = ['Featured', 'Price: Low to High', 'Price: High to Low']
 
   return (
     <div className="flex justify-between items-center bg-white p-3 shadow-md rounded-lg mb-6">
@@ -35,7 +42,6 @@ const SortBar: React.FC<SortBarProps> = ({ viewMode, setViewMode, totalResults }
           <FaList size={16} />
         </button>
 
-        {/* ✅ Dynamic Results Count */}
         <span className="text-gray-600 text-xs">Showing all {totalResults} Results</span>
       </div>
 
@@ -65,7 +71,7 @@ const SortBar: React.FC<SortBarProps> = ({ viewMode, setViewMode, totalResults }
                 <button
                   key={option}
                   onClick={() => {
-                    setSelectedSort(option)
+                    onSortChange(option)
                     setDropdownOpen(false)
                   }}
                   className="block w-full px-3 py-2 text-left text-gray-700 hover:bg-gray-100 text-xs"

@@ -34,7 +34,7 @@ const DiscountPropertyCard: React.FC<PropertyCardProps> = ({
   id,
 }) => {
   return (
-    <Link href={`/property/${id}`}>
+    <Link href={`/property/${id}`} target="_blank" rel="noopener noreferrer">
       <div className="group bg-white border border-[#F1F1F1] overflow-hidden relative transition-all duration-500 hover:shadow-lg">
         {/* Wrapper to Move Image & Content Up More */}
         <div className="relative transition-all duration-500 group-hover:-translate-y-20">
@@ -64,7 +64,7 @@ const DiscountPropertyCard: React.FC<PropertyCardProps> = ({
           <div className="pt-4 px-4">
             <h3 className="text-lg font-semibold">{title}</h3>
             <div className="flex items-center text-gray-500 text-[13px] mt-1">
-              <FaMapMarkerAlt className="mr-1" />
+              <FaMapMarkerAlt className="mr-1 text-black" />
               {propDestination}, {propDestinationSub}
             </div>
             <p className="text-[#71AE4C] font-semibold text-lg mt-2">{price}</p>
@@ -89,7 +89,9 @@ const DiscountPropertyCard: React.FC<PropertyCardProps> = ({
 
         {/* Button - Smooth Fade In/Out */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 h-0 overflow-hidden opacity-0 group-hover:h-auto group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
-          <DiscountButton buttonText={buttonText} />
+          <Link href={`/property/${id}`} target="_blank" rel="noopener noreferrer">
+            <DiscountButton buttonText={buttonText} />
+          </Link>
         </div>
       </div>
     </Link>
