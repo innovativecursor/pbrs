@@ -36,7 +36,7 @@ const SortBar: React.FC<SortBarProps> = ({
         </button>
 
         <button
-          className={`p-2 rounded-lg text-sm ${viewMode === 'list' ? 'bg-gray-200' : ''}`}
+          className={`p-2 rounded-lg text-sm ${viewMode === 'list' ? 'bg-gray-200' : ''} hidden md:inline-flex`}
           onClick={() => setViewMode('list')}
         >
           <FaList size={16} />

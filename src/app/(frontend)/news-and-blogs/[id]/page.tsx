@@ -60,7 +60,6 @@ export default function BlogDetailsPage() {
             </ul>
           )
 
-        // Add support for more types if needed
         default:
           return null
       }

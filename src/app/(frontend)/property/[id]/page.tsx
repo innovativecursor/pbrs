@@ -65,7 +65,7 @@ const PropertyPage = () => {
           <BackButton />
 
           {/* Gallery & Info */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 border-b border-gray-300 pb-10 w-full max-w-[95%] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 border-b border-gray-300 pb-10 w-full max-w-[95%] mx-auto">
             <PropertyGallery images={property?.images || []} />
             <PropertyInfo property={property} />
           </div>
