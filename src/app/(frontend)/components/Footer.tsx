@@ -7,8 +7,12 @@ import ContactButton from './ui/ContactButton'
 import EmailIcon from '../public/assets/footerAssets/email_id.png'
 import PhoneIcon from '../public/assets/footerAssets/phone_call.png'
 import LocationIcon from '../public/assets/footerAssets/location.png'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const Footer: React.FC = () => {
+  const pathname = usePathname()
+  const isPropertiesPage = pathname.includes('properties') || pathname.includes('property') // Check if it's the properties or property page
   return (
     <footer className="bg-black text-white pt-[100px] pb-[50px]">
       <div className="container mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
@@ -25,13 +29,27 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4 mt-4">
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform">
-                <FaFacebookF className="text-[#71AE4C] text-[16px]" />
+                <Link
+                  href="https://www.facebook.com/paulbalitarealtyservicespbrs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaFacebookF className="text-[#71AE4C] text-[16px]" />
+                </Link>
               </div>
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform">
-                <FaWhatsapp className="text-[#71AE4C] text-[16px]" />
+                <Link href="https://wa.me/+639105266020" target="_blank" rel="noopener noreferrer">
+                  <FaWhatsapp className="text-[#71AE4C] text-[16px]" />
+                </Link>
               </div>
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform">
-                <FaViber className="text-[#71AE4C] text-[16px]" />
+                <Link
+                  href="viber://chat?number=+639105266020"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaViber className="text-[#71AE4C] text-[16px]" />
+                </Link>
               </div>
             </div>
           </div>
@@ -41,11 +59,37 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold mb-3">QUICK LINKS</h3>
             <div className="w-28 border-b-2 border-[#71AE4C] mb-3"></div>
             <ul className="text-gray-400 space-y-2">
-              <li className="hover:text-white transition">Home</li>
-              <li className="hover:text-white transition">About Us</li>
-              <li className="hover:text-white transition">Properties</li>
-              <li className="hover:text-white transition">News & Blogs</li>
-              <li className="hover:text-white transition">Contact Us</li>
+              <div className="">
+                <Link href="/">
+                  <li className="hover:text-white transition">Home</li>
+                </Link>
+              </div>
+              <div className="">
+                <Link href={isPropertiesPage ? '/' : '#about'}>
+                  <li className="hover:text-white transition">About Us</li>
+                </Link>
+              </div>
+              <div className="">
+                <Link href="/properties">
+                  <li className="hover:text-white transition">Properties</li>
+                </Link>
+              </div>
+              <div className="">
+                <Link href={isPropertiesPage ? '/' : '#news'}>
+                  <li className="hover:text-white transition">News & Blogs</li>
+                </Link>
+              </div>
+              <div className="">
+                <Link
+                  href={
+                    isPropertiesPage
+                      ? 'https://www.facebook.com/paulbalitarealtyservicespbrs'
+                      : '#contact'
+                  }
+                >
+                  <li className="hover:text-white transition">Contact Us</li>
+                </Link>
+              </div>
             </ul>
           </div>
 
@@ -76,10 +120,13 @@ const Footer: React.FC = () => {
             <p className="text-gray-400 mb-4">
               Do feel free to book an appointment by clicking the link below
             </p>
-
-            <a href="tel:09381479753">
+            <Link
+              href="https://www.facebook.com/messages/t/177907162541904"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <ContactButton text="Book an Agent" />
-            </a>
+            </Link>
           </div>
         </div>
 

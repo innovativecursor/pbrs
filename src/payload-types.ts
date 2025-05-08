@@ -267,7 +267,8 @@ export interface Team {
   emp_name: string;
   emp_designation: string;
   emp_email?: string | null;
-  emp_phone?: number | null;
+  emp_phone?: string | null;
+  emp_support?: boolean | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -518,6 +519,7 @@ export interface TeamSelect<T extends boolean = true> {
   emp_designation?: T;
   emp_email?: T;
   emp_phone?: T;
+  emp_support?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

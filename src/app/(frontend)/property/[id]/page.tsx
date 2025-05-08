@@ -62,7 +62,7 @@ const PropertyPage = () => {
           propertyDestination={property.prop_destination}
         />
         <div className="max-w-7xl mx-auto p-6 w-full">
-          <BackButton />
+          {/* <BackButton /> */}
 
           {/* Gallery & Info */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 border-b border-gray-300 pb-10 w-full max-w-[95%] mx-auto">

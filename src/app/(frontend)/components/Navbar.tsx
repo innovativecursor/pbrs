@@ -21,15 +21,16 @@ const Navbar = () => {
     pathname.startsWith('/news-and-blogs')
       ? 'bg-[#0B0D0A]'
       : 'bg-gradient-to-b from-black/50 to-transparent'
-
-  const isHomePage = pathname === '/'
   const isPropertiesPage = pathname.includes('properties') || pathname.includes('property') // Check if it's the properties or property page
 
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'About Us', href: isPropertiesPage ? '/' : '#about' }, // If Home or Properties page, link to homepage
     { name: 'Properties', href: '/properties' },
-    { name: 'Contact Us', href: isPropertiesPage ? '/' : '#contact' }, // If Home or Properties page, link to homepage
+    {
+      name: 'Contact Us',
+      href: isPropertiesPage ? 'https://www.facebook.com/paulbalitarealtyservicespbrs' : '#contact',
+    }, // If Home or Properties page, link to homepage
   ]
   return (
     <nav className={`absolute top-0 left-0 w-full z-50 ${navbarBg}`}>
@@ -65,7 +66,7 @@ const Navbar = () => {
 
         {/* Button (Desktop Only) */}
         <Link
-          href="https://www.facebook.com/paulbalitarealtyservicespbrs"
+          href="https://www.facebook.com/messages/t/177907162541904"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden lg:block"

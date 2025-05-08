@@ -27,7 +27,14 @@ export const Team: CollectionConfig = {
     {
       label: 'Employee Number',
       name: 'emp_phone',
-      type: 'number',
+      type: 'text',
+      required: false,
+    },
+    {
+      label: 'Available for Support',
+      name: 'emp_support',
+      type: 'checkbox',
+      defaultValue: false,
       required: false,
     },
   ],

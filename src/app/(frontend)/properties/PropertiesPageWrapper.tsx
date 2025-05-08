@@ -48,65 +48,6 @@ export default function PropertiesPage() {
 
     fetchProperties()
   }, [filteredResultsChanged])
-
-  // useEffect(() => {
-  //   if (!properties.length) return
-
-  //   const type = searchParams.get('type')
-  //   const location = searchParams.get('location')
-  //   const budget = searchParams.get('budget')
-
-  //   console.log('Filters:', { type, location, budget })
-
-  //   let filtered = [...properties]
-
-  //   if (type) {
-  //     filtered = filtered.filter(
-  //       (p: any) =>
-  //         typeof p.prop_type === 'string' && p.prop_type.toLowerCase() === type.toLowerCase(),
-  //     )
-  //   }
-
-  //   if (location) {
-  //     filtered = filtered.filter(
-  //       (p: any) => p.prop_location?.location_city?.toLowerCase() === location.toLowerCase(),
-  //     )
-  //   }
-
-  //   if (budget) {
-  //     const max = parseInt(budget, 10)
-  //     if (!isNaN(max)) {
-  //       filtered = filtered.filter((p: any) => p.prop_price <= max)
-  //     }
-  //   }
-
-  //   console.log('Filtered Properties:', filtered)
-
-  //   setFilteredProperties(filtered)
-  // }, [searchParams, properties])
-
-  // const handleFilterChange = (filters: any) => {
-  //   let filtered = [...properties]
-
-  //   if (filters.location?.length) {
-  //     filtered = filtered.filter((p: any) =>
-  //       filters.location.includes(p.prop_location?.location_city),
-  //     )
-  //   }
-
-  //   if (filters.type?.length) {
-  //     filtered = filtered.filter((p: any) => filters.type.includes(p.prop_type))
-  //   }
-
-  //   if (filters.budget?.length) {
-  //     const max = parseInt(filters.budget[0], 10)
-  //     if (!isNaN(max)) {
-  //       filtered = filtered.filter((p: any) => p.prop_price <= max)
-  //     }
-  //   }
-
-  //   setFilteredProperties(filtered)
-  // }
   const handleFilterChange = (trigger: boolean) => {
     if (trigger) setFilteredResultsChanged(!filteredResultsChanged)
   }
@@ -161,11 +102,13 @@ export default function PropertiesPage() {
           <DiscountPropertyList />
         </div>
       </div>
-      <div className="w-full">
-        <div className="max-w-7xl mx-auto">
-          <ContactSection />
+      <section id="propContact">
+        <div className="w-full">
+          <div className="max-w-7xl mx-auto">
+            <ContactSection />
+          </div>
         </div>
-      </div>
+      </section>
     </>
   )
 }

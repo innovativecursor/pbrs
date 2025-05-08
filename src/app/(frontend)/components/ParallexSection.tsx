@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import backgroundHero from '../public/assets/heroSection/hero_plain.png'
 import ContactButton from './ui/ContactButton'
 
@@ -31,10 +32,14 @@ const ParallaxSection = () => {
         </h2>
 
         <p className="text-sm sm:text-base md:text-lg mb-4">Call +63 917 490 1350</p>
-
-        <a href="tel:+639174901350">
+        <Link
+          href="https://www.facebook.com/messages/t/177907162541904"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden lg:block"
+        >
           <ContactButton text={'Contact Now'} />
-        </a>
+        </Link>
       </div>
     </section>
   )

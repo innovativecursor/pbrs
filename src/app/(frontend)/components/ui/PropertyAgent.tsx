@@ -4,19 +4,27 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { IoMailOutline, IoCallOutline } from 'react-icons/io5'
-import salesAgent from '../../public/assets/teamAssets/sales_agent.png'
-import salesDirector from '../../public/assets/teamAssets/sales_director.png'
 import Link from 'next/link'
+import { fetchTeamMembers } from '../../utils/api'
 interface AgentCardProps {
   image: string
   name: string
   role: string
+  email?: string
+  phone?: string
 }
-
+interface TeamMember {
+  url: string
+  emp_name: string
+  emp_designation: string
+  emp_email?: string
+  emp_phone?: string // changed from number to string to match Payload field
+  emp_support?: boolean
+}
 const PropertyAgent = () => {
   const containerRef = useRef(null)
   const [deviceType, setDeviceType] = useState('mobile')
-
+  const [propAgent, setPropAgent] = useState<TeamMember[]>([])
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth
@@ -30,10 +38,13 @@ const PropertyAgent = () => {
     }
     handleResize() // Set initial value
     window.addEventListener('resize', handleResize)
-
+    getTeamMem()
     return () => window.removeEventListener('resize', handleResize)
   }, [])
-
+  const getTeamMem = async () => {
+    const res = await fetchTeamMembers()
+    setPropAgent(res)
+  }
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
@@ -43,7 +54,7 @@ const PropertyAgent = () => {
   const yTransform = useTransform(
     scrollYProgress,
     [0, 1],
-    deviceType === 'desktop' ? [-25, 340] : deviceType === 'tablet' ? [1, 500] : [0, 0],
+    deviceType === 'desktop' ? [-10, 100] : deviceType === 'tablet' ? [1, 100] : [0, 0],
   )
 
   return (
@@ -54,11 +65,11 @@ const PropertyAgent = () => {
           className="absolute top-0 bg-white shadow-lg rounded-2xl p-6 w-full max-w-sm mt-8" // Added margin-top
           style={{ y: yTransform }}
         >
-          <AgentContent />
+          <AgentContent agents={propAgent.filter((agent) => agent.emp_support)} />
         </motion.div>
       ) : (
         <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-[90%] mx-auto">
-          <AgentContent />
+          <AgentContent agents={propAgent.filter((agent) => agent.emp_support)} />
         </div>
       )}
     </div>
@@ -66,10 +77,18 @@ const PropertyAgent = () => {
 }
 
 // Extracted content for reuse
-const AgentContent = () => (
+const AgentContent: React.FC<{ agents: TeamMember[] }> = ({ agents }) => (
   <div className="space-y-3">
-    <AgentCard image={salesAgent.src} name="Roselyn Cortez" role="Sales Agent" />
-    <AgentCard image={salesDirector.src} name="Helen Victoriano" role="Sales Director" />
+    {agents.map((agent, i) => (
+      <AgentCard
+        key={i}
+        image={agent.url} // or dynamically based on index, etc.
+        name={agent.emp_name}
+        role={agent.emp_designation}
+        email={agent.emp_email}
+        phone={agent.emp_phone}
+      />
+    ))}
     <Link
       href="https://www.facebook.com/paulbalitarealtyservicespbrs"
       target="_blank"
@@ -83,7 +102,7 @@ const AgentContent = () => (
 )
 
 // Reusable Agent Card Component
-const AgentCard: React.FC<AgentCardProps> = ({ image, name, role }) => (
+const AgentCard: React.FC<AgentCardProps> = ({ image, name, role, email, phone }) => (
   <div className="flex items-center justify-between border-[0.5px] border-[#C6C6C6] p-4 rounded-lg pb-3">
     <div className="flex items-center space-x-3">
       <Image src={image} alt={name} width={60} height={60} className="rounded-full" />
@@ -93,18 +112,16 @@ const AgentCard: React.FC<AgentCardProps> = ({ image, name, role }) => (
       </div>
     </div>
     <div className="flex space-x-2">
-      <a
-        href={`mailto:${
-          name === 'Helen Victoriano' ? 'helenvictoriano17@gmail.com' : 'pbrsrealty2022@gmail.com'
-        }`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <IoMailOutline className="text-[#CB6ABA]" size={20} />
-      </a>
-      <a href={`tel:${name === 'Helen Victoriano' ? '09381479753' : '09270527135'}`}>
-        <IoCallOutline className="text-[#CB6ABA]" size={20} />
-      </a>
+      {email && (
+        <a href={`mailto:${email}`} target="_blank" rel="noopener noreferrer">
+          <IoMailOutline className="text-[#CB6ABA]" size={20} />
+        </a>
+      )}
+      {phone && (
+        <a href={`tel:${phone}`}>
+          <IoCallOutline className="text-[#CB6ABA]" size={20} />
+        </a>
+      )}
     </div>
   </div>
 )
