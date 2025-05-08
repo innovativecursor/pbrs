@@ -4,6 +4,7 @@ import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined, FaCar } from 'react-ico
 import { motion } from 'framer-motion'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6'
 import { useRef } from 'react'
+import Link from 'next/link'
 
 // Define the type for property data
 interface Property {
@@ -69,51 +70,62 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties
         className="mx-auto max-w-7xl pb-12 flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth"
       >
         {similarProperties.map((property, index) => (
-          <motion.div
+          <Link
             key={property.id ?? index}
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            whileHover="hover"
-            className="flex-none w-[280px] sm:w-[300px] md:w-[340px] border-[#C4C4C4] border rounded-lg shadow-lg overflow-hidden bg-white"
+            href={`/property/${property.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <img
-              src={property.images[0]?.image.url}
-              alt={property.prop_name || 'Property image'}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4 text-center">
-              <h3 className="text-lg font-semibold">{property.prop_name}</h3>
-              <p className="text-gray-600 flex items-center justify-center gap-1 text-sm">
-                <FaMapMarkerAlt className="text-green-600" /> {property.prop_location.location_city}
-              </p>
-              <p className="text-[#71ae4c] font-bold text-lg mt-2">
-                {new Intl.NumberFormat().format(property.prop_price)}₱
-              </p>
-              <div className="flex justify-center gap-4 text-sm text-gray-700 mt-3">
-                <span className="flex items-center gap-1">
-                  <FaBed /> {property.bedrooms} Beds
-                </span>
-                <span className="flex items-center gap-1">
-                  <FaBath /> {property.bathrooms} Baths
-                </span>
+            <motion.div
+              variants={cardVariants}
+              initial="hidden"
+              animate="visible"
+              whileHover="hover"
+              className="flex-none w-[280px] sm:w-[300px] md:w-[340px] border-[#C4C4C4] border rounded-lg shadow-lg overflow-hidden bg-white"
+            >
+              <img
+                src={property.images[0]?.image.url}
+                alt={property.prop_name || 'Property image'}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4 text-center">
+                <h3 className="text-lg font-semibold">{property.prop_name}</h3>
+                <p className="text-gray-600 flex items-center justify-center gap-1 text-sm">
+                  <FaMapMarkerAlt className="mr-1 text-black" />{' '}
+                  {property.prop_location.location_city}
+                </p>
+                <p className="text-[#71ae4c] font-bold text-lg mt-2">
+                  {new Intl.NumberFormat().format(property.prop_price)}₱
+                </p>
+                <div className="-mx-4 mt-4 grid grid-cols-2 gap-0 text-sm bg-[#F1F1F1] text-[#181818] px-4 py-3">
+                  <div className="flex text-[12px] items-center gap-2 border-b border-r border-[#DADADA] pb-2 pr-2">
+                    <FaBed />
+                    {property.bedrooms ? `${property.bedrooms} Bedrooms` : 'N/A'}
+                  </div>
+                  <div className="flex text-[12px] items-center gap-2 border-b border-[#DADADA] pb-2 pl-2">
+                    <FaBath />
+                    {property.bathrooms ? `${property.bathrooms} Bathrooms` : 'N/A'}
+                  </div>
+                  <div className="flex text-[12px] items-center gap-2 border-r border-[#DADADA] pt-2 pr-2">
+                    <FaRulerCombined />
+                    {property.prop_size ? `${property.prop_size} sq Ft` : 'N/A'}
+                  </div>
+                  <div className="flex text-[12px] items-center gap-2 pt-2 pl-2">
+                    <FaCar />
+                    {property.garages ? `${property.garages} Garage` : 'No Garage'}
+                  </div>
+                </div>
+                <Link href={`/property/${property.id}`} target="_blank" rel="noopener noreferrer">
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    className="px-7 py-3 mt-4 bg-[#71AE4C] text-white font-light rounded-lg hover:bg-[#FFF] hover:border hover:border-[#71AE4C] hover:text-[#000] transition duration-300 shadow-md cursor-pointer text-[11px] text-center"
+                  >
+                    View Details
+                  </motion.div>
+                </Link>
               </div>
-              <div className="flex justify-center gap-4 text-sm text-gray-700 mt-1">
-                <span className="flex items-center gap-1">
-                  <FaRulerCombined /> {property.prop_size} sq ft
-                </span>
-                <span className="flex items-center gap-1">
-                  <FaCar /> {property.garages}
-                </span>
-              </div>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                className="w-full mt-4 py-2 bg-[#71ae4c] text-white font-semibold rounded-lg"
-              >
-                View Details
-              </motion.button>
-            </div>
-          </motion.div>
+            </motion.div>
+          </Link>
         ))}
       </div>
     </div>
