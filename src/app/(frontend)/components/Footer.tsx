@@ -32,21 +32,25 @@ const Footer: React.FC = () => {
                 <Link
                   href="https://www.facebook.com/paulbalitarealtyservicespbrs"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform"
                 >
                   <FaFacebookF className="text-[#71AE4C] text-[16px]" />
                 </Link>
               </div>
-              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform">
-                <Link href="https://wa.me/+639105266020" target="_blank" rel="noopener noreferrer">
+              <div>
+                <Link
+                  href="https://wa.me/+639105266020"
+                  target="_blank"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform"
+                >
                   <FaWhatsapp className="text-[#71AE4C] text-[16px]" />
                 </Link>
               </div>
-              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform">
+              <div>
                 <Link
                   href="viber://chat?number=+639105266020"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-transparent border border-[#71AE4C] cursor-pointer hover:scale-110 transition-transform"
                 >
                   <FaViber className="text-[#71AE4C] text-[16px]" />
                 </Link>
