@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { FaCheckCircle } from 'react-icons/fa'
+
 import background from '../public/assets/aboutUsSection/about_us_section.png'
 import whiteVector from '../public/assets/aboutUsSection/white_vector.png'
 import correct from '../public/assets/aboutUsSection/correct_image.png'
-import { Button } from './ui/Button'
+
 import TeamMembersButton from './ui/TeamMembersButton'
 import TeamModal from './ui/TeamModal'
 
