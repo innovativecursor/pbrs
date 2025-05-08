@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { IoMailOutline, IoCallOutline } from 'react-icons/io5'
 import salesAgent from '../../public/assets/teamAssets/sales_agent.png'
 import salesDirector from '../../public/assets/teamAssets/sales_director.png'
+import Link from 'next/link'
 interface AgentCardProps {
   image: string
   name: string
@@ -69,9 +70,15 @@ const AgentContent = () => (
   <div className="space-y-3">
     <AgentCard image={salesAgent.src} name="Roselyn Cortez" role="Sales Agent" />
     <AgentCard image={salesDirector.src} name="Helen Victoriano" role="Sales Director" />
-    <button className="w-full bg-[#CB6ABA] text-white text-[13px] font-medium py-2 rounded-lg mt-2 transition hover:bg-[black] cursor-pointer">
-      Schedule a Viewing
-    </button>
+    <Link
+      href="https://www.facebook.com/paulbalitarealtyservicespbrs"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <button className="w-full bg-[#CB6ABA] text-white text-[13px] font-medium py-2 rounded-lg mt-2 transition hover:bg-[black] cursor-pointer">
+        Schedule a Viewing
+      </button>
+    </Link>
   </div>
 )
 
@@ -86,8 +93,18 @@ const AgentCard: React.FC<AgentCardProps> = ({ image, name, role }) => (
       </div>
     </div>
     <div className="flex space-x-2">
-      <IoMailOutline className="text-[#CB6ABA]" size={20} />
-      <IoCallOutline className="text-[#CB6ABA]" size={20} />
+      <a
+        href={`mailto:${
+          name === 'Helen Victoriano' ? 'helenvictoriano17@gmail.com' : 'pbrsrealty2022@gmail.com'
+        }`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <IoMailOutline className="text-[#CB6ABA]" size={20} />
+      </a>
+      <a href={`tel:${name === 'Helen Victoriano' ? '09381479753' : '09270527135'}`}>
+        <IoCallOutline className="text-[#CB6ABA]" size={20} />
+      </a>
     </div>
   </div>
 )

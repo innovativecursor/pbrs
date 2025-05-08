@@ -8,6 +8,7 @@ import tilt from '../public/assets/tilt_image.png'
 import { ButtonProperties } from './ui/ButtonProperties'
 import CityImageCard from './ui/CityImageCard'
 import { fetchLocationsCities } from '../utils/api'
+import Link from 'next/link'
 
 const scrollSpeed = 50
 
@@ -73,7 +74,9 @@ const PropertiesByCities = () => {
             </h2>
           </div>
           <div className="flex items-center md:items-end">
-            <ButtonProperties>View All</ButtonProperties>
+            <Link href="/properties">
+              <ButtonProperties>View All</ButtonProperties>
+            </Link>
           </div>
         </div>
       </section>

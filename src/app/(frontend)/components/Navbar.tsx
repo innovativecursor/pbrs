@@ -64,7 +64,14 @@ const Navbar = () => {
         </div>
 
         {/* Button (Desktop Only) */}
-        <Button className="hidden lg:block">Book a Site Tour</Button>
+        <Link
+          href="https://www.facebook.com/paulbalitarealtyservicespbrs"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden lg:block"
+        >
+          <Button>Book a Site Tour</Button>
+        </Link>
       </div>
 
       {/* Mobile Menu with Framer Motion */}
@@ -118,7 +125,14 @@ const Navbar = () => {
                   </motion.li>
                 ))}
               </ul>
-              <Button className="lg:block">Book a Site Tour</Button>
+              <Link
+                href="https://www.facebook.com/paulbalitarealtyservicespbrs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="lg:block"
+              >
+                <Button>Book a Site Tour</Button>
+              </Link>
             </motion.div>
           </>
         )}

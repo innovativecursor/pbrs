@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
               <Image src={logo} alt="PBRS Logo" width={200} height={200} />
             </div>
             <p className="text-gray-400 mt-4 text-sm leading-relaxed">
-              Welcome to Paul Balita Realty Services 🏡 Discover the perfect place to call home with
+              Welcome to Paul Balita Realty Services. Discover the perfect place to call home with
               our expert realty services. From cozy apartments to luxurious estates, we’re dedicated
               to helping you find a property that fits your lifestyle and budget.
             </p>
@@ -77,7 +77,9 @@ const Footer: React.FC = () => {
               Do feel free to book an appointment by clicking the link below
             </p>
 
-            <ContactButton text="Book an Agent"></ContactButton>
+            <a href="tel:09381479753">
+              <ContactButton text="Book an Agent" />
+            </a>
           </div>
         </div>
 

@@ -30,9 +30,11 @@ const ParallaxSection = () => {
           Need Help? Talk to Our Expert
         </h2>
 
-        <p className="text-sm sm:text-base md:text-lg mb-4">Call +63 910 526 6020</p>
+        <p className="text-sm sm:text-base md:text-lg mb-4">Call +63 917 490 1350</p>
 
-        <ContactButton text={'Contact Now'} />
+        <a href="tel:+639174901350">
+          <ContactButton text={'Contact Now'} />
+        </a>
       </div>
     </section>
   )
