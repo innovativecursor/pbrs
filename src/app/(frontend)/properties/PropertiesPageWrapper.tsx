@@ -161,11 +161,11 @@ export default function PropertiesPage() {
           <DiscountPropertyList />
         </div>
       </div>
-      {/* <div className="w-full">
-        <div className="max-w-7xl">
+      <div className="w-full">
+        <div className="max-w-7xl mx-auto">
           <ContactSection />
         </div>
-      </div> */}
+      </div>
     </>
   )
 }

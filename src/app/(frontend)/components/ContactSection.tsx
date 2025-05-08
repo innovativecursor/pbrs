@@ -1,30 +1,57 @@
 'use client'
 
 import { FaMailBulk, FaPhone } from 'react-icons/fa'
+import Image from 'next/image'
 import contactGroup from '../public/assets/propertiesHero/contact_group.png'
+import vectorgrp from '../public/assets/propertiesHero/vector_17.png'
+
 const ContactSection = () => {
   return (
-    <div className="flex flex-col items-center bg-white py-10">
-      <div className="max-w-7xl p-6 flex flex-col md:flex-row items-center justify-between bg-purple-300 rounded-lg shadow-lg">
-        {/* Left Section - Illustration */}
-        <div className="flex-1">
-          <img src={contactGroup.src} alt="Contact Illustration" className="w-full h-auto" />
+    <div className="bg-white py-20 flex flex-col items-center">
+      <div className="w-full max-w-7xl px-6">
+        {/* Top section: Image and Heading */}
+        <div
+          className="flex flex-col md:flex-row items-center justify-between rounded-t-xl bg-no-repeat bg-contain bg-center"
+          style={{
+            backgroundImage: `url(${vectorgrp.src})`,
+            minHeight: '350px',
+          }}
+        >
+          {/* Left: Image */}
+          <div className="w-full md:w-1/2 flex justify-center items-center">
+            <Image
+              src={contactGroup}
+              alt="Contact Illustration"
+              className="w-[200px] md:w-[280px] h-auto object-contain"
+            />
+          </div>
+
+          {/* Right: Text */}
+          <div className="w-full md:w-1/2 text-center md:text-left p-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-black leading-snug">
+              Contact Us for More <br />
+              Exclusive <span className="text-purple-600 underline">Offers</span>
+            </h2>
+          </div>
         </div>
 
-        {/* Right Section - Contact Info */}
-        <div className="flex-1 text-center md:text-left px-6">
-          <h2 className="text-2xl font-bold text-black">
-            Contact Us for More Exclusive <span className="text-purple-700">Offers</span>
-          </h2>
-          <div className="mt-4 bg-purple-500 text-white p-6 rounded-lg">
+        {/* Bottom: Contact Info */}
+        <div className="flex flex-col md:flex-row bg-[#CB6ABA] text-white rounded-xl overflow-hidden">
+          {/* Call Info */}
+          <div className="w-full md:w-1/2 p-6">
             <p className="text-lg font-semibold">Call:</p>
-            <div className="flex items-center gap-2 mt-1">
+            <hr className="my-2 border-purple-300" />
+            <div className="flex items-center gap-3 mt-2 text-lg">
               <FaPhone className="w-5 h-5" />
               <span>+63 910 526 6020</span>
             </div>
-            <hr className="my-3 border-purple-400" />
+          </div>
+
+          {/* Email Info */}
+          <div className="w-full md:w-1/2 p-6 border-t md:border-t-0 md:border-l border-purple-400">
             <p className="text-lg font-semibold">Email:</p>
-            <div className="flex items-center gap-2 mt-1">
+            <hr className="my-2 border-purple-300" />
+            <div className="flex items-center gap-3 mt-2 text-lg">
               <FaMailBulk className="w-5 h-5" />
               <span>paulbalita7@gmail.com</span>
             </div>
