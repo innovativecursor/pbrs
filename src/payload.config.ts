@@ -20,6 +20,7 @@ import { SimilarProperties } from './collections/SimilarProperties'
 import express from 'express'
 import type { Payload, PayloadRequest, Endpoint } from 'payload'
 import similarPropertiesEndpoint from './endpoints/similarProperties'
+import filters from './endpoints/fiters'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -73,5 +74,5 @@ export default buildConfig({
     // }),
     payloadCloudPlugin(),
   ],
-  endpoints: [similarPropertiesEndpoint],
+  endpoints: [similarPropertiesEndpoint, filters],
 })

@@ -58,7 +58,19 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
 
     fetchFilters()
   }, [])
+  const handleClearFilters = () => {
+    setSelectedLocations([])
+    setSelectedTypes([])
+    setSelectedBudgets([])
 
+    sessionStorage.removeItem('searchFilters')
+
+    onFilterChange({
+      location: [],
+      type: [],
+      budget: [],
+    })
+  }
   const handleMultiSelect = (
     option: string,
     selectedItems: string[],
@@ -72,7 +84,6 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
       showToast(`You can only select one ${filterType}`, 'error')
       return
     }
-
     const updated = isAlreadySelected
       ? selectedItems.filter((item) => item !== option)
       : [...selectedItems, option]
@@ -93,39 +104,67 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
     typeVals = selectedTypes,
     budgetVals = selectedBudgets,
   ) => {
-    onFilterChange({
-      location: locationVals,
-      type: typeVals,
-      budget: budgetVals,
-    })
+    //#region Previous Filters Saved here
+    // onFilterChange({
+    //   location: locationVals,
+    //   type: typeVals,
+    //   budget: budgetVals,
+    // })
+    // const params = new URLSearchParams()
 
-    const params = new URLSearchParams()
+    // if (locationVals.length) params.set('location', locationVals.join(','))
+    // if (typeVals.length) {
+    //   const encodedTypes = typeVals.map((type) => type.replace(/&/g, '__AND__'))
+    //   params.set('type', encodedTypes.join(','))
+    // }
 
-    if (locationVals.length) params.set('location', locationVals.join(','))
-    if (typeVals.length) {
-      const encodedTypes = typeVals.map((type) => type.replace(/&/g, '__AND__'))
-      params.set('type', encodedTypes.join(','))
+    // // Updated budget mapping with hardcoded values
+    // const budgetMap: Record<string, string> = {
+    //   'Under 3M': '2999999',
+    //   'Under 5M': '4999999',
+    //   'Under 10M': '9999999',
+    // }
+
+    // if (budgetVals.length) {
+    //   const budgetValues = budgetVals.map((label) => budgetMap[label]).filter(Boolean)
+    //   params.set('budget', budgetValues.join(','))
+    // }
+
+    // router.push(`?${params.toString()}`)
+    //#endregion
+
+    const queryParams = new URLSearchParams()
+
+    // Handle property type
+    if (typeVals) {
+      queryParams.append('propertyType', typeVals.toString())
     }
 
-    // Updated budget mapping with hardcoded values
-    const budgetMap: Record<string, string> = {
-      'Under 3M': '2999999',
-      'Under 5M': '4999999',
-      'Under 10M': '9999999',
+    // Handle location
+    if (locationVals.length) {
+      queryParams.append('location', locationVals.toString())
     }
 
+    // Handle budget
     if (budgetVals.length) {
-      const budgetValues = budgetVals.map((label) => budgetMap[label]).filter(Boolean)
-      params.set('budget', budgetValues.join(','))
+      let budgetValue = '0'
+      switch (budgetVals.toString()) {
+        case 'Under 3M':
+          budgetValue = '2999999'
+          break
+        case 'Under 5M':
+          budgetValue = '4999999'
+          break
+        case 'Under 10M':
+          budgetValue = '9999999'
+          break
+      }
+      queryParams.append('budget', budgetValue)
     }
-
-    router.push(`?${params.toString()}`)
+    //I'm using a session storage to store my queryparams
+    sessionStorage.setItem('searchFilters', queryParams.toString())
+    onFilterChange(true)
   }
-
-  const handleApplyFilters = () => {
-    handleFilterChange()
-  }
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -142,6 +181,16 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
   return (
     <div ref={dropdownRef} className="bg-white p-6 rounded-lg shadow-md">
       <Toaster />
+      <h3 className="text-[14px] text-[#71AE4C] font-medium mb-3">Filter by Property Type</h3>
+      <DropdownProperties
+        iconSrc={homepage.src}
+        label="Select Type"
+        options={propertyTypes.length > 0 ? propertyTypes : ['No type available currently']}
+        selectedItems={selectedTypes}
+        onChange={(option) => handleMultiSelect(option, selectedTypes, setSelectedTypes, 'type')}
+        isOpen={openDropdown === 'type'}
+        setIsOpen={() => setOpenDropdown((prev) => (prev === 'type' ? null : 'type'))}
+      />
       <h3 className="text-[14px] text-[#71AE4C] font-medium mb-3">Filter by Location</h3>
       <DropdownProperties
         iconSrc={location.src}
@@ -154,18 +203,6 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         isOpen={openDropdown === 'location'}
         setIsOpen={() => setOpenDropdown((prev) => (prev === 'location' ? null : 'location'))}
       />
-
-      <h3 className="text-[14px] text-[#71AE4C] font-medium mb-3">Filter by Property Type</h3>
-      <DropdownProperties
-        iconSrc={homepage.src}
-        label="Select Type"
-        options={propertyTypes.length > 0 ? propertyTypes : ['No type available currently']}
-        selectedItems={selectedTypes}
-        onChange={(option) => handleMultiSelect(option, selectedTypes, setSelectedTypes, 'type')}
-        isOpen={openDropdown === 'type'}
-        setIsOpen={() => setOpenDropdown((prev) => (prev === 'type' ? null : 'type'))}
-      />
-
       <h3 className="text-[14px] text-[#71AE4C] font-medium mb-3">Filter by Budget</h3>
       <DropdownProperties
         iconSrc={budget.src}
@@ -179,8 +216,11 @@ const Filters: React.FC<{ onFilterChange: (filters: any) => void }> = ({ onFilte
         setIsOpen={() => setOpenDropdown((prev) => (prev === 'budget' ? null : 'budget'))}
       />
 
-      <button className="mt-4 text-[12px] w-full bg-[#71AE4C] text-white p-3 rounded-xl hover:bg-[#3E7B1A]">
-        Show Results
+      <button
+        className="mt-4 text-[12px] w-full bg-[#71AE4C] text-white p-3 rounded-xl hover:bg-[#3E7B1A]"
+        onClick={handleClearFilters}
+      >
+        Clear Filters
       </button>
     </div>
   )
