@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const SimilarProperties: CollectionConfig = {
   slug: 'similar-properties',
+
   access: {
     read: () => true,
     create: () => true,

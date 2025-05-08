@@ -21,7 +21,11 @@ const PropertiesByCities = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [locations, setLocations] = useState<LocationItem[]>([])
 
+  const hasFetched = useRef(false)
+
   useEffect(() => {
+    if (typeof window === 'undefined' || hasFetched.current) return
+
     const getLocations = async () => {
       const data = await fetchLocationsCities()
       const formatted = data.docs.map((loc: any) => ({
@@ -29,6 +33,7 @@ const PropertiesByCities = () => {
         url: loc.url,
       }))
       setLocations(formatted)
+      hasFetched.current = true
     }
 
     getLocations()

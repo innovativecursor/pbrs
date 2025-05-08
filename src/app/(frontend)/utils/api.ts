@@ -18,8 +18,7 @@ interface ContactUs {
 }
 
 interface SimilarPropertyData {
-  id: string
-  base_property: string
+  base_property: string | { id: string }
   similar_properties: string[]
 }
 
