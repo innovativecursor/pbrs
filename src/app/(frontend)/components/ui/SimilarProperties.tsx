@@ -3,7 +3,7 @@
 import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined, FaCar } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Link from 'next/link'
 
 // Define the type for property data
@@ -31,14 +31,18 @@ const cardVariants = {
 
 const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties }) => {
   const scrollRef = useRef<HTMLDivElement>(null)
-
+  const [activeArrow, setActiveArrow] = useState<'left' | 'right' | null>(null)
   const scroll = (direction: 'left' | 'right') => {
+    setActiveArrow(direction)
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current
       const scrollAmount =
         direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth
       scrollRef.current.scrollTo({ left: scrollAmount, behavior: 'smooth' })
     }
+
+    // Reset the active state after 300ms
+    setTimeout(() => setActiveArrow(null), 300)
   }
 
   return (
@@ -51,13 +55,18 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties
         <div className="flex items-center gap-2">
           <button
             onClick={() => scroll('left')}
-            className="group text-xl p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition"
+            className={`group text-xl p-3 rounded-full transition ${
+              activeArrow === 'left' ? 'bg-[#71AE4C] text-white' : 'bg-gray-200 hover:bg-gray-300'
+            }`}
           >
             <FaAngleLeft />
           </button>
+
           <button
             onClick={() => scroll('right')}
-            className="group text-xl p-3 rounded-full bg-gray-200 hover:bg-gray-300 transition"
+            className={`group text-xl p-3 rounded-full transition ${
+              activeArrow === 'right' ? 'bg-[#71AE4C] text-white' : 'bg-gray-200 hover:bg-gray-300'
+            }`}
           >
             <FaAngleRight />
           </button>
@@ -95,7 +104,7 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties
                   {property.prop_location.location_city}
                 </p>
                 <p className="text-[#71ae4c] font-bold text-lg mt-2">
-                  {new Intl.NumberFormat().format(property.prop_price)}₱
+                  ₱ {new Intl.NumberFormat().format(property.prop_price)}
                 </p>
                 <div className="-mx-4 mt-4 grid grid-cols-2 gap-0 text-sm bg-[#F1F1F1] text-[#181818] px-4 py-3">
                   <div className="flex text-[12px] items-center gap-2 border-b border-r border-[#DADADA] pb-2 pr-2">
