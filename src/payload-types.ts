@@ -266,8 +266,8 @@ export interface Team {
   id: number;
   emp_name: string;
   emp_designation: string;
-  emp_fb?: string | null;
-  emp_wa?: string | null;
+  emp_email?: string | null;
+  emp_phone?: number | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -516,8 +516,8 @@ export interface SimilarPropertiesSelect<T extends boolean = true> {
 export interface TeamSelect<T extends boolean = true> {
   emp_name?: T;
   emp_designation?: T;
-  emp_fb?: T;
-  emp_wa?: T;
+  emp_email?: T;
+  emp_phone?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

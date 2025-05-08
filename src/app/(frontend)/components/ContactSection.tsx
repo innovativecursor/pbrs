@@ -19,11 +19,11 @@ const ContactSection = () => {
           }}
         >
           {/* Left: Image */}
-          <div className="w-full md:w-1/2 flex justify-center items-center">
+          <div className="md:w-1/2 flex justify-center items-center">
             <Image
               src={contactGroup}
               alt="Contact Illustration"
-              className="w-[200px] md:w-[280px] h-auto object-contain"
+              className="w-[200px] md:w-[280px] h-auto object-contain md:scale-200"
             />
           </div>
 
