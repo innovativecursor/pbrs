@@ -5,9 +5,10 @@ import { motion } from 'framer-motion'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6'
 import { useRef } from 'react'
 
-// Define the type for property data, matching the JSON structure
+// Define the type for property data
 interface Property {
-  images: { image: { url: string } }[] // To access image URL
+  id?: string | number // Add if you have an ID to use for keys
+  images: { image: { url: string } }[]
   prop_name: string
   prop_price: number
   prop_location: { location_city: string }
@@ -18,7 +19,7 @@ interface Property {
 }
 
 interface SimilarPropertiesProps {
-  properties: Property[]
+  similarProperties: Property[]
 }
 
 const cardVariants = {
@@ -27,8 +28,7 @@ const cardVariants = {
   hover: { scale: 1.05, transition: { duration: 0.3 } },
 }
 
-const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ properties }) => {
-  console.log('Similar Properties:', properties)
+const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties }) => {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const scroll = (direction: 'left' | 'right') => {
@@ -68,9 +68,9 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ properties }) => 
         ref={scrollRef}
         className="mx-auto max-w-7xl pb-12 flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth"
       >
-        {properties.map((property, index) => (
+        {similarProperties.map((property, index) => (
           <motion.div
-            key={index}
+            key={property.id ?? index}
             variants={cardVariants}
             initial="hidden"
             animate="visible"
@@ -78,8 +78,8 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ properties }) => 
             className="flex-none w-[280px] sm:w-[300px] md:w-[340px] border-[#C4C4C4] border rounded-lg shadow-lg overflow-hidden bg-white"
           >
             <img
-              src={property.images[0].image.url}
-              alt={property.prop_name}
+              src={property.images[0]?.image.url}
+              alt={property.prop_name || 'Property image'}
               className="w-full h-48 object-cover"
             />
             <div className="p-4 text-center">

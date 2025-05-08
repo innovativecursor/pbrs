@@ -147,6 +147,23 @@ export const submitContactUs = async (formData: {
   }
 }
 
-export const fetchSimilarProperties = async (): Promise<SimilarPropertyData[]> => {
-  return await fetchData('similar-properties')
+export const fetchSimilarProperties = async (id: string) => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/similarProp/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+
+    const data = await response.json()
+    return data.similarProperties.docs
+  } catch (error) {
+    console.error(`Error fetching similar properties for ID ${id}:`, error)
+    return []
+  }
 }

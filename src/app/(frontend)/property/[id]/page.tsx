@@ -1,5 +1,8 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+
 import Breadcrumbs from '../../components/ui/Breadcrumbs'
 import PropertyGallery from '../../components/ui/PropertyGallery'
 import PropertyInfo from '../../components/ui/PropertyInfo'
@@ -10,16 +13,10 @@ import HomeInteriorDetails from '../../components/ui/HomeInteriorDetails'
 import HomeExteriorDetails from '../../components/ui/HomeExteriorDetails'
 import BackButton from '../../components/ui/BackButton'
 import InquiryForm from '../../components/ui/InquiryForm'
-
-import property1 from '../../public/assets/propertyImages/houses_1.jpg'
-import property2 from '../../public/assets/propertyImages/houses_2.jpg'
-import property3 from '../../public/assets/propertyImages/houses_3.jpg'
-import property4 from '../../public/assets/propertyImages/houses_4.jpeg'
-import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { fetchPropertyById, fetchSimilarProperties } from '../../utils/api'
 import Loader from '../../components/ui/Loader'
 import SimilarProperties from '../../components/ui/SimilarProperties'
+
+import { fetchPropertyById, fetchSimilarProperties } from '../../utils/api'
 
 const PropertyPage = () => {
   const params = useParams()
@@ -27,6 +24,7 @@ const PropertyPage = () => {
 
   const [property, setProperty] = useState<any>(null)
   const [similarProperties, setSimilarProperties] = useState<any[]>([])
+  const [loadingSimilar, setLoadingSimilar] = useState(true)
 
   useEffect(() => {
     const fetchPropertyAndSimilar = async () => {
@@ -36,27 +34,12 @@ const PropertyPage = () => {
         const propertyData = await fetchPropertyById(propertyId)
         setProperty(propertyData)
 
-        const allSimilar = await fetchSimilarProperties()
-        console.log('Similar Properties Data:', allSimilar) // DEBUG
-
-        const matched = allSimilar.find((item) => {
-          const baseId =
-            typeof item.base_property === 'string' ? item.base_property : item.base_property?.id
-          return baseId === propertyId
-        })
-
-        if (!matched || !matched.similar_properties?.length) {
-          setSimilarProperties([])
-          return
-        }
-
-        const details = await Promise.all(
-          matched.similar_properties.map((id) => fetchPropertyById(id)),
-        )
-
-        setSimilarProperties(details)
+        const similar = await fetchSimilarProperties(propertyId)
+        setSimilarProperties(similar)
       } catch (error) {
         console.error('Error fetching property/similar:', error)
+      } finally {
+        setLoadingSimilar(false)
       }
     }
 
@@ -124,10 +107,12 @@ const PropertyPage = () => {
       </div>
 
       {/* Similar Properties Section */}
-      {similarProperties.length > 0 ? (
-        <SimilarProperties properties={similarProperties} />
+      {loadingSimilar ? (
+        <div className="text-center mt-12">Loading similar properties...</div>
+      ) : similarProperties.length > 0 ? (
+        <SimilarProperties similarProperties={similarProperties} />
       ) : (
-        <div className="text-center mt-12">Loading......</div>
+        <div className="text-center mt-12 text-gray-500">No similar properties found.</div>
       )}
     </>
   )
