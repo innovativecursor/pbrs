@@ -46,7 +46,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
       {/* Main Image Display */}
       {images.length > 0 && (
         <div className="relative cursor-pointer" onClick={() => handleOpen(selectedIndex)}>
-          {images[selectedIndex].image.mimeType.startsWith('image') ? (
+          {images[selectedIndex].image.mimeType?.startsWith('image') ? (
             <Image
               src={
                 images[selectedIndex].image.url.startsWith('/api')
@@ -61,7 +61,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
           ) : (
             <video
               src={
-                images[selectedIndex].image.url.startsWith('/api')
+                images[selectedIndex].image.url?.startsWith('/api')
                   ? images[selectedIndex].image.url
                   : `/api${images[selectedIndex].image.url}`
               }
@@ -80,7 +80,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
             className="cursor-pointer relative flex-shrink-0"
             onClick={() => setSelectedIndex(index)} // ✅ Only update main view, don't open modal
           >
-            {item.image.mimeType.startsWith('image') ? (
+            {item.image.mimeType?.startsWith('image') ? (
               <Image
                 src={item.image.url.startsWith('/api') ? item.image.url : `/api${item.image.url}`}
                 alt={item.image.filename}
@@ -90,7 +90,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
               />
             ) : (
               <video
-                src={item.image.url.startsWith('/api') ? item.image.url : `/api${item.image.url}`}
+                src={item.image.url?.startsWith('/api') ? item.image.url : `/api${item.image.url}`}
                 controls
                 className="rounded-[13px] w-[200px] h-[132px] object-cover"
               />
@@ -127,7 +127,7 @@ const PropertyGallery = ({ images }: PropertyGalleryProps) => {
                 ) : (
                   <video
                     src={
-                      images[selectedIndex].image.url.startsWith('/api')
+                      images[selectedIndex].image.url?.startsWith('/api')
                         ? images[selectedIndex].image.url
                         : `/api${images[selectedIndex].image.url}`
                     }

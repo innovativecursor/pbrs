@@ -16,9 +16,6 @@ import { NewsBlogs } from './collections/NewsBlogs'
 import { Location } from './collections/Location'
 import { PropertyType } from './collections/PropertyType'
 import ContactUs from './collections/ContactUs'
-import { SimilarProperties } from './collections/SimilarProperties'
-import express from 'express'
-import type { Payload, PayloadRequest, Endpoint } from 'payload'
 import similarPropertiesEndpoint from './endpoints/similarProperties'
 import filters from './endpoints/fiters'
 
@@ -32,17 +29,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [
-    Users,
-    Media,
-    Property,
-    SimilarProperties,
-    Team,
-    NewsBlogs,
-    Location,
-    PropertyType,
-    ContactUs,
-  ],
+  collections: [Property, PropertyType, ContactUs, Location, Team, NewsBlogs, Users, Media],
   globals: [Contact],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

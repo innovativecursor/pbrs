@@ -5,28 +5,16 @@ export const Property: CollectionConfig = {
   access: {
     read: () => true,
   },
+  admin: {
+    useAsTitle: 'prop_name',
+  },
   fields: [
-    {
-      label: 'Property Images',
-      name: 'images',
-      type: 'array',
-      required: true,
-      fields: [
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media', // Ensure you have a media collection
-          required: true,
-        },
-      ],
-    },
     {
       label: 'Name of the Property',
       name: 'prop_name',
       type: 'text',
       required: true,
     },
-
     {
       label: 'Property Price',
       name: 'prop_price',
@@ -40,6 +28,20 @@ export const Property: CollectionConfig = {
       type: 'relationship',
       relationTo: 'location',
       required: true,
+    },
+    {
+      label: 'Property Images',
+      name: 'images',
+      type: 'array',
+      required: true,
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media', // Ensure you have a media collection
+          required: true,
+        },
+      ],
     },
     {
       label: 'Description',

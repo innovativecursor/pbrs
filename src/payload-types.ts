@@ -66,30 +66,28 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
-    media: Media;
     property: Property;
-    'similar-properties': SimilarProperty;
-    team: Team;
-    newsblogs: Newsblog;
-    location: Location;
     propertyType: PropertyType;
     'contact-us': ContactUs;
+    location: Location;
+    team: Team;
+    newsblogs: Newsblog;
+    users: User;
+    media: Media;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
     property: PropertySelect<false> | PropertySelect<true>;
-    'similar-properties': SimilarPropertiesSelect<false> | SimilarPropertiesSelect<true>;
-    team: TeamSelect<false> | TeamSelect<true>;
-    newsblogs: NewsblogsSelect<false> | NewsblogsSelect<true>;
-    location: LocationSelect<false> | LocationSelect<true>;
     propertyType: PropertyTypeSelect<false> | PropertyTypeSelect<true>;
     'contact-us': ContactUsSelect<false> | ContactUsSelect<true>;
+    location: LocationSelect<false> | LocationSelect<true>;
+    team: TeamSelect<false> | TeamSelect<true>;
+    newsblogs: NewsblogsSelect<false> | NewsblogsSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -132,52 +130,17 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "property".
  */
 export interface Property {
   id: number;
+  prop_name: string;
+  prop_price: number;
+  prop_location: number | Location;
   images: {
     image: number | Media;
     id?: string | null;
   }[];
-  prop_name: string;
-  prop_price: number;
-  prop_location: number | Location;
   prop_desc?: string | null;
   bedrooms?: number | null;
   home_interior_bedrooms?: string | null;
@@ -239,6 +202,24 @@ export interface Location {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "propertyType".
  */
 export interface PropertyType {
@@ -249,14 +230,17 @@ export interface PropertyType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "similar-properties".
+ * via the `definition` "contact-us".
  */
-export interface SimilarProperty {
+export interface ContactUs {
   id: number;
-  base_property: number | Property;
-  similar_properties?: (number | Property)[] | null;
-  updatedAt: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
   createdAt: string;
+  emailSent?: boolean | null;
+  updatedAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -318,17 +302,20 @@ export interface Newsblog {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact-us".
+ * via the `definition` "users".
  */
-export interface ContactUs {
+export interface User {
   id: number;
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-  createdAt: string;
-  emailSent?: boolean | null;
   updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -338,20 +325,20 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
-      } | null)
-    | ({
-        relationTo: 'media';
-        value: number | Media;
-      } | null)
-    | ({
         relationTo: 'property';
         value: number | Property;
       } | null)
     | ({
-        relationTo: 'similar-properties';
-        value: number | SimilarProperty;
+        relationTo: 'propertyType';
+        value: number | PropertyType;
+      } | null)
+    | ({
+        relationTo: 'contact-us';
+        value: number | ContactUs;
+      } | null)
+    | ({
+        relationTo: 'location';
+        value: number | Location;
       } | null)
     | ({
         relationTo: 'team';
@@ -362,16 +349,12 @@ export interface PayloadLockedDocument {
         value: number | Newsblog;
       } | null)
     | ({
-        relationTo: 'location';
-        value: number | Location;
+        relationTo: 'users';
+        value: number | User;
       } | null)
     | ({
-        relationTo: 'propertyType';
-        value: number | PropertyType;
-      } | null)
-    | ({
-        relationTo: 'contact-us';
-        value: number | ContactUs;
+        relationTo: 'media';
+        value: number | Media;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -417,50 +400,18 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
- */
-export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "property_select".
  */
 export interface PropertySelect<T extends boolean = true> {
+  prop_name?: T;
+  prop_price?: T;
+  prop_location?: T;
   images?:
     | T
     | {
         image?: T;
         id?: T;
       };
-  prop_name?: T;
-  prop_price?: T;
-  prop_location?: T;
   prop_desc?: T;
   bedrooms?: T;
   home_interior_bedrooms?: T;
@@ -502,13 +453,44 @@ export interface PropertySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "similar-properties_select".
+ * via the `definition` "propertyType_select".
  */
-export interface SimilarPropertiesSelect<T extends boolean = true> {
-  base_property?: T;
-  similar_properties?: T;
+export interface PropertyTypeSelect<T extends boolean = true> {
+  property_type?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-us_select".
+ */
+export interface ContactUsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  message?: T;
+  createdAt?: T;
+  emailSent?: T;
+  updatedAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "location_select".
+ */
+export interface LocationSelect<T extends boolean = true> {
+  location_city?: T;
+  location_province?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -554,11 +536,24 @@ export interface NewsblogsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "location_select".
+ * via the `definition` "users_select".
  */
-export interface LocationSelect<T extends boolean = true> {
-  location_city?: T;
-  location_province?: T;
+export interface UsersSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -570,28 +565,6 @@ export interface LocationSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "propertyType_select".
- */
-export interface PropertyTypeSelect<T extends boolean = true> {
-  property_type?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact-us_select".
- */
-export interface ContactUsSelect<T extends boolean = true> {
-  name?: T;
-  email?: T;
-  phone?: T;
-  message?: T;
-  createdAt?: T;
-  emailSent?: T;
-  updatedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
