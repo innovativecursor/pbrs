@@ -103,16 +103,37 @@ const Footer: React.FC = () => {
             <div className="w-34 border-b-2 border-[#71AE4C] mb-3"></div>
             <ul className="text-gray-400 space-y-2">
               <li className="flex items-center gap-2">
-                <Image src={EmailIcon} width={20} height={20} alt="Email" />
-                paulbalita7@gmail.com
+                <Image
+                  src={EmailIcon}
+                  width={20}
+                  height={20}
+                  alt="Email"
+                  className="flex-shrink-0"
+                />
+                <span>polbalita@yahoo.com.ph</span>
               </li>
               <li className="flex items-center gap-2">
-                <Image src={PhoneIcon} width={20} height={20} alt="Phone" />
-                +63 910 526 6020
+                <Image
+                  src={PhoneIcon}
+                  width={20}
+                  height={20}
+                  alt="Phone"
+                  className="flex-shrink-0"
+                />
+                <span>+9174901350</span>
               </li>
               <li className="flex items-center gap-2">
-                <Image src={LocationIcon} width={20} height={20} alt="Location" />
-                Estate Subd., San Jose 2, Noveleta, Cavite 4106
+                <Image
+                  src={LocationIcon}
+                  width={20}
+                  height={20}
+                  alt="Location"
+                  className="flex-shrink-0"
+                />
+                <span>
+                  Block 17 Lot 10, Jordan Estate Subdivision, San Antonio 1, 4105 Noveleta,
+                  Philippines
+                </span>
               </li>
             </ul>
           </div>

@@ -81,7 +81,10 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties
         {similarProperties.map((property, index) => (
           <Link
             key={property.id ?? index}
-            href={`/property/${property.id}`}
+            href={`/property/${property.prop_name
+              .toLowerCase()
+              .replace(/\s+/g, '-')
+              .replace(/[^a-z0-9\-]/g, '')}/${property.id}`}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -124,7 +127,14 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties
                     {property.garages ? `${property.garages} Garage` : 'No Garage'}
                   </div>
                 </div>
-                <Link href={`/property/${property.id}`} target="_blank" rel="noopener noreferrer">
+                <Link
+                  href={`/property/${property.prop_name
+                    .toLowerCase()
+                    .replace(/\s+/g, '-')
+                    .replace(/[^a-z0-9\-]/g, '')}/${property.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <motion.div
                     whileHover={{ scale: 1.1 }}
                     className="px-7 py-3 mt-4 bg-[#71AE4C] text-white font-light rounded-lg hover:bg-[#FFF] hover:border hover:border-[#71AE4C] hover:text-[#000] transition duration-300 shadow-md cursor-pointer text-[11px] text-center"

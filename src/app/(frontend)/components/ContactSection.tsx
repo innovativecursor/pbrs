@@ -5,14 +5,31 @@ import contactGroup from '../public/assets/propertiesHero/contact_group.png'
 import vectorgrp from '../public/assets/propertiesHero/vector_17.png'
 import { FaPhoneAlt } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
-
+import { useEffect, useState } from 'react'
+import { fetchContactInfo } from '../utils/api'
+interface ContactInfo {
+  phone_number: number
+  email: string
+  address: string
+}
 const ContactSection = () => {
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null)
+
+  useEffect(() => {
+    const getContactInfo = async () => {
+      const info = await fetchContactInfo()
+      setContactInfo(info)
+    }
+
+    getContactInfo()
+  }, [])
+
   return (
     <div className="bg-white py-20 flex flex-col items-center">
       <div className="w-full max-w-7xl px-6">
         {/* Top section: Image and Heading */}
         <div
-          className="flex flex-col md:flex-row items-center justify-between rounded-t-xl bg-no-repeat bg-contain bg-center"
+          className="hidden md:flex flex-row items-center justify-between rounded-t-xl bg-no-repeat bg-contain bg-center"
           style={{
             backgroundImage: `url(${vectorgrp.src})`,
             minHeight: '350px',
@@ -44,7 +61,9 @@ const ContactSection = () => {
             <hr className="my-2 border-purple-300" />
             <div className="flex items-center gap-3 mt-2 text-lg">
               <FaPhoneAlt className="w-5 h-5" />
-              <span>+63 910 526 6020</span>
+              <a href={`tel:${contactInfo?.phone_number}`} className="hover:underline">
+                {contactInfo?.phone_number || 'Loading...'}
+              </a>
             </div>
           </div>
 
@@ -54,7 +73,9 @@ const ContactSection = () => {
             <hr className="my-2 border-purple-300" />
             <div className="flex items-center gap-3 mt-2 text-lg">
               <MdEmail className="w-5 h-5" />
-              <span>paulbalita7@gmail.com</span>
+              <a href={`mailto:${contactInfo?.email}`} className="hover:underline">
+                {contactInfo?.email || 'Loading...'}
+              </a>
             </div>
           </div>
         </div>

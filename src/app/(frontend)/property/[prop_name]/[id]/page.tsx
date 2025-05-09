@@ -3,20 +3,20 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 
-import Breadcrumbs from '../../components/ui/Breadcrumbs'
-import PropertyGallery from '../../components/ui/PropertyGallery'
-import PropertyInfo from '../../components/ui/PropertyInfo'
-import PropertyAgent from '../../components/ui/PropertyAgent'
-import PropertyDescription from '../../components/ui/PropertyDescription'
-import PropertyFeatures from '../../components/ui/PropertyFeatures'
-import HomeInteriorDetails from '../../components/ui/HomeInteriorDetails'
-import HomeExteriorDetails from '../../components/ui/HomeExteriorDetails'
-import BackButton from '../../components/ui/BackButton'
-import InquiryForm from '../../components/ui/InquiryForm'
-import Loader from '../../components/ui/Loader'
-import SimilarProperties from '../../components/ui/SimilarProperties'
+import Breadcrumbs from '../../../components/ui/Breadcrumbs'
+import PropertyGallery from '../../../components/ui/PropertyGallery'
+import PropertyInfo from '../../../components/ui/PropertyInfo'
+import PropertyAgent from '../../../components/ui/PropertyAgent'
+import PropertyDescription from '../../../components/ui/PropertyDescription'
+import PropertyFeatures from '../../../components/ui/PropertyFeatures'
+import HomeInteriorDetails from '../../../components/ui/HomeInteriorDetails'
+import HomeExteriorDetails from '../../../components/ui/HomeExteriorDetails'
+import BackButton from '../../../components/ui/BackButton'
+import InquiryForm from '../../../components/ui/InquiryForm'
+import Loader from '../../../components/ui/Loader'
+import SimilarProperties from '../../../components/ui/SimilarProperties'
 
-import { fetchPropertyById, fetchSimilarProperties } from '../../utils/api'
+import { fetchPropertyById, fetchSimilarProperties } from '../../../utils/api'
 
 const PropertyPage = () => {
   const params = useParams()
