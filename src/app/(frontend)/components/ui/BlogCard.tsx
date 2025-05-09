@@ -58,8 +58,6 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
               month: 'long',
               day: 'numeric',
             })}
-            <span className="text-gray-400 text-xl">•</span>
-            <span className="text-[12px]">No comments</span>
           </p>
         </div>
       </div>
