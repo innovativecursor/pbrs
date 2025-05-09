@@ -17,6 +17,13 @@ interface ContactUs {
   emailSent: boolean
 }
 
+// Fetch Contact Info (Global Config)
+interface ContactInfo {
+  phone_number: number
+  email: string
+  address: string
+}
+
 export const fetchData = async (endpoint: string) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${endpoint}`, {
@@ -160,5 +167,26 @@ export const fetchSimilarProperties = async (id: string) => {
   } catch (error) {
     console.error(`Error fetching similar properties for ID ${id}:`, error)
     return []
+  }
+}
+
+export const fetchContactInfo = async (): Promise<ContactInfo | null> => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/globals/contact`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+
+    const data = await response.json()
+    return data as ContactInfo
+  } catch (error) {
+    console.error('Error fetching contact info:', error)
+    return null
   }
 }

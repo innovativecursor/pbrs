@@ -31,7 +31,14 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
   id,
 }) => {
   return (
-    <Link href={`/property/${id}`} target="_blank" rel="noopener noreferrer">
+    <Link
+      href={`/property/${title
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9\-]/g, '')}/${id}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 bg-white border border-[#F1F1F1] rounded-lg overflow-hidden items-center gap-6">
         {/* Column 1: Image */}
         <div className="relative w-full md:w-48 h-40 md:h-32">
@@ -80,7 +87,14 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
 
         {/* Column 4: Button */}
         <div className="flex justify-center md:justify-end w-full md:w-auto mt-4 md:mt-0 p-4 ">
-          <Link href={`/property/${id}`} target="_blank" rel="noopener noreferrer">
+          <Link
+            href={`/property/${title
+              .toLowerCase()
+              .replace(/\s+/g, '-')
+              .replace(/[^a-z0-9\-]/g, '')}/${id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <PropertiesViewBtn label="View Details" />
           </Link>
         </div>
