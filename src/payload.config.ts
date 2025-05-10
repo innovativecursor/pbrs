@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { cloudinaryStorage } from 'payload-cloudinary'
 import { Users } from './collections/Users'
+import icon from '../public/favicon.ico'
 import { Media } from './collections/Media'
 import { Property } from './collections/Property'
 import { Team } from './collections/Team'
@@ -27,6 +28,17 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+
+    meta: {
+      titleSuffix: ' - Paul Balita Realty Services',
+      icons: [
+        {
+          rel: 'icon',
+          type: 'image/png',
+          url: icon.src,
+        },
+      ],
     },
   },
   collections: [Property, PropertyType, ContactUs, Location, Team, NewsBlogs, Users, Media],
