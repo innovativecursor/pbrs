@@ -38,11 +38,11 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
           {/* Property Image */}
           <div className="relative w-full h-56">
             <Image
-              width={100}
-              height={100}
               src={image}
               alt={title}
-              className="transition-all duration-500 object-cover w-full h-full"
+              fill
+              className="object-cover w-full h-full transition-all duration-500 rounded-md"
+              sizes="100vw"
             />
           </div>
 
