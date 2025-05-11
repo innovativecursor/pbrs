@@ -40,7 +40,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
             <img
               src={image}
               alt={title}
-              className="object-cover w-full h-full transition-all duration-500 rounded-md"
+              className="transition-all duration-500 object-cover w-full h-full"
             />
           </div>
 
