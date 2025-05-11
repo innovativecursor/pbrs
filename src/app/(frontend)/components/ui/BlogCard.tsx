@@ -19,7 +19,7 @@ const extractText = (content: any) => {
 
 const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
   return (
-    <Link href={`/news-and-blogs/${blog.id}`} target="_blank" rel="noopener noreferrer">
+    <Link href={`/news-and-blogs/${blog?.slug}`} target="_blank" rel="noopener noreferrer">
       <div className="bg-white border border-[#c6c4c4] overflow-hidden transition-shadow duration-300 hover:shadow-lg group">
         <div className="relative">
           {blog.url && (
@@ -42,7 +42,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
           <h3 className="text-[20px] font-semibold">{blog.title}</h3>
           <p className="text-[#5A5A5A] text-[12px] mb-2 mt-4">{extractText(blog.content)}</p>
           <Link
-            href={`/news-and-blogs/${blog.id}`}
+            href={`/news-and-blogs/${blog.slug}`}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Read more about ${blog.title}`}

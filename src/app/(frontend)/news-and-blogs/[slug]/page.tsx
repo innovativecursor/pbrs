@@ -8,23 +8,24 @@ import Loader from '../../components/ui/Loader'
 
 export default function BlogDetailsPage() {
   const params = useParams()
-  const id = params?.id as string
+  const slug = params?.slug as string
 
   const [blog, setBlog] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const getBlog = async () => {
+      debugger
       const blogs = await fetchNewsBlogs()
-      const found = blogs.find((b: any) => b.id === Number(id))
+      const found = blogs.find((b: any) => b.slug === slug)
       setBlog(found)
       setLoading(false)
     }
 
-    if (id) {
+    if (slug) {
       getBlog()
     }
-  }, [id])
+  }, [slug])
 
   if (loading) return <Loader />
   if (!blog) return <p className="text-center mt-10 text-red-500">Blog not found</p>

@@ -18,6 +18,7 @@ interface PropertyLocation {
 }
 
 interface Property {
+  slug: string
   id: number // Ensure id is a number
   prop_name: string
   prop_location: PropertyLocation
@@ -77,6 +78,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                 lotArea={property.lot_area}
                 garage={property.garages}
                 id={property.id.toString()}
+                slug={property?.slug}
               />
             </motion.div>
           ) : (
@@ -96,6 +98,7 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
                     ? `${process.env.NEXT_PUBLIC_API_URL}${property.images[0].image.url}`
                     : '/fallback-image.png'
                 }
+                slug={property?.slug}
                 bedrooms={property.bedrooms}
                 bathrooms={property.bathrooms}
                 size={`${property.lot_area} sq ft`}

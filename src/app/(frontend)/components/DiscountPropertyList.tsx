@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import DiscountPropertyCard from './ui/DiscountPropertyCard'
 import { fetchData } from '../utils/api'
 interface Property {
+  slug: string
   image: string
   title: string
   propDestination: string
@@ -29,6 +30,7 @@ const DiscountPropertyList: React.FC = () => {
         const discountedData = data.filter((property) => property.prop_offer === true)
 
         const formattedData = discountedData.map((property: any) => ({
+          slug: property?.slug,
           image: property.images?.[0]?.image?.url || '/placeholder.jpg',
           title: property.prop_name || 'No Title',
           propDestination: property.prop_location?.location_city || 'Unknown City',

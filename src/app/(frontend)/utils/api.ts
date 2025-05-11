@@ -1,5 +1,6 @@
 // Define a type for property data
 interface Property {
+  id(id: any): unknown
   prop_location: string
   prop_price: number
 }
@@ -58,6 +59,14 @@ export const fetchPropertyById = async (id: string): Promise<Property | null> =>
   const property = allProperties.find((prop: any) => String(prop.id) === String(id))
   console.log('Property found:', property)
 
+  return property || null
+}
+
+export const fetchPropertyBySlug = async (slug: string): Promise<Property | null> => {
+  const decodedSlug = decodeURIComponent(slug)
+  const allProperties = await fetchProperties()
+
+  const property = allProperties.find((prop: any) => String(prop.slug) === decodedSlug)
   return property || null
 }
 
@@ -149,7 +158,7 @@ export const submitContactUs = async (formData: {
   }
 }
 
-export const fetchSimilarProperties = async (id: string) => {
+export const fetchSimilarProperties = async (id: number) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/similarProp/${id}`, {
       method: 'GET',
@@ -165,7 +174,7 @@ export const fetchSimilarProperties = async (id: string) => {
     const data = await response.json()
     return data.similarProperties.docs
   } catch (error) {
-    console.error(`Error fetching similar properties for ID ${id}:`, error)
+    console.error(`Error fetching similar properties for id ${id}:`, error)
     return []
   }
 }

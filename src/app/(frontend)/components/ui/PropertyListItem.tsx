@@ -6,6 +6,7 @@ import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined, FaCar } from 'react-ico
 import PropertiesViewBtn from './PropertiesViewBtn'
 
 interface PropertyListItemProps {
+  slug: string
   image: string
   title: string
   propDestination: string
@@ -19,6 +20,7 @@ interface PropertyListItemProps {
 }
 
 const PropertyListItem: React.FC<PropertyListItemProps> = ({
+  slug,
   image,
   title,
   propDestination,
@@ -32,10 +34,11 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
 }) => {
   return (
     <Link
-      href={`/property/${title
-        .toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^a-z0-9\-]/g, '')}/${id}`}
+      // href={`/property/${title
+      //   .toLowerCase()
+      //   .replace(/\s+/g, '-')
+      //   .replace(/[^a-z0-9\-]/g, '')}/${id}`}
+      href={`/property/${slug}`}
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -88,10 +91,11 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
         {/* Column 4: Button */}
         <div className="flex justify-center md:justify-end w-full md:w-auto mt-4 md:mt-0 p-4 ">
           <Link
-            href={`/property/${title
-              .toLowerCase()
-              .replace(/\s+/g, '-')
-              .replace(/[^a-z0-9\-]/g, '')}/${id}`}
+            // href={`/property/${title
+            //   .toLowerCase()
+            //   .replace(/\s+/g, '-')
+            //   .replace(/[^a-z0-9\-]/g, '')}/${id}`}
+            href={`/property/${slug}`}
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -5,10 +5,12 @@ import { motion } from 'framer-motion'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa6'
 import { useRef, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 // Define the type for property data
 interface Property {
   id?: string | number // Add if you have an ID to use for keys
+  slug: string
   images: { image: { url: string } }[]
   prop_name: string
   prop_price: number
@@ -81,10 +83,7 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties
         {similarProperties.map((property, index) => (
           <Link
             key={property.id ?? index}
-            href={`/property/${property.prop_name
-              .toLowerCase()
-              .replace(/\s+/g, '-')
-              .replace(/[^a-z0-9\-]/g, '')}/${property.id}`}
+            href={`/property/${property?.prop_name}/${property?.slug}`}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -95,8 +94,10 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties
               whileHover="hover"
               className="flex-none w-[280px] sm:w-[300px] md:w-[340px] border-[#C4C4C4] border rounded-lg shadow-lg overflow-hidden bg-white"
             >
-              <img
+              <Image
                 src={property.images[0]?.image.url}
+                width={100}
+                height={48}
                 alt={property.prop_name || 'Property image'}
                 className="w-full h-48 object-cover"
               />
@@ -128,10 +129,7 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties
                   </div>
                 </div>
                 <Link
-                  href={`/property/${property.prop_name
-                    .toLowerCase()
-                    .replace(/\s+/g, '-')
-                    .replace(/[^a-z0-9\-]/g, '')}/${property.id}`}
+                  href={`/property/${property?.prop_name}/${property?.slug}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

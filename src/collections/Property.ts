@@ -1,4 +1,13 @@
 import type { CollectionConfig } from 'payload'
+export const slugify = (text: string): string => {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+}
 
 export const Property: CollectionConfig = {
   slug: 'property',
@@ -9,6 +18,24 @@ export const Property: CollectionConfig = {
     useAsTitle: 'prop_name',
   },
   fields: [
+    {
+      label: 'Slug (Mandatory for page generation and SEO)',
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      admin: {
+        position: 'sidebar',
+      },
+      hooks: {
+        beforeValidate: [
+          ({ value, data }) => {
+            const source = value || data?.prop_name || ''
+            return slugify(source)
+          },
+        ],
+      },
+    },
     {
       label: 'Name of the Property',
       name: 'prop_name',

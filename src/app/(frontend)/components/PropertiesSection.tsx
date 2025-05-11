@@ -47,6 +47,7 @@ const PropertiesSection: React.FC = () => {
         const mappedProperties = data.docs
           .filter((property: any) => property.prop_featured)
           .map((property: any) => ({
+            slug: property.slug,
             id: property.id,
             image: property.images[0]?.image.url,
             title: property.prop_name,

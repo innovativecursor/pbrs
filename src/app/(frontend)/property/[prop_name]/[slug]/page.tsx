@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-
-import Breadcrumbs from '../../../components/ui/Breadcrumbs'
 import PropertyGallery from '../../../components/ui/PropertyGallery'
 import PropertyInfo from '../../../components/ui/PropertyInfo'
 import PropertyAgent from '../../../components/ui/PropertyAgent'
@@ -11,16 +9,18 @@ import PropertyDescription from '../../../components/ui/PropertyDescription'
 import PropertyFeatures from '../../../components/ui/PropertyFeatures'
 import HomeInteriorDetails from '../../../components/ui/HomeInteriorDetails'
 import HomeExteriorDetails from '../../../components/ui/HomeExteriorDetails'
-import BackButton from '../../../components/ui/BackButton'
+// import BackButton from '../../../components/ui/BackButton'
 import InquiryForm from '../../../components/ui/InquiryForm'
 import Loader from '../../../components/ui/Loader'
 import SimilarProperties from '../../../components/ui/SimilarProperties'
 
-import { fetchPropertyById, fetchSimilarProperties } from '../../../utils/api'
+import { fetchPropertyBySlug, fetchSimilarProperties } from '../../../utils/api'
+import Breadcrumbs from '@/app/(frontend)/components/ui/Breadcrumbs'
 
 const PropertyPage = () => {
   const params = useParams()
-  const propertyId = params?.id as string
+  // const propertyId = params?.id as string
+  const slug = params?.slug as string
 
   const [property, setProperty] = useState<any>(null)
   const [similarProperties, setSimilarProperties] = useState<any[]>([])
@@ -28,14 +28,16 @@ const PropertyPage = () => {
 
   useEffect(() => {
     const fetchPropertyAndSimilar = async () => {
-      if (!propertyId) return
+      if (!slug) return
 
       try {
-        const propertyData = await fetchPropertyById(propertyId)
+        const propertyData = await fetchPropertyBySlug(slug)
         setProperty(propertyData)
 
-        const similar = await fetchSimilarProperties(propertyId)
-        setSimilarProperties(similar)
+        if (propertyData?.id) {
+          const similar = await fetchSimilarProperties(Number(propertyData?.id))
+          setSimilarProperties(similar)
+        }
       } catch (error) {
         console.error('Error fetching property/similar:', error)
       } finally {
@@ -44,7 +46,7 @@ const PropertyPage = () => {
     }
 
     fetchPropertyAndSimilar()
-  }, [propertyId])
+  }, [slug])
 
   if (!property) {
     return (
