@@ -36,13 +36,13 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
         {/* Wrapper to Move Image & Content Up More */}
         <div className="relative transition-all duration-500 group-hover:-translate-y-20">
           {/* Property Image */}
-          <div className="relative w-full">
+          <div className="relative w-full h-56">
             <Image
               src={image}
               alt={title}
-              width={800}
-              height={500}
-              className="object-cover w-full h-auto rounded-md"
+              fill
+              className="object-cover w-full h-full transition-all duration-500 rounded-md"
+              sizes="100vw"
             />
           </div>
 
