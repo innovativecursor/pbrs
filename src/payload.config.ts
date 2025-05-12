@@ -6,7 +6,6 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
-import { cloudinaryStorage } from 'payload-cloudinary'
 import { Users } from './collections/Users'
 import icon from '../public/favicon.ico'
 import { Media } from './collections/Media'
@@ -19,6 +18,7 @@ import { PropertyType } from './collections/PropertyType'
 import ContactUs from './collections/ContactUs'
 import similarPropertiesEndpoint from './endpoints/similarProperties'
 import filters from './endpoints/fiters'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -42,6 +42,7 @@ export default buildConfig({
     },
   },
   collections: [Property, PropertyType, ContactUs, Location, Team, NewsBlogs, Users, Media],
+
   globals: [Contact],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -55,22 +56,14 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
-    // cloudinaryStorage({
-    //   config: {
-    //     cloud_name: 'dpauqvsd6',
-    //     api_key: '368281367779355',
-    //     api_secret: 'MjkyCgAtXpBmoiGRA45q6y0MxNQ',
-    //   },
-    //   collections: {
-    //     media: true, // Enable for media collection
-    //     team: true,
-    //     // property: true,
-    //     // Add more collections as needed
-    //   },
-    //   folder: 'PBRS', // Optional, defaults to 'payload-media'
-    //   disableLocalStorage: true, // Optional, defaults to true
-    //   enabled: true, // Optional, defaults to true
-    // }),
+    seoPlugin({
+      collections: ['property', 'newsblogs'],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => `paulbalitarealtyservices.com - ${doc.title}`,
+      generateDescription: ({ doc }) => doc.excerpt,
+      generateURL: ({ doc, collectionSlug }) =>
+        `https://paulbalitarealtyservices.com/${collectionSlug}/${doc?.slug}`,
+    }),
     payloadCloudPlugin(),
   ],
   endpoints: [similarPropertiesEndpoint, filters],

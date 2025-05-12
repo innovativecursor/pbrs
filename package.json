@@ -21,6 +21,7 @@
     "@payloadcms/db-postgres": "latest",
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
+    "@payloadcms/plugin-seo": "^3.37.0",
     "@payloadcms/richtext-lexical": "latest",
     "@tailwindcss/postcss": "^4.0.6",
     "axios": "^1.9.0",

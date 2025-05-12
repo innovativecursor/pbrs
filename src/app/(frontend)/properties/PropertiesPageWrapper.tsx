@@ -26,7 +26,6 @@ export default function PropertiesPage() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        // const data = await fetchData('property')
         const storedFilters = sessionStorage.getItem('searchFilters')
 
         if (storedFilters) {
