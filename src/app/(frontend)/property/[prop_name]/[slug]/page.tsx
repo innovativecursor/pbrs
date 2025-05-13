@@ -19,7 +19,8 @@ import Breadcrumbs from '@/app/(frontend)/components/ui/Breadcrumbs'
 
 const PropertyPage = () => {
   const params = useParams()
-  const slug = params?.slug as string | undefined // Explicitly allow undefined
+  // const propertyId = params?.id as string
+  const slug = params?.slug as string
 
   const [property, setProperty] = useState<any>(null)
   const [similarProperties, setSimilarProperties] = useState<any[]>([])
@@ -27,10 +28,7 @@ const PropertyPage = () => {
 
   useEffect(() => {
     const fetchPropertyAndSimilar = async () => {
-      if (!slug) {
-        console.error('Slug is missing or undefined!')
-        return
-      }
+      if (!slug) return
 
       try {
         const propertyData = await fetchPropertyBySlug(slug)
