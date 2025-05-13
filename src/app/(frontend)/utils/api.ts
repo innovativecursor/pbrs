@@ -25,13 +25,16 @@ interface ContactInfo {
   address: string
 }
 
-export const fetchData = async (endpoint: string) => {
+export const fetchData = async (endpoint: string, revalidateSeconds = 0) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${endpoint}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-store', // Disable cache completely (for always-fresh data)
+      // If you're using Next.js App Router:
+      // next: { revalidate: revalidateSeconds } // Uncomment this if using ISR
     })
 
     if (!response.ok) {

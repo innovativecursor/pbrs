@@ -8,7 +8,7 @@ type CityImageCardProps = {
 
 const CityImageCard: React.FC<CityImageCardProps> = ({ img, cityName, index }) => {
   return (
-    <div className="relative aspect-[4/3] overflow-hidden shadow-md group rounded-lg">
+    <div className="relative aspect-[4/3] overflow-hidden group">
       <Image
         src={typeof img === 'string' ? img : img.src}
         alt={`City ${index + 1}`}
