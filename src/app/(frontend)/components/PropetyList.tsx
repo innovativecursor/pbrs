@@ -51,15 +51,14 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
         layout
         className={
           viewMode === 'grid'
-            ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6'
-            : 'flex flex-col gap-6'
+            ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'
+            : 'flex flex-col gap-4'
         }
       >
         {properties?.slice(0, visibleCount).map((property) =>
           viewMode === 'grid' ? (
             <motion.div
               key={property.id}
-              layout
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
@@ -84,7 +83,6 @@ const PropertyList: React.FC<PropertyListProps> = ({ viewMode, properties }) => 
           ) : (
             <motion.div
               key={property.id}
-              layout
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >

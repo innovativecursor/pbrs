@@ -90,7 +90,9 @@ export default function PropertiesPage() {
                 <Loader />
               </div>
             ) : (
-              <PropertyList viewMode={viewMode} properties={filteredProperties} />
+              <div className="min-w-0 overflow-hidden">
+                <PropertyList viewMode={viewMode} properties={filteredProperties} />
+              </div>
             )}
           </div>
         </div>
