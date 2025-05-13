@@ -1,19 +1,8 @@
 // Define a type for property data
 interface Property {
-  id: number // Property id should be a number, not a method
+  id(id: any): unknown // Property id should be a number, not a method
   prop_location: string
   prop_price: number
-  meta?: {
-    title?: string
-    description?: string
-  }
-  slug: string
-  prop_name: string
-  images?: {
-    image?: {
-      url: string
-    }
-  }[]
 }
 
 interface PropertyType {

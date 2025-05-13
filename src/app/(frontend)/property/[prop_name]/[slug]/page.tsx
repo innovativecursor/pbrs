@@ -1,41 +1,125 @@
-// src/app/(frontend)/property/[prop_name]/[slug]/page.tsx
+'use client'
 
-import { fetchPropertyBySlug, fetchSimilarProperties } from '@/app/(frontend)/utils/api'
-import PropertyPageClient from '../../components/PageWrapper'
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+import PropertyGallery from '../../../components/ui/PropertyGallery'
+import PropertyInfo from '../../../components/ui/PropertyInfo'
+import PropertyAgent from '../../../components/ui/PropertyAgent'
+import PropertyDescription from '../../../components/ui/PropertyDescription'
+import PropertyFeatures from '../../../components/ui/PropertyFeatures'
+import HomeInteriorDetails from '../../../components/ui/HomeInteriorDetails'
+import HomeExteriorDetails from '../../../components/ui/HomeExteriorDetails'
+// import BackButton from '../../../components/ui/BackButton'
+import InquiryForm from '../../../components/ui/InquiryForm'
+import Loader from '../../../components/ui/Loader'
+import SimilarProperties from '../../../components/ui/SimilarProperties'
 
-interface PropertyPageProps {
-  params: {
-    prop_name: string
-    slug: string
+import { fetchPropertyBySlug, fetchSimilarProperties } from '../../../utils/api'
+import Breadcrumbs from '@/app/(frontend)/components/ui/Breadcrumbs'
+
+const PropertyPage = () => {
+  const params = useParams()
+  const slug = params?.slug as string | undefined // Explicitly allow undefined
+
+  const [property, setProperty] = useState<any>(null)
+  const [similarProperties, setSimilarProperties] = useState<any[]>([])
+  const [loadingSimilar, setLoadingSimilar] = useState(true)
+
+  useEffect(() => {
+    const fetchPropertyAndSimilar = async () => {
+      if (!slug) {
+        console.error('Slug is missing or undefined!')
+        return
+      }
+
+      try {
+        const propertyData = await fetchPropertyBySlug(slug)
+        setProperty(propertyData)
+
+        if (propertyData?.id) {
+          const similar = await fetchSimilarProperties(Number(propertyData?.id))
+          setSimilarProperties(similar)
+        }
+      } catch (error) {
+        console.error('Error fetching property/similar:', error)
+      } finally {
+        setLoadingSimilar(false)
+      }
+    }
+
+    fetchPropertyAndSimilar()
+  }, [slug])
+
+  if (!property) {
+    return (
+      <div className="flex justify-center items-center py-24">
+        <Loader />
+      </div>
+    )
   }
+
+  return (
+    <>
+      <div className="mx-auto w-full max-w-full">
+        <Breadcrumbs
+          propertyName={property.prop_name}
+          propertyDestination={property.prop_destination}
+        />
+        <div className="max-w-7xl mx-auto p-6 w-full">
+          {/* <BackButton /> */}
+
+          {/* Gallery & Info */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 border-b border-gray-300 pb-10 w-full max-w-[95%] mx-auto">
+            <PropertyGallery images={property?.images || []} />
+            <PropertyInfo property={property} />
+          </div>
+
+          {/* Features & Agent */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 border-b border-gray-300 pb-10 w-full max-w-[95%] mx-auto">
+            <div className="md:col-span-1 lg:col-span-2 w-full">
+              <PropertyDescription description={property.prop_desc} />
+              <PropertyFeatures property={property} />
+            </div>
+            <div className="relative md:col-span-1 w-full max-w-[90%] mx-auto">
+              <PropertyAgent />
+            </div>
+          </div>
+
+          {/* Home Interior/Exterior */}
+          <div className="w-full max-w-[95%] mx-auto">
+            <HomeInteriorDetails
+              livingRoomDesc={property.home_interior_Living}
+              diningRoomDesc={property.home_interior_dining}
+              bedroomDesc={property.home_interior_bedrooms}
+              bathroomDesc={property.home_interior_bathroom}
+              kitchenDesc={property.home_interior_kitchen}
+            />
+            <HomeExteriorDetails
+              garageDesc={property.home_exterior_garage}
+              balconyDesc={property.home_exterior_balcony}
+              accessibilityDesc={property.home_exterior_accessibility}
+              backyardDesc={property.home_exterior_backyard}
+              terraceDesc={property.home_exterior_terrace}
+            />
+          </div>
+
+          {/* Inquiry Form */}
+          <div className="w-full max-w-[95%] mx-auto pt-8 pb-15">
+            <InquiryForm />
+          </div>
+        </div>
+      </div>
+
+      {/* Similar Properties Section */}
+      {loadingSimilar ? (
+        <div className="text-center mt-12">Loading similar properties...</div>
+      ) : similarProperties.length > 0 ? (
+        <SimilarProperties similarProperties={similarProperties} />
+      ) : (
+        <div className="text-center mt-12 text-gray-500">No similar properties found.</div>
+      )}
+    </>
+  )
 }
 
-export async function generateMetadata({ params }: PropertyPageProps) {
-  const property = await fetchPropertyBySlug(params.slug)
-
-  return {
-    title: property?.meta?.title || 'Property Details',
-    description: property?.meta?.description || 'Explore this property...',
-    openGraph: {
-      title: property?.meta?.title,
-      description: property?.meta?.description,
-      images: [
-        {
-          url: property?.images?.[0]?.image?.url
-            ? `https://yourdomain.com${property.images[0].image.url}`
-            : '/fallback-image.jpg',
-          width: 900,
-          height: 600,
-        },
-      ],
-    },
-  }
-}
-
-export default async function PropertyPage({ params }: PropertyPageProps) {
-  const property = await fetchPropertyBySlug(params.slug)
-
-  const similarProperties = property?.id ? await fetchSimilarProperties(property.id) : []
-
-  return <PropertyPageClient property={property} similarProperties={similarProperties} />
-}
+export default PropertyPage
