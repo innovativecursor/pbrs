@@ -11,6 +11,7 @@ export const Media: CollectionConfig = {
   },
   upload: {
     staticDir: path.resolve('/var/www/pbrs-media'), // For linux
+    // staticDir: path.resolve('F:\Shawn\pbrs-uploads'), // For windows
     // staticDir: 'media', // Folder where files will be stored
     //  staticURL: '/media/images',
     mimeTypes: ['image/*', 'video/*'], // Allow images & videos
