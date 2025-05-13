@@ -32,9 +32,6 @@ export const fetchData = async (endpoint: string, revalidateSeconds = 0) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      cache: 'no-store', // Disable cache completely (for always-fresh data)
-      // If you're using Next.js App Router:
-      // next: { revalidate: revalidateSeconds } // Uncomment this if using ISR
     })
 
     if (!response.ok) {
