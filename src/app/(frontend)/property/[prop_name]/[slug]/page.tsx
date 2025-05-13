@@ -7,7 +7,6 @@ interface PropertyPageProps {
   }
 }
 
-// The metadata generation function
 export async function generateMetadata({ params }: PropertyPageProps) {
   const property = await fetchPropertyBySlug(params.slug)
 
@@ -32,12 +31,13 @@ export async function generateMetadata({ params }: PropertyPageProps) {
   }
 }
 
-// The page component to render the property details
 export default async function PropertyPage({ params }: PropertyPageProps) {
+  // Fetch property data using the slug from params
   const property = await fetchPropertyBySlug(params.slug)
 
   let similarProperties = []
   if (property?.id) {
+    // Fetch similar properties if property id is available
     similarProperties = await fetchSimilarProperties(property.id)
   }
 
