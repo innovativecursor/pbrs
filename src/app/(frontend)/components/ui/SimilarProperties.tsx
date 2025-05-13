@@ -94,13 +94,15 @@ const SimilarProperties: React.FC<SimilarPropertiesProps> = ({ similarProperties
               whileHover="hover"
               className="flex-none w-[280px] sm:w-[300px] md:w-[340px] border-[#C4C4C4] border rounded-lg shadow-lg overflow-hidden bg-white"
             >
-              <Image
-                src={property.images[0]?.image.url}
-                width={100}
-                height={48}
-                alt={property.prop_name || 'Property image'}
-                className="w-full h-48 object-cover"
-              />
+              <div className="relative w-full h-48">
+                <Image
+                  src={property.images[0]?.image.url}
+                  fill
+                  sizes="100vw"
+                  alt={property.prop_name || 'Property image'}
+                  className="object-cover"
+                />
+              </div>
               <div className="p-4 text-center">
                 <h3 className="text-lg font-semibold">{property.prop_name}</h3>
                 <p className="text-gray-600 flex items-center justify-center gap-1 text-sm">
