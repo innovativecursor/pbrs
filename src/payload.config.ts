@@ -42,7 +42,6 @@ export default buildConfig({
     },
   },
   collections: [Property, PropertyType, ContactUs, Location, Team, NewsBlogs, Users, Media],
-
   globals: [Contact],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
