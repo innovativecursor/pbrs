@@ -1,7 +1,14 @@
 import { fetchPropertyBySlug, fetchSimilarProperties } from '../../../utils/api'
 import PropertyPageClient from '../../PageWrapper'
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+interface PropertyPageProps {
+  params: {
+    slug: string
+  }
+}
+
+// The metadata generation function
+export async function generateMetadata({ params }: PropertyPageProps) {
   const property = await fetchPropertyBySlug(params.slug)
 
   return {
@@ -25,7 +32,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function PropertyPage({ params }: { params: { slug: string } }) {
+// The page component to render the property details
+export default async function PropertyPage({ params }: PropertyPageProps) {
   const property = await fetchPropertyBySlug(params.slug)
 
   let similarProperties = []
