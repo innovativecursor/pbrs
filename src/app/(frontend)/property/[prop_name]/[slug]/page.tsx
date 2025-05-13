@@ -1,8 +1,11 @@
-import { fetchPropertyBySlug, fetchSimilarProperties } from '../../../utils/api'
-import PropertyPageClient from '../../PageWrapper'
+// src/app/(frontend)/property/[prop_name]/[slug]/page.tsx
+
+import { fetchPropertyBySlug, fetchSimilarProperties } from '@/app/(frontend)/utils/api'
+import PropertyPageClient from '../../components/PageWrapper'
 
 interface PropertyPageProps {
   params: {
+    prop_name: string
     slug: string
   }
 }
@@ -12,9 +15,7 @@ export async function generateMetadata({ params }: PropertyPageProps) {
 
   return {
     title: property?.meta?.title || 'Property Details',
-    description:
-      property?.meta?.description ||
-      'Explore this property with detailed specifications, images, and more.',
+    description: property?.meta?.description || 'Explore this property...',
     openGraph: {
       title: property?.meta?.title,
       description: property?.meta?.description,
@@ -32,14 +33,9 @@ export async function generateMetadata({ params }: PropertyPageProps) {
 }
 
 export default async function PropertyPage({ params }: PropertyPageProps) {
-  // Fetch property data using the slug from params
   const property = await fetchPropertyBySlug(params.slug)
 
-  let similarProperties = []
-  if (property?.id) {
-    // Fetch similar properties if property id is available
-    similarProperties = await fetchSimilarProperties(property.id)
-  }
+  const similarProperties = property?.id ? await fetchSimilarProperties(property.id) : []
 
   return <PropertyPageClient property={property} similarProperties={similarProperties} />
 }

@@ -2,16 +2,16 @@
 
 import { useState } from 'react'
 import Breadcrumbs from '@/app/(frontend)/components/ui/Breadcrumbs'
-import Loader from '../components/ui/Loader'
-import PropertyGallery from '../components/ui/PropertyGallery'
-import PropertyInfo from '../components/ui/PropertyInfo'
-import PropertyDescription from '../components/ui/PropertyDescription'
-import PropertyFeatures from '../components/ui/PropertyFeatures'
-import PropertyAgent from '../components/ui/PropertyAgent'
-import HomeInteriorDetails from '../components/ui/HomeInteriorDetails'
-import HomeExteriorDetails from '../components/ui/HomeExteriorDetails'
-import InquiryForm from '../components/ui/InquiryForm'
-import SimilarProperties from '../components/ui/SimilarProperties'
+import Loader from '../../components/ui/Loader'
+import PropertyGallery from '../../components/ui/PropertyGallery'
+import PropertyInfo from '../../components/ui/PropertyInfo'
+import PropertyDescription from '../../components/ui/PropertyDescription'
+import PropertyFeatures from '../../components/ui/PropertyFeatures'
+import PropertyAgent from '../../components/ui/PropertyAgent'
+import HomeInteriorDetails from '../../components/ui/HomeInteriorDetails'
+import HomeExteriorDetails from '../../components/ui/HomeExteriorDetails'
+import InquiryForm from '../../components/ui/InquiryForm'
+import SimilarProperties from '../../components/ui/SimilarProperties'
 
 export default function PropertyPageClient({
   property,
