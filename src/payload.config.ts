@@ -46,7 +46,7 @@ export default buildConfig({
     // Add CORS middleware here
     preMiddleware: [
       cors({
-        origin: ['http://localhost:3000', 'https://your-frontend-domain.com'],
+        origin: ['http://localhost:3000', 'http://www.paulbalitarealtyservices.com/'],
         credentials: true, // needed if you're using cookies/auth
       }),
     ],
