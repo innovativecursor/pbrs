@@ -38,7 +38,7 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
       //   .toLowerCase()
       //   .replace(/\s+/g, '-')
       //   .replace(/[^a-z0-9\-]/g, '')}/${id}`}
-      href={`/property/${slug}`}
+      href={`/property/${title}/${slug}`}
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -95,7 +95,7 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
             //   .toLowerCase()
             //   .replace(/\s+/g, '-')
             //   .replace(/[^a-z0-9\-]/g, '')}/${id}`}
-            href={`/property/${slug}`}
+            href={`/property/${title}/${slug}`}
             target="_blank"
             rel="noopener noreferrer"
           >
