@@ -145,13 +145,13 @@ const Footer: React.FC = () => {
             <p className="text-gray-400 mb-4">
               Do feel free to book an appointment by clicking the link below
             </p>
-            <Link
-              href="https://www.facebook.com/messages/t/177907162541904"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ContactButton text="Book an Agent" />
-            </Link>
+
+            <ContactButton
+              onClick={() =>
+                window.open('https://www.facebook.com/messages/t/177907162541904', '_blank')
+              }
+              text="Book an Agent"
+            />
           </div>
         </div>
 
