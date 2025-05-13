@@ -41,8 +41,7 @@ export default buildConfig({
       ],
     },
   },
-  cors: ['https://paulbalitarealtyservices.com/', 'http://localhost:3000'],
-  csrf: ['https://paulbalitarealtyservices.com/', 'http://localhost:3000'],
+
   collections: [Property, PropertyType, ContactUs, Location, Team, NewsBlogs, Users, Media],
   globals: [Contact],
   editor: lexicalEditor(),
