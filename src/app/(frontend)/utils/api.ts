@@ -6,7 +6,7 @@ interface Property {
 }
 
 interface PropertyType {
-  property_type: string
+  property_type: string //commit
 }
 
 interface ContactUs {
