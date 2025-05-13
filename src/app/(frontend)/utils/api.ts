@@ -1,12 +1,12 @@
 // Define a type for property data
 interface Property {
-  id(id: any): unknown // Property id should be a number, not a method
+  id(id: any): unknown
   prop_location: string
   prop_price: number
 }
 
 interface PropertyType {
-  property_type: string //commit
+  property_type: string
 }
 
 interface ContactUs {
@@ -25,7 +25,7 @@ interface ContactInfo {
   address: string
 }
 
-export const fetchData = async (endpoint: string, revalidateSeconds = 0) => {
+export const fetchData = async (endpoint: string) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${endpoint}`, {
       method: 'GET',
