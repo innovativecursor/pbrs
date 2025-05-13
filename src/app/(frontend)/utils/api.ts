@@ -7,7 +7,8 @@ interface Property {
     title?: string
     description?: string
   }
-
+  slug: string
+  prop_name: string
   images?: {
     image?: {
       url: string
