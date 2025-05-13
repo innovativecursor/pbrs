@@ -19,7 +19,7 @@ import ContactUs from './collections/ContactUs'
 import similarPropertiesEndpoint from './endpoints/similarProperties'
 import filters from './endpoints/fiters'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-
+import cors from 'cors'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -41,7 +41,16 @@ export default buildConfig({
       ],
     },
   },
-
+  // @ts-expect-error: express not in config types in older versions
+  express: {
+    // Add CORS middleware here
+    preMiddleware: [
+      cors({
+        origin: ['http://localhost:3000', 'https://your-frontend-domain.com'],
+        credentials: true, // needed if you're using cookies/auth
+      }),
+    ],
+  },
   collections: [Property, PropertyType, ContactUs, Location, Team, NewsBlogs, Users, Media],
   globals: [Contact],
   editor: lexicalEditor(),

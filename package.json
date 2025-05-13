@@ -47,6 +47,7 @@
     "swiper": "^9.4.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.18",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.1",
     "@types/node": "^22.5.4",
