@@ -27,7 +27,7 @@ interface ContactInfo {
 
 export const fetchData = async (endpoint: string) => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${endpoint}`, {
+    const response = await fetch(`/api/${endpoint}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
