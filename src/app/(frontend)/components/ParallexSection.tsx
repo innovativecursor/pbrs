@@ -36,7 +36,7 @@ const ParallaxSection = () => {
           href="https://www.facebook.com/messages/t/177907162541904"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden lg:block"
+          className=""
         >
           <ContactButton text={'Contact Now'} />
         </Link>

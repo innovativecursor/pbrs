@@ -27,7 +27,7 @@ interface ContactInfo {
 
 export const fetchData = async (endpoint: string) => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/${endpoint}`, {
+    const response = await fetch(`/api/${endpoint}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ export const submitContactUs = async (formData: {
   message: string
 }): Promise<boolean> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact-us`, {
+    const response = await fetch(`/api/contact-us`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ export const submitContactUs = async (formData: {
 
 export const fetchSimilarProperties = async (id: number) => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/similarProp/${id}`, {
+    const response = await fetch(`/api/similarProp/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -181,7 +181,7 @@ export const fetchSimilarProperties = async (id: number) => {
 
 export const fetchContactInfo = async (): Promise<ContactInfo | null> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/globals/contact`, {
+    const response = await fetch(`/api/globals/contact`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
