@@ -24,6 +24,8 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  cors: ['https://www.paulbalitarealtyservices.com', 'https://paulbalitarealtyservices.com'],
+  csrf: ['https://paulbalitarealtyservices.com', 'https://www.paulbalitarealtyservices.com'],
   admin: {
     user: Users.slug,
     importMap: {
