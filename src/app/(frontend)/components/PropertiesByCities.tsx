@@ -63,17 +63,28 @@ const PropertiesByCities = () => {
   return (
     <>
       <section className="w-full max-w-6xl mx-auto px-6 md:px-8 py-16 md:py-12">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="text-left">
-            <h3 className="text-[#71AE4C] font-semibold uppercase tracking-wide text-sm flex flex-col">
-              Properties by Cities
-              <Image src={tilt} width={120} height={120} alt="vector" className="mt-[5px]" />
-            </h3>
-            <h2 className="text-xl sm:text-2xl md:text-[48px] w-full max-w-[47rem] font-semibold mt-2 mb-[20px]">
-              Find Your Dream Property in Your Preferred Location
-            </h2>
+        {/* Responsive container */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-0">
+          {/* Title and Mobile Button together */}
+          <div className="flex flex-row items-center justify-between w-full md:block text-left">
+            <div>
+              <h3 className="text-[#71AE4C] font-semibold uppercase tracking-wide text-sm flex flex-col">
+                Properties by Cities
+                <Image src={tilt} width={120} height={120} alt="vector" className="mt-[5px]" />
+              </h3>
+              <h2 className="text-xl sm:text-2xl md:text-[48px] w-full max-w-[47rem] font-semibold mt-2 mb-[20px]">
+                Find Your Dream Property in Your Preferred Location
+              </h2>
+            </div>
+            {/* Button on mobile */}
+            <div className="md:hidden">
+              <Link href="/properties">
+                <ButtonProperties>View All</ButtonProperties>
+              </Link>
+            </div>
           </div>
-          <div className="flex items-center md:items-end">
+          {/* Button on desktop */}
+          <div className="hidden md:flex items-center md:items-end">
             <Link href="/properties">
               <ButtonProperties>View All</ButtonProperties>
             </Link>
